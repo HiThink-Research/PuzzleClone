@@ -1,0 +1,52 @@
+variables:
+  num_pipes:
+    type: int
+    domain: "[3, 8]"
+    diff_factor: 1
+  close_min:
+    type: int
+    domain: "[1, 4]"
+    diff_factor: 1
+  max_flow:
+    type: int
+    domain: "[10, 16]"
+    diff_factor: 0
+  min_flow:
+    type: int
+    domain: "[4, 9]"
+    diff_factor: 0
+  max_prop:
+    type: int
+    domain: "[18, 25]"
+    diff_factor: 0
+  min_prop:
+    type: int
+    domain: "[10, 17]"
+    diff_factor: 0
+  stop_time:
+    type: int
+    domain: "[2, 7]"
+    diff_factor: 1
+  flow_time:
+    type: int
+    domain: "[3, 7]"
+    diff_factor: 0
+  pipe_names:
+    formula: generate_letters(num_pipes)
+  flows:
+    formula: "[randint(min_flow,max_flow) for _ in range(num_pipes)]"
+  props:
+    formula: "[randint(min_prop,max_prop) for _ in range(num_pipes-1)]"
+symbols: {}
+conditions: {}
+max_solution: 1
+queries:
+  q1:
+    desc: 这时得到的混合液中含盐浓度是百分之多少？请以整数回答，不用带百分号。
+    ans_formula: sum((flow_num*prop_num/100) for flow_num, prop_num in zip(flows[:-1],
+      props))*close_min*60/(sum(flow_num for flow_num in flows[:-1])*close_min*60+close_min*60//(stop_time+flow_time)*flow_time*flows[-1]+max(0,close_min*60%(stop_time+flow_time)-stop_time)*flows[-1])
+    ans_text: str(int(100*round(_ans,2)))
+    ans_assertion: 'True'
+desc: 有{'、'.join(pipe_names)}共{num_pipes}根管子。{'；'.join(name+'管以每秒'+str(flow_num)+'克的流量流出含盐'+str(prop_num)+'%的盐水'
+  for name, flow_num, prop_num in zip(pipe_names[:-1], flows[:-1], props))}；{pipe_names[-1]}管以每秒{flows[-1]}克的流量流出水，但{pipe_names[-1]}管打开后开始{stop_time}秒不流，接着流{flow_time}秒，然后又停{stop_time}秒，再流{flow_time}秒，……
+  现{num_pipes}管同时打开，{close_min}分钟后都关上，{q1}

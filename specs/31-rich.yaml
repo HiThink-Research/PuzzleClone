@@ -1,0 +1,70 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 12]"
+    diff_factor: 1
+  names:
+    formula: "['老' + str(i + 1) for i in range(p_num)]"
+  name_desc:
+    formula: "'、'.join(names)"
+symbols:
+  names_s:
+    source:
+    - names
+    type: Bool
+  speeches_s:
+    total: p_num
+    templates:
+    - source:
+      - names
+      - range(0, p_num)
+      formula: (Sum([If(names_s[p], 1, 0) for p in names if p != _sym[0]]) == _sym[1])
+        != names_s[_sym[0]]
+      desc: "{names[_index]}说：\"{_sym[0]}曾经可能说过：'我的{p_num - 1}个兄弟{'都没钱' if _sym[1]\
+        \ == 0 else '都有钱' if _sym[1] == p_num - 1 else '中只有' + str(_sym[1]) + '个有钱'}。'\""
+    - source:
+      - names
+      - "[False, True]"
+      formula: And(gen_event_count_condition(names_s, 'equal', p_num if _sym[1] else
+        0)) != names_s[_sym[0]]
+      desc: "{names[_index]}说：\"{_sym[0]}曾经可能说过：'我们{p_num}兄弟{'都没钱' if _sym[1] else\
+        \ '都有钱'}。'\""
+    - source:
+      - names
+      - "[False, True]"
+      amount:
+      - '2'
+      - '2'
+      order:
+      - true
+      - true
+      formula: And(names_s[_sym[0][0]] == _sym[1][0], names_s[_sym[0][1]] == _sym[1][1])
+      desc: "{names[_index]}说：\"{_sym[0][0]}{'有钱' if _sym[1][0] else '没钱'}，{_sym[0][1]}{'有钱'\
+        \ if _sym[1][1] else '没钱'}。\""
+    - source:
+      - names
+      - "[False, True]"
+      amount:
+      - '2'
+      - '2'
+      order:
+      - true
+      - true
+      formula: And(names_s[_sym[0][0]] == _sym[1][0], (names_s[_sym[0][1]] == _sym[1][1])
+        != names_s[_sym[0][1]] )
+      desc: "{names[_index]}说：\"{_sym[0][0]}{'有钱' if _sym[1][0] else '没钱'}，另外{_sym[0][1]}承认过他{'有钱'\
+        \ if _sym[1][1] else '没钱'}。\""
+conditions:
+  base:
+    formula: And([speeches_s[i] != names_s[names[i]] for i in range(p_num)])
+    desc: 有钱的说的都是假话，没钱的才说真话。
+max_solution: 1
+queries:
+  q1:
+    desc: 父亲从{p_num}个儿子的对话中知道了有钱的儿子，并且借到了钱。你知道哪{'个儿子有钱吗？' if sum([get_value(_solutions[0],
+      names_s[p]) for p in names]) == 1 else '些儿子有钱吗？请用逗号分隔输出。'}
+    ans_formula: to_unique([[p for p in names if get_value(_model, names_s[p])] for
+      _model in _solutions])
+    ans_text: str(_ans[0])
+    ans_assertion: len(_ans) == 1 and len(_ans[0]) > 0
+desc: 父亲想向他的{p_num}个儿子借钱，他不知道哪{'个' if len(_ans[0]) == 1 else '些'}儿子有钱，但他知道，兄弟之间彼此知道底细，且{base}{'，'.join(get_desc(speeches_s))}。{q1}

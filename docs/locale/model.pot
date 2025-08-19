@@ -1,0 +1,858 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Anonymous Authors
+# This file is distributed under the same license as the PuzzleClone package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PuzzleClone \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-17 23:28+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../source/model.rst:2
+msgid "model package"
+msgstr ""
+
+#: ../source/model.rst:5
+msgid "Submodules"
+msgstr ""
+
+#: ../source/model.rst:8
+msgid "model.template module"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.BaseCondition:1
+#: ../../model/template.py:docstring of model.template.DefinedSymbol:1
+#: ../../model/template.py:docstring of model.template.DefinedVar:1
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:1
+#: ../../model/template.py:docstring of model.template.DerivedSymbols:1
+#: ../../model/template.py:docstring of model.template.Optimize:1
+#: ../../model/template.py:docstring of model.template.PostGen:1
+#: ../../model/template.py:docstring of model.template.PuzzleTemplate:1
+#: ../../model/template.py:docstring of model.template.QueryBase:1
+#: ../../model/template.py:docstring of model.template.QuerySelectionTemplate:1
+msgid "Bases: :py:class:`~pydantic.main.BaseModel`"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.BaseCondition:1
+msgid "Base constraint definition for puzzle rules."
+msgstr ""
+
+#: ../../docstring of model.template.BaseCondition.desc:1
+msgid "Natural language description for puzzle text generation."
+msgstr ""
+
+#: ../../docstring of model.template.BaseCondition.desc:3
+msgid "Example: \"Sum of two numbers must be less than 10\""
+msgstr ""
+
+#: ../../docstring of model.template.BaseCondition.formula:1
+msgid "Constraint logic expression using Python syntax."
+msgstr ""
+
+#: ../../docstring of model.template.BaseCondition.formula:3
+msgid "Example: \"x + y < 10\""
+msgstr ""
+
+#: ../../docstring of model.template.BaseCondition.model_config:1
+#: ../../docstring of model.template.DefinedSymbol.model_config:1
+#: ../../docstring of model.template.DefinedVar.model_config:1
+#: ../../docstring of model.template.DerivedSymbol.model_config:1
+#: ../../docstring of model.template.DerivedSymbols.model_config:1
+#: ../../docstring of model.template.ExtraCondition.model_config:1
+#: ../../docstring of model.template.Optimize.model_config:1
+#: ../../docstring of model.template.PostGen.model_config:1
+#: ../../docstring of model.template.PuzzleTemplate.model_config:1
+#: ../../docstring of model.template.Query.model_config:1
+#: ../../docstring of model.template.QueryBase.model_config:1
+#: ../../docstring of model.template.QuerySelectionBase.model_config:1
+#: ../../docstring of model.template.QuerySelectionTemplate.model_config:1
+#: ../../docstring of model.template.QuerySelectionWithMultipleTemplates.model_config:1
+#: ../../docstring of model.template.QuerySelectionWithSingleTemplate.model_config:1
+msgid "Configuration for the model, should be a dictionary conforming to [`ConfigDict`][pydantic.config.ConfigDict]."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedSymbol:1
+msgid "Base class for defining symbol templates used in puzzle generation."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedSymbol:3
+msgid "This class provides the fundamental structure for creating basic symbol elements in puzzles."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedSymbol:5
+msgid "Note: The base data structure is a dictionary, where the keys are the symbol names (or tuples when len(init) > 1) and the values are the Z3 symbols."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedSymbol:7
+msgid "If only the list of Z3 symbols are needed, use `<dict_name>.to_list()` or `list(<dict_name>)` method to convert the dictionary values to a list."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.attr:1
+msgid "List of symbol attributes defining additional characteristics."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedSymbol.validate_type_desc_based_on_attr:6
+#: ../../docstring of model.template.DefinedSymbol.attr:4
+#: ../../docstring of model.template.DefinedSymbol.desc:4
+#: ../../docstring of model.template.DefinedSymbol.init:4
+#: ../../docstring of model.template.DefinedSymbol.type:6
+#: ../../docstring of model.template.DerivedSymbol.amount:4
+#: ../../docstring of model.template.DerivedSymbol.domain:4
+msgid "Examples"
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.attr:5
+msgid "[\"color\", \"size\"] indicates the symbol has color and size attributes."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.attr:8
+#: ../../docstring of model.template.DefinedVar.formula:8
+msgid "Notes"
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.attr:9
+msgid "When None (default), symbols can be accessed directly via dictionary keys (event[key])."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.attr:10
+msgid "When specified, symbols must be accessed using get() method (event[key].get('color'))."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.desc:1
+msgid "Description template for the symbol."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.desc:5
+msgid "Single string when no attributes: \"Basic proposition symbol\""
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.desc:6
+msgid "List matching attr length when attributes exist: [\"Color description\", \"Size description\"]"
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.init:1
+msgid "Initialization expressions for the symbol, serving as primary keys."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.init:5
+msgid "When length is 1: The primary key is a string."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.init:7
+msgid "Example: init = [\"children\"] with children = [\"Alice\", \"Bob\"] will generate two symbols with primary keys \"Alice\" and \"Bob\"."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.init:10
+msgid "When length > 1: The primary key is a tuple."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.init:12
+msgid "Example: init = [\"children\", \"adults\"] with children = [\"Alice\", \"Bob\"], adults = [\"Chris\"] will generate symbols with primary keys (\"Alice\", \"Chris\") and (\"Bob\", \"Chris\")."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.type:1
+msgid "Type definition rules for the symbol."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.type:3
+msgid "Valid Values: 'int' (default), 'bool', 'float', and 'enum'."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.type:7
+msgid "Single type string when attr is None: \"Bool\""
+msgstr ""
+
+#: ../../docstring of model.template.DefinedSymbol.type:8
+msgid "Type list matching attr length when attr exists: [\"int\", \"bool\"]"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedSymbol.validate_type_desc_based_on_attr:1
+msgid "Validates consistency between attributes, types and descriptions."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedSymbol.validate_type_desc_based_on_attr:0
+#: ../../model/template.py:docstring of model.template.DefinedVar.validate_exclusive_fields:0
+msgid "Raises"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedSymbol.validate_type_desc_based_on_attr:3
+msgid "- ``attr`` is ``None``, but ``type`` is a list.          - ``attr`` exists, but ``type`` is not a list.          - The format of ``desc`` does not match the presence of ``attr``."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedSymbol.validate_type_desc_based_on_attr:3
+msgid "``attr`` is ``None``, but ``type`` is a list.          - ``attr`` exists, but ``type`` is not a list.          - The format of ``desc`` does not match the presence of ``attr``."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedVar:1
+msgid "Base class for defining variables in puzzles."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedVar:3
+msgid "This class supports two mutually exclusive ways of defining variables:"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedVar:5
+msgid "By specifying `type` and `domain`."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedVar:7
+msgid "By providing a custom formula in `formula`."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedVar.domain:1
+msgid "The domain of the variable."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedVar.validate_exclusive_fields:6
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:14
+#: ../../docstring of model.template.DefinedVar.domain:4
+#: ../../docstring of model.template.DefinedVar.formula:4
+#: ../../docstring of model.template.DefinedVar.type:4
+#: ../../docstring of model.template.DerivedSymbol.dim:4
+#: ../../docstring of model.template.DerivedSymbol.dim_cond:4
+#: ../../docstring of model.template.ExtraCondition.domain:4
+msgid "Example"
+msgstr ""
+
+#: ../../docstring of model.template.DefinedVar.domain:5
+msgid "`\"[1, 10]\"`: Represents integers from 1 to 10."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedVar.domain:6
+msgid "`\"[True, False]\"`: Represents boolean values."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedVar.domain:7
+msgid "`\"['red', 'blue', 'green']\"`: Represents a selection from the given options."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedVar.formula:1
+msgid "The formula used to initialize the variable."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedVar.formula:5
+msgid "`\"randint(1,6) + randint(1,6)\"`: Represents the sum of two dice rolls."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedVar.formula:9
+msgid "Custom operators defined in the `custom_operator` field of the puzzle template can be used in the formula."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedVar.formula:10
+msgid "If `formula` is defined, `type` and `domain` must not be defined."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedVar.type:1
+msgid "The type of the variable."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedVar.type:5
+msgid "`\"int\"`: Represents an integer variable."
+msgstr ""
+
+#: ../../docstring of model.template.DefinedVar.type:6
+msgid "`\"bool\"`: Represents a boolean variable."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedVar.validate_exclusive_fields:1
+msgid "Validates the mutually exclusive constraints between fields."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedVar.validate_exclusive_fields:3
+msgid "- If both `formula` and `type`/`domain` are defined.          - If `formula` is not defined, but `type` or `domain` is missing."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DefinedVar.validate_exclusive_fields:3
+msgid "If both `formula` and `type`/`domain` are defined.          - If `formula` is not defined, but `type` or `domain` is missing."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:1
+msgid "Class defining rules for generating derived symbols from existing ones."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:3
+msgid "The derivation works by first randomly selecting a number of values from the `init` list and creating new symbols with the selected values."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:5
+msgid "Selection Process (before optimization):"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:7
+msgid "For each domain (total count specified by ``domain``):"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:8
+msgid "For each dimension (count specified by ``dim``):"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:9
+msgid "For each data source in ``init``:"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:10
+msgid "Select ``amount[k]`` items from ``init[k]`` following ``order`` and ``init_cond`` rules"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:11
+msgid "Verify dimension-level conditions (``dim_cond`` and custom conditions with scope='dim')"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:12
+msgid "Verify domain-level conditions (``domain_cond`` and custom conditions with scope='domain')"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:30
+msgid "This configuration will:"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:32
+msgid "Generate 3 symbols (``domain = 3``)"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:34
+msgid "Each symbol has 1 dimension (default ``dim = 1``)"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:36
+msgid "Each dimension uses 2 data sources (``len(init) = 2``)"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:38
+msgid "The first source provides integers from 0 to ``p_num - 1``"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:40
+msgid "The second source provides integers from 2 to 10"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:42
+msgid "Selects 1 item from each source (default when ``amount`` is None)"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbol:44
+msgid "Applies custom domain-level constraint on the selected values"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.amount:1
+msgid "Number of items selected from each data source."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.amount:5
+msgid "[\"2\", \"1\"]: Select 2 items from first source, 1 from second"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.amount:7
+msgid "None: Select exactly 1 item from each source (default)"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.amount:11
+#: ../../docstring of model.template.DerivedSymbol.init_cond:12
+#: ../../docstring of model.template.DerivedSymbol.order:12
+msgid "Length must match ``init``"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.amount:13
+msgid "Each value must be a string (literal or variable name)"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.custom_cond:1
+msgid "Custom constraint dictionaries containing:"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.custom_cond:3
+msgid "scope: Application level ('domain'/'dim')"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.custom_cond:5
+msgid "fields: List of field indices from init"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.custom_cond:7
+msgid "constraint: Constraint logic expression. Must be a valid Python lambda function string."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.custom_cond:8
+msgid "When scope=\"domain\", the input is a 4-dimensional list, where the selected values can be fetched by `l[domain_index][dim_index][init_index (in 'fields')][amount_index]`."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.custom_cond:9
+msgid "When scope=\"dim\", the input is a 3-dimensional list, where the selected values can be fetched by `l[dim_index][init_index (in 'fields')][amount_index]`."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.desc:1
+msgid "Symbol collection description text for puzzle generation."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.dim:1
+msgid "Number of dimensions for the derived symbol."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.dim:5
+msgid "2 generates two-dimensional symbol matrix (useful for statements with multiple clauses)."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.dim_cond:1
+msgid "Inter-dimensional constraints (list of conditions)."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.dim_cond:5
+msgid "[[0, 1], [2]] means values from `init[0]` and `init[1]` cannot be identical at the same time AND values from `init[2]` cannot be identical."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.dim_cond:7
+msgid "Cannot contain duplicate indices."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.dim_cond:9
+#: ../../docstring of model.template.DerivedSymbol.domain_cond:9
+#: ../../docstring of model.template.DerivedSymbol.init_cond:9
+#: ../../docstring of model.template.DerivedSymbol.order:9
+msgid "Default:"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.dim_cond:10
+msgid "[[0, 1, ..., `len(init)`]] (i.e., all selections must be different in at least one source)."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.domain:1
+msgid "Total number of selections."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.domain:5
+msgid "\"5\": Make 5 selections from the data sources"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.domain:6
+msgid "\"n\": Use variable `n` to determine count"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.domain:8
+msgid "Must be a string representing a literal or variable name"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.domain_cond:1
+msgid "Global repetition rule for symbol selection:"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.domain_cond:3
+msgid "Controls whether identical symbol combinations are allowed:"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.domain_cond:5
+msgid "True: Disallow identical combinations"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.domain_cond:7
+msgid "False: Allow duplicates"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.domain_cond:10
+msgid "True (no identical combinations)"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.formula:1
+msgid "Symbol generation formula using Python syntax."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.init:1
+msgid "Data sources for the selection."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.init:3
+msgid "Each element must be a string representing either:"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.init:5
+msgid "A stringified list of literals (e.g., '[True, False]')"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.init:7
+msgid "A variable name containing the data"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.init_cond:1
+msgid "Selection repetition rules per data source during selection."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.init_cond:3
+msgid "Controls whether duplicates are allowed:"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.init_cond:5
+msgid "True: Allow duplicate selections"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.init_cond:7
+msgid "False: Disallow duplicates"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.init_cond:10
+msgid "All False (no duplicates allowed)"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.order:1
+msgid "Permutation configuration per data source during selection."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.order:3
+msgid "Controls whether selection order matters:"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.order:5
+msgid "True: Permutation (order matters)"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.order:7
+msgid "False: Combination (order doesn't matter)"
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbol.order:10
+msgid "All True (order matters for all sources)"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.DerivedSymbols:1
+msgid "Container for multiple derived symbol templates with random counts."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbols.templates:1
+msgid "List of symbol templates for generation."
+msgstr ""
+
+#: ../../docstring of model.template.DerivedSymbols.total:1
+msgid "Total number of symbols to generate."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.ExtraCondition:1
+msgid "Bases: :py:class:`~model.template.BaseCondition`"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.ExtraCondition:1
+msgid "Extended constraints with multi-dimensional parameters."
+msgstr ""
+
+#: ../../docstring of model.template.ExtraCondition.amount:1
+msgid "Number of selections per data source. (same format as DerivedSymbol)"
+msgstr ""
+
+#: ../../docstring of model.template.ExtraCondition.custom_cond:1
+msgid "Custom constraints (same format as DerivedSymbol)."
+msgstr ""
+
+#: ../../docstring of model.template.ExtraCondition.domain:1
+msgid "Total condition count. Must be a range string \"[min, max]\". If None, one condition will be generated."
+msgstr ""
+
+#: ../../docstring of model.template.ExtraCondition.domain:5
+msgid "\"[1, 5]\": Generate between 1 and 5 conditions."
+msgstr ""
+
+#: ../../docstring of model.template.ExtraCondition.domain_cond:1
+msgid "Global repetition rule."
+msgstr ""
+
+#: ../../docstring of model.template.ExtraCondition.init:1
+msgid "Data sources (same format as DerivedSymbol)."
+msgstr ""
+
+#: ../../docstring of model.template.ExtraCondition.init_cond:1
+msgid "Repetition rule configuration (default all False)."
+msgstr ""
+
+#: ../../docstring of model.template.ExtraCondition.order:1
+msgid "Permutation configuration (default all True)."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.Optimize:1
+msgid "Optimization target definition (for optimization problems only)."
+msgstr ""
+
+#: ../../docstring of model.template.Optimize.formula:1
+msgid "Formula to optimize."
+msgstr ""
+
+#: ../../docstring of model.template.Optimize.type:1
+msgid "Optimization type (\"minimize\" or \"maximize\")."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.PostGen:1
+msgid "Initialization after computing the problem solution for the first time. (Applicable for scenarios where parameters in the actual problem need to be computed using z3)"
+msgstr ""
+
+#: ../../docstring of model.template.PostGen.post_gen_conditions:1
+msgid "New constraints to add after initial solution."
+msgstr ""
+
+#: ../../docstring of model.template.PostGen.post_gen_conditions:3
+msgid "Key: The new constraint name."
+msgstr ""
+
+#: ../../docstring of model.template.PostGen.post_gen_conditions:5
+msgid "Value: A string of the formula for the constraint."
+msgstr ""
+
+#: ../../docstring of model.template.PostGen.post_gen_vars:1
+msgid "Extracting the values of symbols from _sol (the selected solution) as new variables."
+msgstr ""
+
+#: ../../docstring of model.template.PostGen.post_gen_vars:3
+msgid "Key: The new variable name."
+msgstr ""
+
+#: ../../docstring of model.template.PostGen.post_gen_vars:5
+msgid "Value: The expression to compute the variable value, which can be a string of a Python expression."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.PuzzleTemplate:1
+msgid "Main puzzle template structure integrating all components."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.static_conditions:1
+msgid "Dictionary of base constraints."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.calc_solution:1
+msgid "Whether to compute solutions (default True)."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.custom_operator:1
+msgid "Dictionary of custom operators."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.custom_operator:3
+msgid "Key: Operator name."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.custom_operator:5
+msgid "Value: Python expression string defining the operator OR the path to a Python file containing the operator definition."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.custom_operator:7
+msgid "Example: {\"double\": \"lambda x: x * 2\", \"reformat\": \"customs/mathexpr_generator.py\"}"
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.defined_symbols:1
+msgid "Dictionary of base symbol definitions."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.defined_vars:1
+msgid "definition)."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.defined_vars:0
+#: ../../docstring of model.template.PuzzleTemplate.derived_vars:0
+msgid "type"
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.defined_vars:3
+msgid "Dictionary of base variable definitions (name"
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.derived_symbols:1
+msgid "Dictionary of derived symbol rules (direct or nested templates)."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.derived_vars:1
+msgid "formula)."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.derived_vars:3
+msgid "Dictionary of derived variable calculation rules (name"
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.desc:1
+msgid "Overall template description for puzzle introduction."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.dynamic_conditions:1
+msgid "Dictionary of extended constraints."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.max_solution:1
+msgid "Maximum number of solutions to generate."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.max_solution:5
+msgid "Here, \"solution\" refers to a valid configuration of all symbols that satisfies all constraints. It does NOT mean the number of valid answers to the final question."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.max_solution:6
+msgid "If the number of solutions exceeds this limit, the solver will stop and raise an exception."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.optimize:1
+msgid "Optimization target (for optimization problems only)."
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.post_generation:1
+msgid "Post-generation configuration including:"
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.post_generation:3
+msgid "post_gen_vars: New variables from solutions"
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.post_generation:4
+msgid "post_gen_conditions: Additional constraints"
+msgstr ""
+
+#: ../../docstring of model.template.PuzzleTemplate.query:1
+msgid "Dictionary of question definitions."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.Query:1
+#: ../../model/template.py:docstring of model.template.QuerySelectionBase:1
+msgid "Bases: :py:class:`~model.template.QueryBase`"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.Query:1
+msgid "Open-ended question definition."
+msgstr ""
+
+#: ../../docstring of model.template.Query.ans_assertion:1
+msgid "Assertion for answer validation."
+msgstr ""
+
+#: ../../docstring of model.template.Query.ans_formula:1
+msgid "Answer generation formula."
+msgstr ""
+
+#: ../../docstring of model.template.Query.ans_text:1
+msgid "Answer text format."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.QueryBase:1
+msgid "Base class for question definitions."
+msgstr ""
+
+#: ../../docstring of model.template.QueryBase.desc:1
+msgid "Question description text (may contain placeholders)."
+msgstr ""
+
+#: ../../docstring of model.template.QueryBase.desc:3
+msgid "Example: \"Which option satisfies the condition?\""
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.QuerySelectionBase:1
+msgid "Multiple-choice question definition."
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionBase.opt_num:1
+msgid "Total number of options to present (default 4)."
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionBase.query_type:1
+msgid "Question type:"
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionBase.query_type:3
+msgid "'single_choice': Single correct answer"
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionBase.query_type:4
+msgid "'multiple_choice': Multiple correct answers"
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionBase.select_type:1
+msgid "Whether to select the correct or incorrect option(s):"
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionBase.select_type:3
+msgid "True: Select the correct option(s)"
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionBase.select_type:4
+msgid "False: Select the incorrect option(s)"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.QuerySelectionTemplate:1
+msgid "Template for multiple-choice options."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.QuerySelectionTemplate:3
+msgid "The option generation process works by randomly selecting a number of values from the `init` list to create options."
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.amount:1
+msgid "Number of selections per source. (Same format as DerivedSymbol.amount)"
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.cond:1
+msgid "Constraint scope:"
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.cond:3
+msgid "'any': At least one solution satisfies"
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.cond:5
+msgid "'all': All solutions satisfy"
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.custom_cond:1
+msgid "Custom constraints (same format as DerivedSymbol.custom_cond)."
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.init:1
+msgid "Data source. (Same format as DerivedSymbol.init)"
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.init_cond:1
+msgid "Repetition rule configuration. (default all False)"
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.opt_formula:1
+msgid "Option correctness evaluation expression."
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.opt_formula:3
+msgid "Example: \"x % 2 == 0\""
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.opt_text:1
+msgid "Option display template (may contain placeholders)."
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.opt_text:3
+msgid "Example: \"{_opt[0][0]}\""
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.opt_text:5
+msgid "Automatically prefixed with ABCD, no need to include in string."
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionTemplate.order:1
+msgid "Permutation configuration (default first dimension False, others True)."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.QuerySelectionWithMultipleTemplates:1
+msgid "Bases: :py:class:`~model.template.QuerySelectionBase`"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.QuerySelectionWithMultipleTemplates:1
+msgid "Multiple templates for multiple-choice questions."
+msgstr ""
+
+#: ../../docstring of model.template.QuerySelectionWithMultipleTemplates.templates:1
+msgid "List of option templates."
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.QuerySelectionWithSingleTemplate:1
+msgid "Bases: :py:class:`~model.template.QuerySelectionBase`, :py:class:`~model.template.QuerySelectionTemplate`"
+msgstr ""
+
+#: ../../model/template.py:docstring of model.template.QuerySelectionWithSingleTemplate:1
+msgid "Single template for multiple-choice questions."
+msgstr ""
+
+#: ../source/model.rst:16
+msgid "Module contents"
+msgstr ""

@@ -1,0 +1,79 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 8]"
+    diff_factor: 1
+  m_num:
+    type: int
+    domain: "[2, p_num - 1]"
+    diff_factor: 1
+  q_month:
+    type: int
+    domain: "[0, m_num - 1]"
+    diff_factor: 0
+  q_gender:
+    type: int
+    domain: "[0, 1]"
+    diff_factor: 0
+  names:
+    formula: get_faker(p_num, 'name')
+  months:
+    formula: generate_letters(m_num)
+symbols:
+  hold:
+    source:
+    - names
+    - months
+    attr:
+    - boy
+    - girl
+    type:
+    - int
+    - int
+conditions:
+  hold_domain_boy:
+    formula: And([And(x >= 0, x < p_num) for x in hold.get('boy')])
+  hold_domain_girl:
+    formula: And([And(x >= 0, x < p_num) for x in hold.get('girl')])
+  hold_boy_distinct:
+    formula: And([Distinct([hold[(n, m)].get('boy') for n in names]) for m in months])
+  hold_girl_distinct:
+    formula: And([Distinct([hold[(n, m)].get('girl') for n in names]) for m in months])
+  cant_hold_own_boy:
+    formula: And([hold[(names[i], m)].get('boy') != i for i in range(p_num) for m
+      in months])
+  cant_hold_own_girl:
+    formula: And([hold[(names[i], m)].get('girl') != i for i in range(p_num) for m
+      in months])
+  boy_girl_distinct_between_month:
+    formula: And([And(hold[(n, m1)].get('boy') != hold[(n, m2)].get('boy'), hold[(n,
+      m1)].get('girl') != hold[(n, m2)].get('girl')) for n in names for m1 in months
+      for m2 in months if m1 != m2])
+  boy_girl_distinct_per_home:
+    formula: And([hold[(n, m)].get('boy') != hold[(n, m)].get('girl') for n in names
+      for m in months])
+  extra1:
+    source:
+    - names
+    - months
+    - "['boy', 'girl']"
+    amount:
+    - '2'
+    - '1'
+    - '1'
+    order:
+    - true
+    - false
+    - false
+    domain: "[2, p_num * m_num * 2 - 1]"
+    formula: hold[(_sym[0][1], _sym[1][0])].get(_sym[2][0]) == _ind[0][0]
+    desc: 第{_ind[1][0] + 1}个月中{_sym[0][0]}的{'儿子' if _sym[2][0] == 'boy' else '女儿'}住在{_sym[0][1]}家；
+max_solution: 1
+queries:
+  q1:
+    desc: 请问，第{q_month + 1}个月时，{','.join(names)}的{'儿子' if q_gender else '女儿'}都在谁家度假？用逗号分隔依次输出所在家的名字。
+    ans_formula: to_unique([[([n for n in names if get_value(_model, hold[(n, months[q_month])].get('boy'
+      if q_gender else 'girl')) == p])[0]  for p in range(p_num)] for _model in _solutions])
+    ans_text: "','.join(_ans[0])"
+    ans_assertion: len(_ans) == 1
+desc: "{'、'.join(names)}是{p_num}兄弟。他们每人都有一个儿子和一个女儿，为了增进孩子们的感情，他们决定让自己的孩子到其他家庭里度假，假期长{m_num}个月，孩子们每过一个月换一家，并且亲兄弟不能一起在同一家生活，所以每一个月中，每一家都要接待一对男孩女孩，并且只能是堂兄妹，不是亲兄妹。已知：{conditions}{q1}\n"

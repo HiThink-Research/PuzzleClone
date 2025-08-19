@@ -1,0 +1,17 @@
+site_name: PuzzleClone Tutorials
+site_url: https://puzzleclone.github.io/PuzzleClone/tutorial/
+
+nav:
+  - Home: index.md
+  - Quick Start: quickstart.md
+  - Optimization: optimization.md
+  - Symbols/Conditions/Queries: symbols.md
+  - Randomization: randomization.md
+  - Configurations: configurations.md
+  - Operators: operators.md
+
+theme:
+  name: material
+  palette:
+    primary: indigo
+    accent: pink

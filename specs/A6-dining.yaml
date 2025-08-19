@@ -1,0 +1,38 @@
+custom_operator:
+  gcd: 'lambda a, b: a if b == 0 else gcd(b, a%b)'
+  lcm: 'lambda a, b: int(a * b / gcd(a,b))'
+variables:
+  tableware_num:
+    type: int
+    domain: "[2, 7]"
+    diff_factor: 6
+  tableware:
+    formula: "[chr(65 + i) for i in range(tableware_num)]"
+  params:
+    formula: 'generate_random_list(tableware_num, ''int'', [2, 11], [f"lambda l: len(l)
+      == len(to_unique(l))"])'
+  params_sum:
+    formula: sum(params)
+  params_mul_sum:
+    formula: "[v * params_sum for v in params]"
+  tmp_lcm:
+    formula: 'reduce(lambda x, y: lcm(x, y), params_mul_sum, 1)'
+  tmp_div:
+    formula: sum(int(tmp_lcm / param) for param in params_mul_sum)
+  tmp_gcd:
+    formula: gcd(tmp_lcm, tmp_div)
+  params_new:
+    formula: "[v * int(tmp_div / tmp_gcd) for v in params_mul_sum]"
+  correct_x:
+    formula: int(tmp_lcm / tmp_gcd)
+symbols: {}
+conditions: {}
+calc_solution: false
+queries:
+  q1:
+    desc: 问，他们一共买了多少套餐具？
+    ans_formula: correct_x
+    ans_text: str(_ans)
+    ans_assertion: 'True'
+desc: 夫妻两人都喜欢吃西餐，所以他们决定去定购成套的西式餐具。 他们到了一家店里，发现身上所带的钱正好可以购买{'、'.join([str(v) + '套餐具'
+  + t for t, v in zip(tableware, params_new)])}。不言而喻，每种餐具个数必须相等，这样才能配套，否则，有多有少，就不成体统了。这对夫妻都是学数学的，所以，他们略施心算，便立即算出了应采购的餐具数目，并且正好用完了他们身上所带的钱，欢欢喜喜地回家去了。{q1}

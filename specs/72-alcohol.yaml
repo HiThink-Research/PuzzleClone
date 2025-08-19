@@ -1,0 +1,60 @@
+custom_operator:
+  generate_compare_name_list: customs/alcohol.py
+variables:
+  num_alcohol:
+    type: int
+    domain: "[3, 7]"
+    diff_factor: 1
+  up_alcohol_concen:
+    type: int
+    domain: "[70, 70]"
+    diff_factor: 0
+  down_alcohol_concen:
+    type: int
+    domain: "[30, 30]"
+    diff_factor: 0
+  total:
+    type: float
+    domain: "[30, 100]"
+    diff_factor: 0
+  up_compare:
+    formula: total//3
+  down_compare:
+    formula: total//25
+  alcohol_concen_list:
+    formula: "[randint(down_alcohol_concen,up_alcohol_concen) for _ in range(num_alcohol)]"
+  total_alcohol:
+    formula: randint(min(alcohol_concen_list),max(alcohol_concen_list))
+  alcohol_name_list:
+    formula: generate_letters(num_alcohol)
+  compare_name_list:
+    formula: generate_compare_name_list(alcohol_name_list,num_alcohol-2)
+  compare_list:
+    formula: "[randint(int(down_compare),int(up_compare)) for _ in range(num_alcohol-2)]"
+symbols:
+  alcohol_volume:
+    source:
+    - alcohol_name_list
+    type: float
+conditions:
+  non_negative_numbers:
+    formula: And(alcohol_volume[x] > 0 for x in alcohol_name_list)
+  cond_total_volume:
+    formula: Sum(alcohol_volume[x] for x in alcohol_name_list) == total
+  cond_alcohol_volume:
+    formula: Sum(alcohol_volume[x]*alcohol_concen_list[i]/100 for i,x in enumerate(alcohol_name_list))
+      == total*total_alcohol/100
+  cond_com:
+    formula: And(alcohol_volume[alcohol_name_list[sample[0]]] == alcohol_volume[alcohol_name_list[sample[1]]]+compare_list[i]
+      for i,sample in enumerate(compare_name_list))
+max_solution: 1
+queries:
+  q1:
+    desc: 那么其中{alcohol_name_list[0]}种酒精约有多少升？请保留一位小数。
+    ans_formula: "[get_value(_model, alcohol_volume[alcohol_name_list[0]]) for _model\
+      \ in _solutions]"
+    ans_text: str(round(_ans[0],1))
+    ans_assertion: 'True'
+desc: 有{num_alcohol}种酒精：{'，'.join(name+'酒精中纯酒精含量为'+str(alcohol_concen_list[i])+'%'
+  for i,name in enumerate(alcohol_name_list))}。把它们混合在一起，得到了纯酒精含量为{total_alcohol}%的酒精{total}升，其中{'，'.join(alcohol_name_list[com_name[0]]+'酒精比'+alcohol_name_list[com_name[1]]+'酒精多'+str(com_num)+'升'
+  for com_name,com_num in zip(compare_name_list,compare_list))}，{q1}

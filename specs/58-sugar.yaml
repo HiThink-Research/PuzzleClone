@@ -1,0 +1,53 @@
+custom_operator: {}
+variables:
+  p_num:
+    type: int
+    domain: "[3, 7]"
+    diff_factor: 1
+  step_num:
+    type: int
+    domain: "[3, 7]"
+    diff_factor: 1
+  final_num:
+    type: int
+    domain: "[40, 400]"
+    diff_factor: 1
+  names:
+    formula: get_faker(p_num, 'name')
+  name_desc:
+    formula: "'、'.join(names)"
+  steps:
+    formula: generate_letters(step_num + 1)
+  sum_num:
+    formula: final_num * p_num
+symbols:
+  num:
+    source:
+    - names
+    - steps
+    type: int
+conditions:
+  domain:
+    formula: And([num[(n, s)] > 0 for n in names for s in steps])
+  final_num_cond:
+    formula: And([num[(n, steps[-1])] == final_num for n in names])
+  sum_cond:
+    formula: And([Sum([num[(n, s)] for n in names]) == sum_num for s in steps])
+  giving:
+    source:
+    - names
+    - range(2, 5)
+    - range(-5, 6)
+    domain: "[step_num, step_num]"
+    formula: And([num[(n, steps[_index + 1])] == num[(n, steps[_index])] * _sym[1]
+      + _sym[2] for n in names if n != _sym[0]])
+    desc: 第{_index + 1}次，{_sym[0]}给其余所有人的糖豆数分别等于其余每人现在各有的糖豆数{'的' + str(_sym[1] - 1)
+      + '倍' if _sym[1] > 2 else ''}{'加' + str(_sym[2]) + '颗' if _sym[2] > 0 else '少'
+      + str(-_sym[2]) + '颗' if _sym[2] < 0 else ''}；
+queries:
+  q1:
+    desc: 原来{name_desc}各有糖豆多少粒？将对应的数用逗号分隔输出。
+    ans_formula: "[get_value(_solutions[0], num[(n, steps[0])]) for n in names]"
+    ans_text: "','.join([str(v) for v in _ans])"
+    ans_assertion: len(_solutions) == 1
+desc: "{name_desc}{p_num}人原来各有糖豆若干粒,{conditions},这样每人恰好各有{final_num}粒糖豆,{q1}"

@@ -1,0 +1,44 @@
+variables:
+  tree_A_num:
+    type: int
+    domain: "[700, 1100]"
+    diff_factor: 0
+  plant1:
+    type: int
+    domain: "[20, 30]"
+    diff_factor: 0
+  plant2:
+    type: int
+    domain: "[plant1+2, plant1+5]"
+    diff_factor: 0
+  plant3:
+    type: int
+    domain: "[plant2+2, plant2+5]"
+    diff_factor: 0
+  tree_B_num:
+    type: int
+    domain: "[tree_A_num+50, tree_A_num+500]"
+    diff_factor: 0
+symbols:
+  days:
+    source:
+    - "['t1', 't2']"
+    type: int
+conditions:
+  non_negative_numbers:
+    formula: And([x > 0 for x in days])
+  A_cond:
+    formula: (plant1+plant2)*days['t1'] + plant1*days['t2'] >= tree_A_num
+  B_cond:
+    formula: plant3*days['t1'] + (plant2+plant3)*days['t2'] < tree_B_num
+max_solution: 1
+optimize:
+  type: minimize
+  formula: days['t1']
+queries:
+  q1:
+    desc: 问：乙至少先帮甲几天，才能让甲比丙先完成？
+    ans_formula: get_value(_solutions, days['t1'])
+    ans_text: str(_ans)
+    ans_assertion: 'True'
+desc: 有A、B两地植树，A地要植{tree_A_num}棵树，B地要植{tree_B_num}棵树，有甲、乙、丙三人，甲每天植树{plant1}棵，乙每天植树{plant2}棵，丙每天植树{plant3}棵，甲在A地植树，丙在B地植树，乙先帮甲在A地植树，再帮丙在B地植树。{q1}

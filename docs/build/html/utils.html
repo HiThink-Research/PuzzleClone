@@ -1,0 +1,1269 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utils package &mdash; PuzzleClone v0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2fea6348"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="translator module" href="translator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PuzzleClone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PuzzleClone</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="model.html">model package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="translator.html">translator module</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">utils package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.auxiliary_operator">utils.auxiliary_operator module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.CustomCond"><code class="docutils literal notranslate"><span class="pre">CustomCond</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.CustomSym"><code class="docutils literal notranslate"><span class="pre">CustomSym</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.SafeTemplate"><code class="docutils literal notranslate"><span class="pre">SafeTemplate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.choose"><code class="docutils literal notranslate"><span class="pre">choose()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.generate_letters"><code class="docutils literal notranslate"><span class="pre">generate_letters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.generate_random_indices"><code class="docutils literal notranslate"><span class="pre">generate_random_indices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.generate_random_list"><code class="docutils literal notranslate"><span class="pre">generate_random_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.generate_random_list_with_total"><code class="docutils literal notranslate"><span class="pre">generate_random_list_with_total()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.generate_var_names"><code class="docutils literal notranslate"><span class="pre">generate_var_names()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.get_data"><code class="docutils literal notranslate"><span class="pre">get_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.get_desc"><code class="docutils literal notranslate"><span class="pre">get_desc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.get_p"><code class="docutils literal notranslate"><span class="pre">get_p()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.get_value"><code class="docutils literal notranslate"><span class="pre">get_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.get_var_name"><code class="docutils literal notranslate"><span class="pre">get_var_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.is_option_valid"><code class="docutils literal notranslate"><span class="pre">is_option_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.make_expr"><code class="docutils literal notranslate"><span class="pre">make_expr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.set_global_context"><code class="docutils literal notranslate"><span class="pre">set_global_context()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.set_local_context"><code class="docutils literal notranslate"><span class="pre">set_local_context()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.sort_solutions"><code class="docutils literal notranslate"><span class="pre">sort_solutions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.store_sym_config"><code class="docutils literal notranslate"><span class="pre">store_sym_config()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.to_hashable"><code class="docutils literal notranslate"><span class="pre">to_hashable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.auxiliary_operator.to_unique"><code class="docutils literal notranslate"><span class="pre">to_unique()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.condition_generator">utils.condition_generator module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.condition_generator.gen_event_count_condition"><code class="docutils literal notranslate"><span class="pre">gen_event_count_condition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.condition_generator.gen_multi_event_count_condition"><code class="docutils literal notranslate"><span class="pre">gen_multi_event_count_condition()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.faker_utils">utils.faker_utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.faker_utils.get_faker"><code class="docutils literal notranslate"><span class="pre">get_faker()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#utils-mathexpr-generator-module">utils.mathexpr_generator module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.Add"><code class="docutils literal notranslate"><span class="pre">Add</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.Comparison"><code class="docutils literal notranslate"><span class="pre">Comparison</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.Constant"><code class="docutils literal notranslate"><span class="pre">Constant</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.Divide"><code class="docutils literal notranslate"><span class="pre">Divide</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.ExprNode"><code class="docutils literal notranslate"><span class="pre">ExprNode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.FormulaConfig"><code class="docutils literal notranslate"><span class="pre">FormulaConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.Multiply"><code class="docutils literal notranslate"><span class="pre">Multiply</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.Power"><code class="docutils literal notranslate"><span class="pre">Power</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.Subtract"><code class="docutils literal notranslate"><span class="pre">Subtract</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.build_system"><code class="docutils literal notranslate"><span class="pre">build_system()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.generate_expr"><code class="docutils literal notranslate"><span class="pre">generate_expr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.generate_formula"><code class="docutils literal notranslate"><span class="pre">generate_formula()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.generate_formulas"><code class="docutils literal notranslate"><span class="pre">generate_formulas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.get_formula_value"><code class="docutils literal notranslate"><span class="pre">get_formula_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.mathexpr_generator.to_value"><code class="docutils literal notranslate"><span class="pre">to_value()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils.option_generator">utils.option_generator module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#utils.option_generator.find_always_TF_combined_events"><code class="docutils literal notranslate"><span class="pre">find_always_TF_combined_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.option_generator.find_always_TF_events"><code class="docutils literal notranslate"><span class="pre">find_always_TF_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.option_generator.find_required_event_groups"><code class="docutils literal notranslate"><span class="pre">find_required_event_groups()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.option_generator.get_TF_events_for_each_solution"><code class="docutils literal notranslate"><span class="pre">get_TF_events_for_each_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#utils.option_generator.get_required_non_solutions"><code class="docutils literal notranslate"><span class="pre">get_required_non_solutions()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-utils">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PuzzleClone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PuzzleClone</a></li>
+      <li class="breadcrumb-item active">utils package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="utils-package">
+<h1>utils package<a class="headerlink" href="#utils-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-utils.auxiliary_operator">
+<span id="utils-auxiliary-operator-module"></span><h2>utils.auxiliary_operator module<a class="headerlink" href="#module-utils.auxiliary_operator" title="Link to this heading"></a></h2>
+<p>Auxiliary Operator</p>
+<p>This module provides functionality for constructing symbols and conditions, including:
+1. Symbol wrapper (CustomSym)
+2. Condition wrapper (CustomCond)
+3. Utility functions for generating random indices, evaluating conditions, and managing symbol metadata.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.CustomCond">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">CustomCond</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#CustomCond"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.CustomCond" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+<p>Condition wrapper class for structured condition modeling</p>
+<p>Extends metadata support based on the standard string class to achieve:
+- Binding of conditional expressions to descriptive text
+- Domain identification classification
+- Additional data payload</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.CustomCond.domain">
+<span class="sig-name descname"><span class="pre">domain</span></span><a class="headerlink" href="#utils.auxiliary_operator.CustomCond.domain" title="Link to this definition"></a></dt>
+<dd><p>Number of expressions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.CustomCond.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#utils.auxiliary_operator.CustomCond.data" title="Link to this definition"></a></dt>
+<dd><p>Additional data payload</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="simple">
+<dt>Inherits:</dt><dd><p>All native functionalities and methods of str</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cond</span> <span class="o">=</span> <span class="n">CustomCond</span><span class="p">(</span><span class="n">domain</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Score should be greater than 60&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="p">[[</span><span class="o">...</span><span class="p">],</span> <span class="p">[</span><span class="o">...</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">cond</span><span class="p">)</span>  <span class="c1"># &quot;Score should be greater than 60&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cond</span><span class="o">.</span><span class="n">domain</span>  <span class="c1"># 1</span>
+</pre></div>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.CustomCond.desc">
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">desc</span></span><a class="headerlink" href="#utils.auxiliary_operator.CustomCond.desc" title="Link to this definition"></a></dt>
+<dd><p>Natural langauge description</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.CustomSym">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">CustomSym</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Int'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#CustomSym"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.CustomSym" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<p>Symbol wrapper class supporting structured symbol modeling and Z3 variable integration</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.CustomSym.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#utils.auxiliary_operator.CustomSym.name" title="Link to this definition"></a></dt>
+<dd><p>Symbol group name, used as symbol prefix</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.CustomSym.source">
+<span class="sig-name descname"><span class="pre">source</span></span><a class="headerlink" href="#utils.auxiliary_operator.CustomSym.source" title="Link to this definition"></a></dt>
+<dd><p>Data source</p>
+<ul class="simple">
+<li><p>Example: {“Grade”: [1,2,3], “Subject”: [“Math”, “Chinese”]}</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[str, List[Union[str, int]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.CustomSym.attr">
+<span class="sig-name descname"><span class="pre">attr</span></span><a class="headerlink" href="#utils.auxiliary_operator.CustomSym.attr" title="Link to this definition"></a></dt>
+<dd><p>Attributes</p>
+<ul class="simple">
+<li><p>Example: [“Score”, “Difficulty”]</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[List[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.CustomSym.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#utils.auxiliary_operator.CustomSym.type" title="Link to this definition"></a></dt>
+<dd><p>Variable type definition, supports:</p>
+<ul class="simple">
+<li><p>‘Int’ (default)/’Bool’/’Real’/’Float’/’BitVec’</p></li>
+<li><p>Type list (needs equal length when attr exists)</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Union[str, List[str]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.CustomSym.desc">
+<span class="sig-name descname"><span class="pre">desc</span></span><a class="headerlink" href="#utils.auxiliary_operator.CustomSym.desc" title="Link to this definition"></a></dt>
+<dd><p>Description template system</p>
+<ul class="simple">
+<li><p>Single attribute mode: “Grade variable description”</p></li>
+<li><p>Multi-attribute mode: [“Score description”, “Difficulty description”]</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[Union[str, List[str]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">grade_system</span> <span class="o">=</span> <span class="n">CustomSym</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Grade&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">source</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Level&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;B&quot;</span><span class="p">]},</span>
+<span class="gp">... </span>    <span class="n">attr</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Score&quot;</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;Int&quot;</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grade_system</span><span class="p">[(</span><span class="s2">&quot;A&quot;</span><span class="p">)][</span><span class="s2">&quot;Score&quot;</span><span class="p">]</span>  <span class="c1"># Returns Int(&#39;Grade_A_Score&#39;)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.CustomSym.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#CustomSym.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.CustomSym.get" title="Link to this definition"></a></dt>
+<dd><p>Batch retrieve all variable instances of the specified attribute.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attr</strong> – Target attribute name</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of attribute variables/instances arranged in the order of initialization.</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – When attr does not exist or is currently in single-attribute mode.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.CustomSym.to_list">
+<span class="sig-name descname"><span class="pre">to_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#CustomSym.to_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.CustomSym.to_list" title="Link to this definition"></a></dt>
+<dd><p>Output a list of Z3 symbols.</p>
+<p>Returns</p>
+<ul class="simple">
+<li><p>Single attribute: [Var1, Var2, …]</p></li>
+<li><p>Multiple attributes: [[Attribute1 variable list], [Attribute2 variable list], …]</p></li>
+</ul>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Example of multiple attributes and multiple dimensions</span>
+<span class="gp">... </span><span class="p">[</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">Grade_A_Math_Score</span><span class="p">,</span> <span class="n">Grade_A_Chinese_Score</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>  <span class="c1"># Score attribute</span>
+<span class="gp">... </span>    <span class="p">[</span><span class="n">Grade_A_Math_Diff</span><span class="p">,</span> <span class="n">Grade_A_Chinese_Diff</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>    <span class="c1"># Difficulty attribute</span>
+<span class="gp">... </span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.SafeTemplate">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">SafeTemplate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#SafeTemplate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.SafeTemplate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.SafeTemplate.render">
+<span class="sig-name descname"><span class="pre">render</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#SafeTemplate.render"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.SafeTemplate.render" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.choose">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">choose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">candidates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#choose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.choose" title="Link to this definition"></a></dt>
+<dd><p>Select group_num tuples of length group_size from a set of symbols/events (candidates).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.generate_letters">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">generate_letters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lang</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'en'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#generate_letters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.generate_letters" title="Link to this definition"></a></dt>
+<dd><p>Generate a set of letter identifiers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>int</em>) – The number of identifiers to generate.</p></li>
+<li><p><strong>lang</strong> (<em>str</em>) – Language option, ‘en’ for English (default), other values for Chinese.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>In English mode, returns a list formatted like [‘A1’, ‘A2’, …].
+str: In Chinese mode, returns a string containing the specified number of characters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p>Description:</p>
+<ul class="simple">
+<li><p>English mode: Uses a looped sequence of letters A-Z combined with numbers (resets letters every 26 iterations).</p></li>
+<li><p>Chinese mode: Uses a fixed alphabet “甲乙丙丁…” to return the first n characters.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.generate_random_indices">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">generate_random_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">choose</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_cond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_cond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_cond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#generate_random_indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.generate_random_indices" title="Link to this definition"></a></dt>
+<dd><p>Generate random index combinations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>choose</strong> (<em>List</em><em>[</em><em>any</em><em>]</em>) – Number of available elements in each data source, similar to DerivedSymbol.source.</p></li>
+<li><p><strong>amount</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – Number of elements to choose in each data source, similar to DerivedSymbol.amount.
+Example: [“2”, “1”] indicates selecting 2 from the first data source and 1 from the second source.</p></li>
+<li><p><strong>domain</strong> (<em>int</em>) – Total number of groups to select, similar to DerivedSymbol.domain.</p></li>
+<li><p><strong>domain_cond</strong> (<em>bool</em>) – Same as DerivedSymbol.domain_cond, default True.</p></li>
+<li><p><strong>dim</strong> (<em>int</em>) – Number of dimensions in each symbol, similar to DerivedSymbol.dim.</p></li>
+<li><p><strong>dim_cond</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>]</em>) – Same as DerivedSymbol.dim_cond.</p></li>
+<li><p><strong>custom_cond</strong> (<em>List</em><em>[</em><em>Dict</em><em>]</em>) – List of custom constraints, each dictionary contains: (Same as DerivedSymbol.custom_cond)
+- scope: Level of application (‘dim’/’domain’).
+- fields: List of indices of the involved data sources.
+- constraint: Logical expression for constraints (callable object).</p></li>
+<li><p><strong>order</strong> (<em>List</em><em>[</em><em>bool</em><em>]</em>) – Configuration of arrangement for each dimension. Same as DerivedSymbol.order.
+- True: Arrangement (considering order).
+- False: Combination (not considering order).</p></li>
+<li><p><strong>duplicate</strong> (<em>List</em><em>[</em><em>bool</em><em>]</em>) – Initialization repetition rules. Same as DerivedSymbol.duplicate.
+- True: Allow repeated selections.
+- False: Prohibit repetition.</p></li>
+<li><p><strong>env</strong> (<em>Dict</em>) – Importing the environment variables from code generated by the translator. Used for evaluating some conditional expressions in custom_cond.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>(Selected indices, Formatted selected indices)</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Example: ([[[1, 2], [3]], [[4, 5], [6]]], [“__1__, __2__”, “__3__”])</p></li>
+<li><p>Note: The formatted indices are for configuration purposes, not for direct use in the program. In config files, strings that start and end with “__” are considered as indices rather than values.</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>AssertionError</strong> – Raised when parameter lengths do not match.</p></li>
+<li><p><strong>Exception</strong> – Raised when unable to generate valid combinations.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Implementation Process:</dt><dd><ol class="arabic simple">
+<li><p>Parameter validation and initialization.</p></li>
+<li><p>Generate a base pool of combinations based on the provided choose and amount.</p></li>
+<li><p>Handling custom conditions.</p></li>
+</ol>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.generate_random_list">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">generate_random_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ele_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ele_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_ele_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#generate_random_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.generate_random_list" title="Link to this definition"></a></dt>
+<dd><p>Return a random array with element-level range control.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>int</em>) – Length of the array.</p></li>
+<li><p><strong>ele_type</strong> (<em>str</em>) – Type of elements in the array, such as ‘int’, ‘bool’, ‘enum’, ‘float’.</p></li>
+<li><p><strong>ele_domain</strong> (<em>list</em><em> or </em><em>tuple</em>) – Global value range for elements (used when element-level range is not defined).</p></li>
+<li><p><strong>cond</strong> (<em>list</em>) – List of conditions that elements must satisfy, each as a function string, e.g., “lambda l: sum(l) == 5”.</p></li>
+<li><p><strong>per_ele_domain</strong> (<em>list</em><em>, </em><em>optional</em>) – Independent value range for each element, must have the same length as size. Can be None or contain None values, indicating that the element should use the global value range.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.generate_random_list_with_total">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">generate_random_list_with_total</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ele_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_ele_domain</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#generate_random_list_with_total"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.generate_random_list_with_total" title="Link to this definition"></a></dt>
+<dd><p>Return a random integer array with a total sum of total, supporting element-level range control.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>size</strong> (<em>int</em>) – Length of the array.</p></li>
+<li><p><strong>ele_domain</strong> (<em>list</em><em> or </em><em>tuple</em>) – Global value range for elements (two integers: [min, max]).</p></li>
+<li><p><strong>total</strong> (<em>int</em>) – The total sum of all elements in the array.</p></li>
+<li><p><strong>per_ele_domain</strong> (<em>list</em><em>, </em><em>optional</em>) – Independent value range for each element, must have the same length as size. Can be None or contain None values, indicating that the element should use the global value range.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.generate_var_names">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">generate_var_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#generate_var_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.generate_var_names" title="Link to this definition"></a></dt>
+<dd><p>Return an array of default variable names with a length of n.</p>
+<ul class="simple">
+<li><p>When n &lt;= 3, the order is x, y, z.</p></li>
+<li><p>When 4 &lt;= n &lt;= 11, the order is p, q, r, … .</p></li>
+<li><p>When n &gt; 11, the order is x1, x2, … .</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.get_data">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cond</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.get_data" title="Link to this definition"></a></dt>
+<dd><p>Return the random data bound to the condition ‘sym’; if ‘sym’ is a list, do this for each element.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.get_desc">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">get_desc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#get_desc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.get_desc" title="Link to this definition"></a></dt>
+<dd><p>Return the description of the symbol ‘sym’; if ‘sym’ is a list, do this for each element.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.get_p">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">get_p</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sym</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#get_p"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.get_p" title="Link to this definition"></a></dt>
+<dd><p>Return the value of the binded variable named ‘p’ for the symbol ‘sym’; if ‘sym’ is a list, do this for each element.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.get_value">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">get_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#get_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.get_value" title="Link to this definition"></a></dt>
+<dd><p>Return the values of ‘vars’ in the solution ‘sol’ of the z3-solver.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.get_var_name">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">get_var_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z3_var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#get_var_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.get_var_name" title="Link to this definition"></a></dt>
+<dd><p>Return the string representation of the variable name of the z3 variable.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.is_option_valid">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">is_option_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cond</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#is_option_valid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.is_option_valid" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.make_expr">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">make_expr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">op</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">operands</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#make_expr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.make_expr" title="Link to this definition"></a></dt>
+<dd><p>Construct a Z3 expression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>op</strong> (<em>str</em>) – <p>Operator identifier, supporting the following forms:</p>
+<ul>
+<li><p>Comparison operators: <cite>“eq”</cite>/<cite>”==”</cite>, <cite>“neq”</cite>/<cite>”!=”</cite>, <cite>“gt”</cite>/<cite>”&gt;”</cite>, <cite>“ge”</cite>/<cite>”&gt;=”</cite>, <cite>“lt”</cite>/<cite>”&lt;”</cite>, <cite>“le”</cite>/<cite>”&lt;=”</cite></p></li>
+<li><p>Logical operators: <cite>“and”</cite>/<cite>”&amp;&amp;”</cite>, <cite>“or”</cite>/<cite>”||”</cite>, <cite>“not”</cite>/<cite>”!”</cite>, <cite>“implies”</cite>/<cite>”=&gt;”</cite></p></li>
+<li><p>Arithmetic operators: <cite>“add”</cite>/<cite>”+”</cite>, <cite>“sub”</cite>/<cite>”-”</cite>, <cite>“mul”</cite>/<cite>”*”</cite>, <cite>“div”</cite>/<cite>”/”</cite></p></li>
+</ul>
+</p></li>
+<li><p><strong>*operands</strong> (<em>z3.ExprRef</em>) – <p>Z3 expression operands, the number determined by the operator:</p>
+<ul>
+<li><p>Unary operators: 1 operand (e.g., <cite>not</cite>)</p></li>
+<li><p>Binary operators: 2 operands (e.g., <cite>+</cite>, <cite>==</cite>)</p></li>
+<li><p>N-ary operators: Any number (e.g., <cite>and</cite>, <cite>or</cite>)</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The generated Z3 expression object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>z3.ExprRef</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – <ul class="simple">
+<li><p>When an unsupported operator is used.
+    - When the number of operands does not meet the operator’s requirements.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">Ints</span><span class="p">(</span><span class="s1">&#39;x y&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">make_expr</span><span class="p">(</span><span class="s2">&quot;&gt;=&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>     <span class="c1"># Creates x &gt;= 5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">make_expr</span><span class="p">(</span><span class="s2">&quot;&amp;&amp;&quot;</span><span class="p">,</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># Creates And(x &gt; 0, y &lt; 10)</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Logical operators <cite>and</cite>/<cite>or</cite> support any number of operands.</p></li>
+<li><p>Arithmetic operator <cite>+</cite> actually calls the <cite>Sum</cite> function (e.g., <cite>a + b + c</cite> converts to <cite>Sum(a, b, c)</cite>).</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.set_global_context">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">set_global_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#set_global_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.set_global_context" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.set_local_context">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">set_local_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ctx</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#set_local_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.set_local_context" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.sort_solutions">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">sort_solutions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solutions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key_func</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#sort_solutions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.sort_solutions" title="Link to this definition"></a></dt>
+<dd><p>Sort the list of solutions obtained from the Z3 solver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>solutions</strong> (<em>list</em>) – The list of solutions to be sorted, where each element is a Z3 model.</p></li>
+<li><p><strong>key_func</strong> (<em>callable</em><em>, </em><em>optional</em>) – A function to generate the sorting key, which takes a model and returns a sortable value. Defaults to a tuple of values sorted by variable names.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.store_sym_config">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">store_sym_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#store_sym_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.store_sym_config" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.to_hashable">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">to_hashable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">element</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#to_hashable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.to_hashable" title="Link to this definition"></a></dt>
+<dd><p>Recursively convert nested structures to hashable types.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>element</strong> (<em>Any</em>) – Input element, supports nested lists/tuples.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Converts lists to tuples, preserving the nested structure.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Hashable object</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">to_hashable</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>  <span class="c1"># Returns (1, (2, 3))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_hashable</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">})</span>       <span class="c1"># Returns the original set (since sets are not hashable).</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Mainly used to use nested structures as dictionary keys or set elements.</p></li>
+<li><p>Only processes list types; other container types (e.g., dict) need to be handled separately.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.auxiliary_operator.to_unique">
+<span class="sig-prename descclassname"><span class="pre">utils.auxiliary_operator.</span></span><span class="sig-name descname"><span class="pre">to_unique</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/auxiliary_operator.html#to_unique"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.auxiliary_operator.to_unique" title="Link to this definition"></a></dt>
+<dd><p>Remove duplicates from a list (preserving order).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>l</strong> (<em>Union</em><em>[</em><em>list</em><em>, </em><em>Any</em><em>]</em>) – Input list or any type.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A deduplicated list (maintaining the order of elements); returns the input directly if it’s not a list.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">to_unique</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>  <span class="c1"># Returns [1, 2, 3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">to_unique</span><span class="p">(</span><span class="s2">&quot;abcaba&quot;</span><span class="p">)</span>      <span class="c1"># Returns [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-utils.condition_generator">
+<span id="utils-condition-generator-module"></span><h2>utils.condition_generator module<a class="headerlink" href="#module-utils.condition_generator" title="Link to this heading"></a></h2>
+<p>该模块用来生成不同模板问题的约束条件</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.condition_generator.gen_event_count_condition">
+<span class="sig-prename descclassname"><span class="pre">utils.condition_generator.</span></span><span class="sig-name descname"><span class="pre">gen_event_count_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">events</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fact</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/condition_generator.html#gen_event_count_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.condition_generator.gen_event_count_condition" title="Link to this definition"></a></dt>
+<dd><p>Return conditions where at most, least, or exactly num events are true in the event array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>events</strong> – Array of type z3.Bool.</p></li>
+<li><p><strong>fact</strong> – Objective fact about the events: “most” (at most), “least” (least), or “equal” (exactly).</p></li>
+<li><p><strong>num</strong> – The quantity, which must be greater than 0 and less than or equal to the length of the event list.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.condition_generator.gen_multi_event_count_condition">
+<span class="sig-prename descclassname"><span class="pre">utils.condition_generator.</span></span><span class="sig-name descname"><span class="pre">gen_multi_event_count_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">events</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/condition_generator.html#gen_multi_event_count_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.condition_generator.gen_multi_event_count_condition" title="Link to this definition"></a></dt>
+<dd><p>Generate conditions based on a multidimensional event array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>events</strong> – Array of events, where each element is a symbol.</p></li>
+<li><p><strong>op</strong> – Operator, such as wc (word count).</p></li>
+<li><p><strong>target</strong> – The target value for the condition.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-utils.faker_utils">
+<span id="utils-faker-utils-module"></span><h2>utils.faker_utils module<a class="headerlink" href="#module-utils.faker_utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.faker_utils.get_faker">
+<span class="sig-prename descclassname"><span class="pre">utils.faker_utils.</span></span><span class="sig-name descname"><span class="pre">get_faker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provider_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">locale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zh_CN'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/faker_utils.html#get_faker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.faker_utils.get_faker" title="Link to this definition"></a></dt>
+<dd><p>Generate a specified number of unique fake data entries using Faker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num</strong> – The number of data entries to generate.</p></li>
+<li><p><strong>provider_name</strong> – Name of the provider (also the method name to call).</p></li>
+<li><p><strong>providers</strong> – List of provider classes to add.</p></li>
+<li><p><strong>locale</strong> – Locale setting (default is Chinese).</p></li>
+<li><p><strong>seed</strong> – Random seed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of generated unique data.</p>
+</dd>
+</dl>
+<dl>
+<dt>Exceptions:</dt><dd><p>AttributeError: When the provider_name does not exist.</p>
+<p>ValueError: When it is not possible to generate enough unique data.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="utils-mathexpr-generator-module">
+<h2>utils.mathexpr_generator module<a class="headerlink" href="#utils-mathexpr-generator-module" title="Link to this heading"></a></h2>
+<p id="module-utils.mathexpr_generator">Mathematical Expression Generator</p>
+<p>This module provides functionality for generating, manipulating, and evaluating mathematical expressions, including:
+1. Expression tree nodes (Variable, Constant, Add, Subtract, Multiply, Divide, Power, Comparison)
+2. Formula configuration and serialization/deserialization
+3. Random expression generation with configurable complexity
+4. Z3 integration for constraint solving
+5. LaTeX output for mathematical notation</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Add">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">Add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Add" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utils.mathexpr_generator.ExprNode" title="utils.mathexpr_generator.ExprNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExprNode</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Add.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Add.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Add.evaluate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Add.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Add.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Add.serialize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Add.to_latex">
+<span class="sig-name descname"><span class="pre">to_latex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Add.to_latex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Add.to_latex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Add.to_z3">
+<span class="sig-name descname"><span class="pre">to_z3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Add.to_z3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Add.to_z3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Comparison">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">Comparison</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">op</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Comparison"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Comparison" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utils.mathexpr_generator.ExprNode" title="utils.mathexpr_generator.ExprNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExprNode</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Comparison.OPS">
+<span class="sig-name descname"><span class="pre">OPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'&lt;':</span> <span class="pre">(&lt;function</span> <span class="pre">Comparison.&lt;lambda&gt;&gt;,</span> <span class="pre">'&lt;'),</span> <span class="pre">'&lt;=':</span> <span class="pre">(&lt;function</span> <span class="pre">Comparison.&lt;lambda&gt;&gt;,</span> <span class="pre">'\\leq'),</span> <span class="pre">'==':</span> <span class="pre">(&lt;function</span> <span class="pre">Comparison.&lt;lambda&gt;&gt;,</span> <span class="pre">'='),</span> <span class="pre">'&gt;':</span> <span class="pre">(&lt;function</span> <span class="pre">Comparison.&lt;lambda&gt;&gt;,</span> <span class="pre">'&gt;'),</span> <span class="pre">'&gt;=':</span> <span class="pre">(&lt;function</span> <span class="pre">Comparison.&lt;lambda&gt;&gt;,</span> <span class="pre">'\\geq')}</span></em><a class="headerlink" href="#utils.mathexpr_generator.Comparison.OPS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Comparison.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Comparison.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Comparison.evaluate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Comparison.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Comparison.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Comparison.serialize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Comparison.to_latex">
+<span class="sig-name descname"><span class="pre">to_latex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Comparison.to_latex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Comparison.to_latex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Comparison.to_z3">
+<span class="sig-name descname"><span class="pre">to_z3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Comparison.to_z3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Comparison.to_z3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Constant">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">Constant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Constant"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Constant" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utils.mathexpr_generator.ExprNode" title="utils.mathexpr_generator.ExprNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExprNode</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Constant.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Constant.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Constant.evaluate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Constant.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Constant.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Constant.serialize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Constant.to_latex">
+<span class="sig-name descname"><span class="pre">to_latex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Constant.to_latex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Constant.to_latex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Constant.to_z3">
+<span class="sig-name descname"><span class="pre">to_z3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Constant.to_z3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Constant.to_z3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Divide">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">Divide</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">den</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Divide"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Divide" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utils.mathexpr_generator.ExprNode" title="utils.mathexpr_generator.ExprNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExprNode</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Divide.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Divide.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Divide.evaluate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Divide.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Divide.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Divide.serialize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Divide.to_latex">
+<span class="sig-name descname"><span class="pre">to_latex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Divide.to_latex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Divide.to_latex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Divide.to_z3">
+<span class="sig-name descname"><span class="pre">to_z3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Divide.to_z3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Divide.to_z3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.ExprNode">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">ExprNode</span></span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#ExprNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.ExprNode" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.ExprNode.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#ExprNode.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.ExprNode.evaluate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.ExprNode.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#ExprNode.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.ExprNode.serialize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.ExprNode.to_latex">
+<span class="sig-name descname"><span class="pre">to_latex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#ExprNode.to_latex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.ExprNode.to_latex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.ExprNode.to_z3">
+<span class="sig-name descname"><span class="pre">to_z3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#ExprNode.to_z3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.ExprNode.to_z3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.FormulaConfig">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">FormulaConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vars_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#FormulaConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.FormulaConfig" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.FormulaConfig.deserialize">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vars_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#FormulaConfig.deserialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.FormulaConfig.deserialize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.FormulaConfig.get_latex">
+<span class="sig-name descname"><span class="pre">get_latex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#FormulaConfig.get_latex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.FormulaConfig.get_latex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.FormulaConfig.get_value">
+<span class="sig-name descname"><span class="pre">get_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#FormulaConfig.get_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.FormulaConfig.get_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.FormulaConfig.get_z3_expr">
+<span class="sig-name descname"><span class="pre">get_z3_expr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z3_vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#FormulaConfig.get_z3_expr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.FormulaConfig.get_z3_expr" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.FormulaConfig.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#FormulaConfig.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.FormulaConfig.serialize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Multiply">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">Multiply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Multiply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Multiply" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utils.mathexpr_generator.ExprNode" title="utils.mathexpr_generator.ExprNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExprNode</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Multiply.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Multiply.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Multiply.evaluate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Multiply.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Multiply.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Multiply.serialize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Multiply.to_latex">
+<span class="sig-name descname"><span class="pre">to_latex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Multiply.to_latex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Multiply.to_latex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Multiply.to_z3">
+<span class="sig-name descname"><span class="pre">to_z3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Multiply.to_z3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Multiply.to_z3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Power">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">Power</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exponent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Power"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Power" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utils.mathexpr_generator.ExprNode" title="utils.mathexpr_generator.ExprNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExprNode</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Power.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Power.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Power.evaluate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Power.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Power.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Power.serialize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Power.to_latex">
+<span class="sig-name descname"><span class="pre">to_latex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Power.to_latex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Power.to_latex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Power.to_z3">
+<span class="sig-name descname"><span class="pre">to_z3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Power.to_z3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Power.to_z3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Subtract">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">Subtract</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Subtract"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Subtract" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utils.mathexpr_generator.ExprNode" title="utils.mathexpr_generator.ExprNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExprNode</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Subtract.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Subtract.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Subtract.evaluate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Subtract.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Subtract.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Subtract.serialize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Subtract.to_latex">
+<span class="sig-name descname"><span class="pre">to_latex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Subtract.to_latex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Subtract.to_latex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Subtract.to_z3">
+<span class="sig-name descname"><span class="pre">to_z3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Subtract.to_z3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Subtract.to_z3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Variable">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">Variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Variable" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#utils.mathexpr_generator.ExprNode" title="utils.mathexpr_generator.ExprNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExprNode</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Variable.evaluate">
+<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Variable.evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Variable.evaluate" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Variable.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Variable.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Variable.serialize" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Variable.to_latex">
+<span class="sig-name descname"><span class="pre">to_latex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Variable.to_latex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Variable.to_latex" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.Variable.to_z3">
+<span class="sig-name descname"><span class="pre">to_z3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#Variable.to_z3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.Variable.to_z3" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.build_system">
+<span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">build_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">configs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vars</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#build_system"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.build_system" title="Link to this definition"></a></dt>
+<dd><p>Build equation system, generate Z3 expressions and LaTeX format strings.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>configs</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of serialized formula configurations</p></li>
+<li><p><strong>vars</strong> (<em>list</em>) – Z3 variable list</p></li>
+<li><p><strong>var_names</strong> (<em>list</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – Variable name list, used for LaTeX output</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Dictionary containing the following keys:</dt><dd><ul class="simple">
+<li><p>’z3_expr’: List of Z3 expressions for all formulas</p></li>
+<li><p>’z3_constraint’: List of all constraint conditions</p></li>
+<li><p>’latex_str’: LaTeX format string representation of the system</p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ol class="arabic simple">
+<li><p>When there’s only one formula, returns a single LaTeX expression</p></li>
+<li><p>Multiple formulas are wrapped in cases environment</p></li>
+<li><p>Automatically adds positive exponent constraints for power operations</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.generate_expr">
+<span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">generate_expr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vars_num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_const</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_var</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_op</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_power</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_const</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#generate_expr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.generate_expr" title="Link to this definition"></a></dt>
+<dd><p>Generate expression tree.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vars_num</strong> (<em>int</em>) – Number of variables, determines the variable index range (0 to vars_num-1)</p></li>
+<li><p><strong>depth</strong> (<em>int</em>) – Current recursion depth, used to control expression complexity, default 0</p></li>
+<li><p><strong>max_depth</strong> (<em>int</em>) – Maximum recursion depth, controls maximum expression complexity, default 5</p></li>
+<li><p><strong>allow_const</strong> (<em>bool</em>) – Whether to allow generating constant terms, default True</p></li>
+<li><p><strong>force_var</strong> (<em>bool</em>) – Whether to force generating variables (automatically effective when allow_const is False), default False</p></li>
+<li><p><strong>parent_op</strong> (<em>str</em>) – Parent node operation type, used for special handling of certain operations, default None</p></li>
+<li><p><strong>allow_power</strong> (<em>bool</em>) – Whether to allow generating power operations (x² or x³), default True</p></li>
+<li><p><strong>max_const</strong> (<em>int</em>) – Maximum value for generated constants, default 10</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generated expression tree object (can be Variable, Constant, Add, Subtract, Multiply or Power)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Expression</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ol class="arabic simple">
+<li><p>When depth &gt;= max_depth, will force generating leaf nodes (variables or constants)</p></li>
+<li><p>Multiplication operations receive special handling to ensure no two constants are multiplied</p></li>
+<li><p>Power operations only allow x² or x³ forms</p></li>
+<li><p>Addition/subtraction prevents generating two constants being added/subtracted</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.generate_formula">
+<span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">generate_formula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vars_num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_cond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_power</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#generate_formula"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.generate_formula" title="Link to this definition"></a></dt>
+<dd><p>Generate a single mathematical formula expression.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vars_num</strong> (<em>int</em>) – Number of variables, determines the variable index range (0 to vars_num-1)</p></li>
+<li><p><strong>is_cond</strong> (<em>bool</em>) – Whether to generate comparison condition expressions (like x &gt; 0), default False</p></li>
+<li><p><strong>allow_power</strong> (<em>bool</em>) – Whether to allow generating power operations (x² or x³), default True</p></li>
+<li><p><strong>max_depth</strong> (<em>int</em>) – Maximum depth of expression tree, controls expression complexity, default 5</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Serialized formula configuration string</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ol class="arabic simple">
+<li><p>When is_cond is True, generates condition expressions compared with 0</p></li>
+<li><p>Comparison operators are randomly chosen from [‘&lt;=’, ‘&gt;=’, ‘==’, ‘&lt;’, ‘&gt;’]</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.generate_formulas">
+<span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">generate_formulas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formula_num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vars_num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_cond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">allow_power</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#generate_formulas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.generate_formulas" title="Link to this definition"></a></dt>
+<dd><p>Generate a specified number of valid formulas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>formula_num</strong> (<em>int</em>) – Number of formulas to generate</p></li>
+<li><p><strong>vars_num</strong> (<em>int</em>) – Number of variables</p></li>
+<li><p><strong>is_cond</strong> (<em>bool</em>) – Whether to generate comparison expressions (like x &gt; 0), default False</p></li>
+<li><p><strong>allow_power</strong> (<em>bool</em>) – Whether to allow using power operations (x², x³ etc.), default True</p></li>
+<li><p><strong>max_depth</strong> (<em>int</em>) – Maximum depth of expression tree, controls expression complexity, default 5</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List containing all valid formulas, each element is a serialized formula configuration string</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list[str]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Raised when unable to generate any valid formulas</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ol class="arabic simple">
+<li><p>Will attempt multiple times until generating enough valid formulas or reaching maximum attempts</p></li>
+<li><p>Each generated formula undergoes validity verification</p></li>
+<li><p>Ensures no duplicate formulas are generated</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.get_formula_value">
+<span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">get_formula_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#get_formula_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.get_formula_value" title="Link to this definition"></a></dt>
+<dd><p>Calculate the value of a formula given variable values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<em>str</em>) – Serialized formula configuration</p></li>
+<li><p><strong>values</strong> (<em>list</em>) – List of variable values, order corresponds to variable indices</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Formula calculation result</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<ol class="arabic simple">
+<li><p>Variable value list length must match the number of variables in the formula</p></li>
+<li><p>Handles all supported operation types (addition, subtraction, multiplication, division, power operations, etc.)</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.mathexpr_generator.to_value">
+<span class="sig-prename descclassname"><span class="pre">utils.mathexpr_generator.</span></span><span class="sig-name descname"><span class="pre">to_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/mathexpr_generator.html#to_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.mathexpr_generator.to_value" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-utils.option_generator">
+<span id="utils-option-generator-module"></span><h2>utils.option_generator module<a class="headerlink" href="#module-utils.option_generator" title="Link to this heading"></a></h2>
+<p>This module provides functions to generate options based on Z3 solver models.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.option_generator.find_always_TF_combined_events">
+<span class="sig-prename descclassname"><span class="pre">utils.option_generator.</span></span><span class="sig-name descname"><span class="pre">find_always_TF_combined_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">events</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solutions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/option_generator.html#find_always_TF_combined_events"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.option_generator.find_always_TF_combined_events" title="Link to this definition"></a></dt>
+<dd><p>Analyze which combinations of num events in solutions are always true or false.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>events</strong> – List[BoolRef], array of Z3 boolean variables (event array).</p></li>
+<li><p><strong>solutions</strong> – List[Model], multiple feasible solutions (array of solver.model()).</p></li>
+<li><p><strong>require</strong> – bool, whether the events should be true (True) or false (False).</p></li>
+<li><p><strong>num</strong> – int, the number of event combinations. When num = 1, it degenerates into find_always_TF_events.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[Tuple[BoolRef]], list of combinations of num events that satisfy the condition.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.option_generator.find_always_TF_events">
+<span class="sig-prename descclassname"><span class="pre">utils.option_generator.</span></span><span class="sig-name descname"><span class="pre">find_always_TF_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">events</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solutions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/option_generator.html#find_always_TF_events"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.option_generator.find_always_TF_events" title="Link to this definition"></a></dt>
+<dd><p>Identify events (events) that are always True/False in all feasible solutions (solutions).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>events</strong> – Array of z3.Bool type.</p></li>
+<li><p><strong>solutions</strong> – Array composed of multiple Solver.model() instances.</p></li>
+<li><p><strong>require</strong> – Whether the events should be true (True) or false (False).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of events that are always True in all solutions, <cite>satisfied_res</cite>, and the results that do not meet the condition, <cite>unsatisfied_res</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.option_generator.find_required_event_groups">
+<span class="sig-prename descclassname"><span class="pre">utils.option_generator.</span></span><span class="sig-name descname"><span class="pre">find_required_event_groups</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">events</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correct_num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">incorrect_num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solutions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'all'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[2]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_cond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/option_generator.html#find_required_event_groups"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.option_generator.find_required_event_groups" title="Link to this definition"></a></dt>
+<dd><p>Find event_num events that satisfy the condition among all feasible solutions.
+By default, it identifies all pairs of events where at most one is true.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>events</strong> – Array of events, similar to DerivedSymbol.source in DSL.</p></li>
+<li><p><strong>correct_num</strong> – Number of correct items.</p></li>
+<li><p><strong>incorrect_num</strong> – Number of incorrect items.</p></li>
+<li><p><strong>solutions</strong> – Array of feasible solutions (array of Z3 models).</p></li>
+<li><p><strong>formula</strong> – Similar to formula in DSL.</p></li>
+<li><p><strong>cond</strong> – Whether all solutions must satisfy (“all”) or if at least one satisfying solution is enough (“any”), similar to DerivedSymbol.cond in DSL.</p></li>
+<li><p><strong>event_num</strong> – Array specifying the number of sub-events, similar to DerivedSymbol.amount in DSL.</p></li>
+<li><p><strong>order</strong> – Similar to DerivedSymbol.order in DSL, default is all False.</p></li>
+<li><p><strong>duplicate</strong> – Similar to duplicate in DSL, default is all False.</p></li>
+<li><p><strong>custom_cond</strong> – Similar to custom_cond in DSL.</p></li>
+<li><p><strong>env</strong> – Environment variables imported from the program generated by the translator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns a list of satisfied event pairs <cite>satisfied</cite> and their index list <cite>satisfied_indices</cite>, as well as the unsatisfied combinations <cite>unsatisfied</cite> and their index list <cite>unsatisfied_indices</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.option_generator.get_TF_events_for_each_solution">
+<span class="sig-prename descclassname"><span class="pre">utils.option_generator.</span></span><span class="sig-name descname"><span class="pre">get_TF_events_for_each_solution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">events</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solutions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">require</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/option_generator.html#get_TF_events_for_each_solution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.option_generator.get_TF_events_for_each_solution" title="Link to this definition"></a></dt>
+<dd><p>Return the events that are true/false in each feasible solution from solutions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>events</strong> – Array of z3.Bool type.</p></li>
+<li><p><strong>solutions</strong> – Array composed of multiple Solver.model() instances.</p></li>
+<li><p><strong>require</strong> – Whether the events should be true (True) or false (False).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.option_generator.get_required_non_solutions">
+<span class="sig-prename descclassname"><span class="pre">utils.option_generator.</span></span><span class="sig-name descname"><span class="pre">get_required_non_solutions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">solutions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conditions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/option_generator.html#get_required_non_solutions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.option_generator.get_required_non_solutions" title="Link to this definition"></a></dt>
+<dd><p>Find num infeasible solutions that satisfy the conditions (conditions) but are not in solutions, for use as incorrect options.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>solutions</strong> – Array composed of multiple Solver.model() instances.</p></li>
+<li><p><strong>conditions</strong> – Conditions that the incorrect options need to satisfy.</p></li>
+<li><p><strong>num</strong> – The number of groups of incorrect options to return.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="translator.html" class="btn btn-neutral float-left" title="translator module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Anonymous Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

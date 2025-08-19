@@ -1,0 +1,689 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Anonymous Authors
+# This file is distributed under the same license as the PuzzleClone
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PuzzleClone \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-18 11:32+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: zh_CN\n"
+"Language-Team: zh_CN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../source/utils.rst:2
+msgid "utils package"
+msgstr ""
+
+#: ../source/utils.rst:5
+msgid "Submodules"
+msgstr ""
+
+#: ../source/utils.rst:8
+msgid "utils.auxiliary\\_operator module"
+msgstr ""
+
+#: of utils.auxiliary_operator:1
+msgid "辅助算子核心模块"
+msgstr ""
+
+#: of utils.auxiliary_operator:3
+msgid ""
+"本模块提供符号系统构建和条件表达处理的扩展功能，包含： 1. 多维符号变量生成器 (CustomSym) 2. 智能条件表达式包装器 "
+"(CustomCond) 及若干系统提供的算子。"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:1
+msgid "Bases: :py:class:`str`"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:1
+msgid "增强型条件表达式类"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:3
+msgid "在标准字符串基础上扩展元数据支持，实现： - 条件表达式与描述文本绑定 - 领域标识分类 - 附加数据载荷"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:10
+msgid "表达式个数"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond utils.auxiliary_operator.CustomSym
+msgid "type"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:12
+msgid "int"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:16
+msgid "自然语言描述"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:18
+#: utils.auxiliary_operator.CustomSym:7
+msgid "str"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:22
+msgid "附加数据载荷"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:24
+msgid "list"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:26
+msgid "Inherits:"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:27
+msgid "所有str原生功能与方法"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:30
+#: utils.auxiliary_operator.CustomSym.to_list:8
+msgid "Example"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:1
+msgid "Bases: :py:class:`dict`"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:1
+msgid "多维符号变量生成器，支持结构化符号建模与Z3变量集成"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:5
+msgid "符号系统名称，用于变量前缀"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:11
+#, python-brace-format
+msgid "维度定义字典 Example: {\"年级\": [1,2,3], \"科目\": [\"数学\", \"语文\"]}"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:14
+msgid "Dict[str, List[Union[str, int]]]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:18
+msgid "符号属性列表，如[\"成绩\", \"难度\"]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:20
+msgid "Optional[List[str]]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:24
+msgid "变量类型定义，支持： - 'Int' (默认)/'Bool'/'Real'/'Float'/'BitVec' - 类型列表（当attr存在时需等长）"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:28
+msgid "Union[str, List[str]]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:32
+msgid "描述模板系统 - 单属性模式: \"年级变量描述\" - 多属性模式: [\"成绩描述\", \"难度描述\"]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:36
+msgid "Optional[Union[str, List[str]]]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:39
+#: utils.auxiliary_operator.make_expr:26 utils.auxiliary_operator.to_hashable:9
+#: utils.auxiliary_operator.to_unique:9
+msgid "Examples"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.get:1
+msgid "批量获取指定属性的所有变量实例"
+msgstr ""
+
+#: ../source/utils.rst of utils.auxiliary_operator.to_unique
+msgid "Parameters"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.get:3
+msgid "目标属性名称"
+msgstr ""
+
+#: ../source/utils.rst of utils.auxiliary_operator.CustomSym.to_list
+#: utils.auxiliary_operator.to_unique
+msgid "Returns"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.get:5
+msgid "按初始化顺序排列的属性变量/变量列表"
+msgstr ""
+
+#: ../source/utils.rst
+msgid "Raises"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.get:7
+msgid "当attr不存在或当前为单属性模式"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.to_list:1
+msgid "结构化输出方法"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.to_list:3
+msgid "[Var1, Var2, ...] - 多属性: [[属性1变量列表], [属性2变量列表], ...]"
+msgstr ""
+
+#: ../source/utils.rst of utils.auxiliary_operator.CustomSym.to_list
+msgid "Return type"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.to_list:5
+msgid "- 单属性无维度"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.to_list:5
+msgid "单属性无维度"
+msgstr ""
+
+#: of utils.auxiliary_operator.SafeTemplate:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of utils.auxiliary_operator.SafeTemplate.render:1
+msgid "安全渲染模板"
+msgstr ""
+
+#: of utils.auxiliary_operator.choose:1
+msgid "从若干个符号/事件（candidates）中选取group_num个长度为group_size的tuple"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_letters:1
+msgid "生成一组字母标识符"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_letters:3
+msgid "参数: n (int): 需要生成的标识符数量 lang (str): 语言选项，'en'表示英文（默认），其他值表示中文"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_letters:7
+msgid "返回: list: 英文模式返回格式如['A1','A2',...]的列表 str:  中文模式返回包含指定数量汉字的字符串"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_letters:11
+msgid "说明: - 英文模式：使用循环的A-Z字母加数字序列（每26次循环重置字母） - 中文模式：使用固定字符集\"甲乙丙丁...\"的前n个字符"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:1
+msgid "生成满足多维约束的随机索引组合"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:3
+msgid "各维度可选元素，格式同DSL中init"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:5
+msgid "各维度需要选择的元素数量，格式同DSL中amount，下同 Example: [\"2\",\"1\"] 表示第一维选2个，第二维选1个"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:8
+msgid "需要生成的组合总数"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:10
+msgid "同DSL中domain_cond"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:12
+msgid "生成符号的维度数量 Example: 2 表示生成二维符号矩阵"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:15
+msgid "维度分组约束 Example: [[0,1],[2]]"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:18
+msgid ""
+"自定义约束列表，每个字典包含： - scope: 作用层级（'dim'/'domain'） - fields: 涉及的字段索引列表 - "
+"constraint: 约束逻辑表达式（可调用对象）"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:23
+msgid "各维度排列方式配置 - True: 排列（考虑顺序） - False: 组合（不考虑顺序）"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:27
+msgid "初始化重复规则 - True: 允许重复选择 - False: 禁止重复"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:31
+msgid "用于引入translator生成的代码中的环境变量，以用于evaluate在custom_cond中的一些条件表达式"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:34
+msgid ""
+"(实际索引组合, 字符串格式化组合)     Example: ([[[1,2],[3]], [[4,5],[6]]], [\"__1__, "
+"__2__\",\"__3__\"])"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:36
+msgid "(实际索引组合, 字符串格式化组合)"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:37
+msgid "Example: ([[[1,2],[3]], [[4,5],[6]]], [\"__1__, __2__\",\"__3__\"])"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:40
+msgid "参数长度不匹配时抛出"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:41
+msgid "无法生成满足条件的组合时抛出"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:43
+msgid "实现流程:"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:44
+msgid "参数校验与初始化"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:45
+msgid "维度约束处理（生成基础组合池）"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:46
+msgid "自定义维度条件过滤"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:47
+msgid "未处理字段补充生成"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:48
+msgid "领域层随机选择与有效性验证"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:49
+msgid "结果格式优化"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list:1
+msgid "返回一个随机数组，支持元素级值域控制。"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list:3
+#: utils.auxiliary_operator.generate_random_list_with_total:3
+#: utils.faker_utils.get_faker:3
+#: utils.option_generator.find_always_TF_combined_events:3
+msgid "参数:"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list:4
+msgid ""
+"size (int): 数组长度。 ele_type (str): 数组中元素的类型，如 'int', 'bool', 'enum', "
+"'float'。 ele_domain (list or tuple): 全局元素的取值范围（当元素级值域未定义时使用）。 cond "
+"(list): 元素需满足的条件列表，每个为一个函数字符串，如 \"lambda l: sum(l) == 5\"。 per_ele_domain"
+" (list, optional): 每个元素的独立值域，长度必须等于 size。可以为None或包含None值，表示该元素使用全局值域。"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list_with_total:1
+msgid "返回一个总和为total的随机整数数组，支持元素级值域控制。"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list_with_total:4
+msgid ""
+"size (int): 数组长度。 ele_domain (list or tuple): 全局元素的取值范围（两个整数：[min, max]）。"
+" total (int): 数组所有元素的总和。 per_ele_domain (list, optional): "
+"每个元素的独立值域，长度必须等于 size。可以为None或包含None值，表示该元素使用全局值域。"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_var_names:1
+msgid ""
+"返回长度为n的默认变量名数组。当n <= 3时， 命名顺序为x, y, z; 当4 <= n <= 11时， 命名顺序为p, q, r, ...;"
+" 当n > 11时，命名顺序为x1, x2, ..."
+msgstr ""
+
+#: of utils.auxiliary_operator.get_data:1
+msgid "返回符号sym绑定的随机数据; 当sym为列表时，对每个元素如此做"
+msgstr ""
+
+#: of utils.auxiliary_operator.get_desc:1
+msgid "返回符号sym的描述; 当sym为列表时，对每个元素如此做"
+msgstr ""
+
+#: of utils.auxiliary_operator.get_p:1
+msgid "返回符号sym的名为p的依赖变量值; 当sym为列表时，对每个元素如此做"
+msgstr ""
+
+#: of utils.auxiliary_operator.get_value:1
+msgid "返回vars在z3-solver的解sol中的值"
+msgstr ""
+
+#: of utils.auxiliary_operator.get_var_name:1
+msgid "返回z3变量的字符串形式变量名"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:1
+msgid "构建Z3表达式抽象语法树（AST）"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:3
+msgid ""
+"运算符标识符，支持以下形式：  - 比较运算符：`\"eq\"`/`\"==\"`, `\"neq\"`/`\"!=\"`, "
+"`\"gt\"`/`\">\"`, `\"ge\"`/`\">=\"`, `\"lt\"`/`\"<\"`, `\"le\"`/`\"<=\"`"
+"  - 逻辑运算符：`\"and\"`/`\"&&\"`, `\"or\"`/`\"||\"`, `\"not\"`/`\"!\"`, "
+"`\"implies\"`/`\"=>\"`  - 算术运算符：`\"add\"`/`\"+\"`, `\"sub\"`/`\"-\"`, "
+"`\"mul\"`/`\"*\"`, `\"div\"`/`\"/\"`"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:3
+msgid "运算符标识符，支持以下形式："
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:5
+msgid ""
+"比较运算符：`\"eq\"`/`\"==\"`, `\"neq\"`/`\"!=\"`, `\"gt\"`/`\">\"`, "
+"`\"ge\"`/`\">=\"`, `\"lt\"`/`\"<\"`, `\"le\"`/`\"<=\"`"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:7
+msgid ""
+"逻辑运算符：`\"and\"`/`\"&&\"`, `\"or\"`/`\"||\"`, `\"not\"`/`\"!\"`, "
+"`\"implies\"`/`\"=>\"`"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:9
+msgid ""
+"算术运算符：`\"add\"`/`\"+\"`, `\"sub\"`/`\"-\"`, `\"mul\"`/`\"*\"`, "
+"`\"div\"`/`\"/\"`"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:11
+msgid ""
+"Z3表达式操作数，数量由运算符决定：  - 一元运算符：1个操作数（如 `not`）  - 二元运算符：2个操作数（如 +, ==）  - "
+"多元运算符：任意数量（如 `and`, `or`）"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:11
+msgid "Z3表达式操作数，数量由运算符决定："
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:13
+msgid "一元运算符：1个操作数（如 `not`）"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:15
+msgid "二元运算符：2个操作数（如 +, ==）"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:17
+msgid "多元运算符：任意数量（如 `and`, `or`）"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:20
+msgid "生成的Z3表达式对象"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:23
+msgid "- 当使用不支持的运算符时     - 当操作数数量不符合运算符要求时"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:23
+msgid "当使用不支持的运算符时     - 当操作数数量不符合运算符要求时"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:32
+#: utils.auxiliary_operator.to_hashable:14
+msgid "Notes"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:33
+msgid "逻辑运算符 `and`/`or` 支持任意数量操作数"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:34
+msgid "算术运算符 + 实际调用`Sum`函数（如 `a + b + c` 转换为 `Sum(a,b,c)`）"
+msgstr ""
+
+#: of utils.auxiliary_operator.sort_solutions:1
+msgid "对Z3求解器得到的解列表进行排序。"
+msgstr ""
+
+#: of utils.auxiliary_operator.sort_solutions:3
+msgid ""
+"参数: solutions (list): 要排序的解列表，每个元素是一个Z3模型。 key_func (callable, optional):"
+" 用于生成排序键的函数，接收一个模型并返回可排序的值。默认为按变量名排序后的值元组。"
+msgstr ""
+
+#: of utils.auxiliary_operator.to_hashable:1
+msgid "递归转换嵌套结构为可哈希类型"
+msgstr ""
+
+#: of utils.auxiliary_operator.to_hashable:3
+msgid "输入元素，支持嵌套列表/元组"
+msgstr ""
+
+#: of utils.auxiliary_operator.to_hashable:6
+msgid "可哈希对象：将列表转换为元组，保持嵌套结构"
+msgstr ""
+
+#: of utils.auxiliary_operator.to_hashable:15
+msgid "主要用于将嵌套结构作为字典键或集合元素使用"
+msgstr ""
+
+#: of utils.auxiliary_operator.to_hashable:16
+msgid "仅处理列表类型，其他容器类型（如dict）需自行处理"
+msgstr ""
+
+#: of utils.auxiliary_operator.to_unique:1
+msgid "列表去重（保留顺序）"
+msgstr ""
+
+#: of utils.auxiliary_operator.to_unique:3
+msgid "输入列表或任意类型"
+msgstr ""
+
+#: of utils.auxiliary_operator.to_unique:6
+msgid "去重后的列表（保持元素顺序），非列表输入直接返回"
+msgstr ""
+
+#: ../source/utils.rst:16
+msgid "utils.condition\\_generator module"
+msgstr ""
+
+#: of utils.condition_generator:1
+msgid "该模块用来生成不同模板问题的约束条件"
+msgstr ""
+
+#: of utils.condition_generator.gen_event_count_condition:1
+msgid "返回事件数组中最多/最少/恰好有num个事件为真的条件。"
+msgstr ""
+
+#: of utils.condition_generator.gen_event_count_condition:3
+#: utils.option_generator.find_always_TF_events:3
+#: utils.option_generator.get_TF_events_for_each_solution:3
+msgid "z3.Bool 类型的数组"
+msgstr ""
+
+#: of utils.condition_generator.gen_event_count_condition:4
+msgid "事件客观事实: \"most\"（最多）、\"least\"（最少）或 \"equal\"（恰好）。"
+msgstr ""
+
+#: of utils.condition_generator.gen_event_count_condition:5
+msgid "数量，必须大于 0 且小于等于事件列表的长度"
+msgstr ""
+
+#: of utils.condition_generator.gen_multi_event_count_condition:1
+msgid "根据多维事件数组生成条件。"
+msgstr ""
+
+#: of utils.condition_generator.gen_multi_event_count_condition:3
+msgid "事件数组，每个元素是一个symbol"
+msgstr ""
+
+#: of utils.condition_generator.gen_multi_event_count_condition:4
+msgid "算子，如wc (word count)"
+msgstr ""
+
+#: of utils.condition_generator.gen_multi_event_count_condition:5
+msgid "条件的目标值"
+msgstr ""
+
+#: ../source/utils.rst:24
+msgid "utils.faker\\_utils module"
+msgstr ""
+
+#: of utils.faker_utils.get_faker:1
+msgid "生成指定数量的唯一Faker数据"
+msgstr ""
+
+#: of utils.faker_utils.get_faker:4
+msgid ""
+"num: 生成数据的数量 provider_name: Provider名称（也是调用方法名） providers: "
+"要添加的Provider类列表 locale: 地区设置（默认为中文） seed: 随机种子"
+msgstr ""
+
+#: of utils.faker_utils.get_faker:10
+#: utils.option_generator.find_always_TF_combined_events:9
+msgid "返回:"
+msgstr ""
+
+#: of utils.faker_utils.get_faker:11
+msgid "生成的不重复数据列表"
+msgstr ""
+
+#: of utils.faker_utils.get_faker:13
+msgid "异常:"
+msgstr ""
+
+#: of utils.faker_utils.get_faker:14
+msgid "AttributeError: 当provider_name不存在时 ValueError: 无法生成足够唯一数据时"
+msgstr ""
+
+#: ../source/utils.rst:32
+msgid "utils.option\\_generator module"
+msgstr ""
+
+#: of utils.option_generator:1
+msgid "该模块用来生成不同问题的问题选项"
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_combined_events:1
+msgid "分析 events 在 solutions 中，哪 num 个 events 的组合一定同时为真或假。"
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_combined_events:4
+msgid ""
+"events: List[BoolRef], Z3 布尔变量数组（事件数组）。 solutions: List[Model], "
+"多组可行解（solver.model() 的数组）。 require: bool, 要求事件为真（True）还是假（False）。 num: "
+"int, 限定的事件组合数量。当 num = 1 时，退化成 find_always_TF_events"
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_combined_events:10
+msgid "List[Tuple[BoolRef]], 满足条件的 num 个 events 组合列表。"
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_events:1
+msgid "找出在所有可行解 (solutions) 中始终为 True/False 的事件 (events)。"
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_events:4
+#: utils.option_generator.get_TF_events_for_each_solution:4
+#: utils.option_generator.get_required_non_solutions:3
+msgid "多个 Solver.model() 组成的数组"
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_events:5
+#: utils.option_generator.get_TF_events_for_each_solution:5
+msgid "要求事件为真（True）还是假（False）。"
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_events:6
+msgid "在所有 solutions 中始终为 True 的事件列表satisfied_res，以及不满足条件的结果unsatisfied_res"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:1
+msgid "找到在所有可行解中满足条件的event_num个事件。 默认为找出所有最多只有1个为真的2个事件"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:4
+msgid "事件数组，同DSL中DerivedSymbol.init"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:5
+msgid "正确项个数"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:6
+msgid "错误项个数"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:7
+msgid "可行解数组（Z3 模型数组）"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:8
+msgid "同DSL中formula"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:9
+msgid "对所有解都满足（\"all\"）还是存在一个满足的解（\"any\")即可，同DSL中DerivedSymbol.cond"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:10
+msgid "数组，每个子事件的数量，同DSL中DerivedSymbol.amount"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:11
+msgid "同DSL中DerivedSymbol.order，默认全False"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:12
+msgid "同DSL中init_cond，默认全False"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:13
+msgid "同DSL中custom_cond"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:14
+msgid "导入translator生成的程序中的环境变量"
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:15
+msgid "返回满足条件的事件对列表satisfied及其下标列表satisfied_indices，以及不满足条件的组合unsatisfied及其下标列表unsatisfied_indices"
+msgstr ""
+
+#: of utils.option_generator.get_TF_events_for_each_solution:1
+msgid "返回solutions中每一个可行解中值为真/假的事件。"
+msgstr ""
+
+#: of utils.option_generator.get_required_non_solutions:1
+msgid "找出满足条件（conditions）的num个不为solutions的 非可行解，用于做非正确选项。"
+msgstr ""
+
+#: of utils.option_generator.get_required_non_solutions:4
+msgid "非正确选项需要满足的条件"
+msgstr ""
+
+#: of utils.option_generator.get_required_non_solutions:5
+msgid "返回多少组非正确选项"
+msgstr ""
+
+#: ../source/utils.rst:40
+msgid "Module contents"
+msgstr ""
+

@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utils.option_generator &mdash; PuzzleClone v0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PuzzleClone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">PuzzleClone</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PuzzleClone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">utils.option_generator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for utils.option_generator</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">This module provides functions to generate options based on Z3 solver models.</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">itertools</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">z3</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">choice</span><span class="p">,</span> <span class="n">sample</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.auxiliary_operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">CustomSym</span><span class="p">,</span> <span class="n">generate_random_indices</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<div class="viewcode-block" id="get_TF_events_for_each_solution">
+<a class="viewcode-back" href="../../utils.html#utils.option_generator.get_TF_events_for_each_solution">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_TF_events_for_each_solution</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">solutions</span><span class="p">,</span> <span class="n">require</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the events that are true/false in each feasible solution from solutions.</span>
+
+<span class="sd">    :param events: Array of z3.Bool type.</span>
+<span class="sd">    :param solutions: Array composed of multiple Solver.model() instances.</span>
+<span class="sd">    :param require: Whether the events should be true (True) or false (False).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">return</span> <span class="p">[[</span><span class="n">var</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">events</span> <span class="k">if</span> <span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">==</span> <span class="n">require</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">==</span> <span class="kc">None</span><span class="p">)</span> <span class="p">]</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">solutions</span><span class="p">]</span></div>
+
+    
+
+
+<div class="viewcode-block" id="get_required_non_solutions">
+<a class="viewcode-back" href="../../utils.html#utils.option_generator.get_required_non_solutions">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_required_non_solutions</span><span class="p">(</span><span class="n">solutions</span><span class="p">,</span> <span class="n">conditions</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find num infeasible solutions that satisfy the conditions (conditions) but are not in solutions, for use as incorrect options.</span>
+
+<span class="sd">    :param solutions: Array composed of multiple Solver.model() instances.</span>
+<span class="sd">    :param conditions: Conditions that the incorrect options need to satisfy.</span>
+<span class="sd">    :param num: The number of groups of incorrect options to return.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># 创建求解器</span>
+    <span class="n">solver</span> <span class="o">=</span> <span class="n">Solver</span><span class="p">()</span>
+
+    <span class="c1"># 排除可行解</span>
+    <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">solutions</span><span class="p">:</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Or</span><span class="p">([</span><span class="n">var</span><span class="p">()</span> <span class="o">!=</span> <span class="n">model</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">model</span><span class="p">]))</span>
+
+    <span class="c1"># 添加额外约束</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">conditions</span><span class="p">):</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">And</span><span class="p">(</span><span class="o">*</span><span class="n">conditions</span><span class="p">))</span>
+
+    <span class="n">current_num</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">non_solutions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">while</span> <span class="n">current_num</span> <span class="o">&lt;</span> <span class="n">num</span> <span class="ow">and</span> <span class="n">solver</span><span class="o">.</span><span class="n">check</span><span class="p">()</span> <span class="o">==</span> <span class="n">sat</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">model</span><span class="p">()</span>  <span class="c1"># 获取当前解</span>
+        <span class="n">non_solutions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>  <span class="c1"># 保存解</span>
+        <span class="c1"># 添加排除条件：排除当前解的所有变量赋值</span>
+        <span class="n">block</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="p">()</span> <span class="o">!=</span> <span class="n">model</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">model</span><span class="p">]</span>  <span class="c1"># model[var()] 等价 model[var]</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Or</span><span class="p">(</span><span class="n">block</span><span class="p">))</span>  <span class="c1"># 要求至少有一个变量与当前解不同</span>
+        <span class="n">current_num</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="n">satisfied_res</span><span class="p">,</span> <span class="n">unsatisfied_res</span> <span class="o">=</span> <span class="n">solutions</span><span class="p">,</span> <span class="n">non_solutions</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">work</span><span class="p">(</span><span class="n">res</span><span class="p">):</span>
+        <span class="n">_ans</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">sol</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+            <span class="n">_res</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">sol</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">sol</span><span class="p">[</span><span class="n">var</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">_res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="p">())</span>
+            <span class="n">_ans</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">_res</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">_ans</span>
+    <span class="k">return</span> <span class="n">work</span><span class="p">(</span><span class="n">satisfied_res</span><span class="p">),</span> <span class="n">work</span><span class="p">(</span><span class="n">unsatisfied_res</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="find_always_TF_events">
+<a class="viewcode-back" href="../../utils.html#utils.option_generator.find_always_TF_events">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_always_TF_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">solutions</span><span class="p">,</span> <span class="n">require</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Identify events (events) that are always True/False in all feasible solutions (solutions).</span>
+
+<span class="sd">    :param events: Array of z3.Bool type.</span>
+<span class="sd">    :param solutions: Array composed of multiple Solver.model() instances.</span>
+<span class="sd">    :param require: Whether the events should be true (True) or false (False).</span>
+<span class="sd">    :return: List of events that are always True in all solutions, `satisfied_res`, and the results that do not meet the condition, `unsatisfied_res`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">satisfied_res</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">unsatisfied_res</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+        <span class="c1"># 检查 event 是否在所有 solutions 里都为 True</span>
+        <span class="c1"># if all(solution.eval(event, model_completion=True) == True for solution in solutions):</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="n">event</span><span class="p">]</span> <span class="o">==</span> <span class="n">require</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">solutions</span><span class="p">):</span>
+            <span class="n">satisfied_res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">unsatisfied_res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">satisfied_res</span><span class="p">,</span> <span class="n">unsatisfied_res</span></div>
+
+
+<div class="viewcode-block" id="find_required_event_groups">
+<a class="viewcode-back" href="../../utils.html#utils.option_generator.find_required_event_groups">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_required_event_groups</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">correct_num</span><span class="p">,</span> <span class="n">incorrect_num</span><span class="p">,</span> <span class="n">solutions</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">cond</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span><span class="p">,</span> <span class="n">event_num</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">order</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">duplicate</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">custom_cond</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">env</span> <span class="o">=</span> <span class="p">{}):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find event_num events that satisfy the condition among all feasible solutions.</span>
+<span class="sd">    By default, it identifies all pairs of events where at most one is true.</span>
+
+<span class="sd">    :param events: Array of events, similar to DerivedSymbol.source in DSL.</span>
+<span class="sd">    :param correct_num: Number of correct items.</span>
+<span class="sd">    :param incorrect_num: Number of incorrect items.</span>
+<span class="sd">    :param solutions: Array of feasible solutions (array of Z3 models).</span>
+<span class="sd">    :param formula: Similar to formula in DSL.</span>
+<span class="sd">    :param cond: Whether all solutions must satisfy (&quot;all&quot;) or if at least one satisfying solution is enough (&quot;any&quot;), similar to DerivedSymbol.cond in DSL.</span>
+<span class="sd">    :param event_num: Array specifying the number of sub-events, similar to DerivedSymbol.amount in DSL.</span>
+<span class="sd">    :param order: Similar to DerivedSymbol.order in DSL, default is all False.</span>
+<span class="sd">    :param duplicate: Similar to duplicate in DSL, default is all False.</span>
+<span class="sd">    :param custom_cond: Similar to custom_cond in DSL.</span>
+<span class="sd">    :param env: Environment variables imported from the program generated by the translator.</span>
+<span class="sd">    :return: Returns a list of satisfied event pairs `satisfied` and their index list `satisfied_indices`, as well as the unsatisfied combinations `unsatisfied` and their index list `unsatisfied_indices`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">duplicate</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">duplicate</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">))]</span>
+    
+    <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">))]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">event_num</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="ow">and</span> <span class="n">duplicate</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot select </span><span class="si">{</span><span class="n">event_num</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2"> distinct items from </span><span class="si">{</span><span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">!=</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">CustomSym</span><span class="p">):</span>
+                <span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="c1"># 生成正确项</span>
+    <span class="n">satisfied_indices</span><span class="p">,</span> <span class="n">satisfied_indices_config</span> <span class="o">=</span> <span class="n">generate_random_indices</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">event_num</span><span class="p">,</span> <span class="n">correct_num</span><span class="p">,</span> <span class="n">domain_cond</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">custom_cond</span><span class="o">=</span><span class="n">custom_cond</span> <span class="o">+</span> <span class="p">[{</span><span class="s2">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;option&quot;</span><span class="p">,</span> <span class="s2">&quot;cond&quot;</span><span class="p">:</span> <span class="n">cond</span><span class="p">,</span> <span class="s2">&quot;formula&quot;</span><span class="p">:</span> <span class="n">formula</span><span class="p">,</span> <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}],</span> <span class="n">duplicate</span><span class="o">=</span><span class="n">duplicate</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">env</span><span class="p">,</span> <span class="o">**</span><span class="nb">globals</span><span class="p">(),</span> <span class="s2">&quot;_solutions&quot;</span><span class="p">:</span> <span class="n">solutions</span><span class="p">})</span>
+
+    <span class="c1"># 生成错误项</span>
+    <span class="n">unsatisfied_indices</span><span class="p">,</span> <span class="n">unsatisfied_indices_config</span> <span class="o">=</span> <span class="n">generate_random_indices</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">event_num</span><span class="p">,</span> <span class="n">incorrect_num</span><span class="p">,</span> <span class="n">domain_cond</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">custom_cond</span><span class="o">=</span><span class="n">custom_cond</span> <span class="o">+</span> <span class="p">[{</span><span class="s2">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;option&quot;</span><span class="p">,</span> <span class="s2">&quot;cond&quot;</span><span class="p">:</span> <span class="n">cond</span><span class="p">,</span> <span class="s2">&quot;formula&quot;</span><span class="p">:</span> <span class="n">formula</span><span class="p">,</span> <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}],</span> <span class="n">duplicate</span><span class="o">=</span><span class="n">duplicate</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="n">env</span><span class="p">,</span> <span class="o">**</span><span class="nb">globals</span><span class="p">(),</span> <span class="s2">&quot;_solutions&quot;</span><span class="p">:</span> <span class="n">solutions</span><span class="p">})</span>
+    <span class="c1"># print(satisfied_indices, unsatisfied_indices)</span>
+
+    <span class="c1"># 转换为事件对象列表</span>
+    <span class="n">satisfied</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">tuple</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">sub_indices</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sub_indices</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">comb</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">comb</span> <span class="ow">in</span> <span class="n">satisfied_indices</span>
+    <span class="p">]</span>
+    <span class="n">unsatisfied</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="nb">tuple</span><span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">events</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">idx</span><span class="p">]</span> <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="n">sub_indices</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sub_indices</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">comb</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">comb</span> <span class="ow">in</span> <span class="n">unsatisfied_indices</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">satisfied_indices_config</span><span class="p">,</span> <span class="n">unsatisfied_indices_config</span><span class="p">,</span> <span class="n">satisfied</span><span class="p">,</span> <span class="n">unsatisfied</span></div>
+
+
+
+<div class="viewcode-block" id="find_always_TF_combined_events">
+<a class="viewcode-back" href="../../utils.html#utils.option_generator.find_always_TF_combined_events">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_always_TF_combined_events</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">solutions</span><span class="p">,</span> <span class="n">require</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Analyze which combinations of num events in solutions are always true or false.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        events: List[BoolRef], array of Z3 boolean variables (event array).</span>
+<span class="sd">        solutions: List[Model], multiple feasible solutions (array of solver.model()).</span>
+<span class="sd">        require: bool, whether the events should be true (True) or false (False).</span>
+<span class="sd">        num: int, the number of event combinations. When num = 1, it degenerates into find_always_TF_events.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        List[Tuple[BoolRef]], list of combinations of num events that satisfy the condition.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># 遍历所有 num 个 events 的组合</span>
+    <span class="k">for</span> <span class="n">event_comb</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">combinations</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="c1"># 检查该组合是否在所有解中同时满足 require 条件</span>
+        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">all</span><span class="p">(</span><span class="n">model</span><span class="p">[</span><span class="n">event</span><span class="p">]</span> <span class="o">==</span> <span class="n">require</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">event_comb</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">solutions</span><span class="p">):</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event_comb</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">find_always_TF_events</span><span class="p">(</span><span class="s2">&quot;abc&quot;</span><span class="p">,</span> <span class="p">[{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">find_always_TF_combined_events</span><span class="p">(</span><span class="s2">&quot;abc&quot;</span><span class="p">,</span> <span class="p">[{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}]))</span>
+
+    
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Anonymous Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

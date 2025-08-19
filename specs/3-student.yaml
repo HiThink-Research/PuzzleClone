@@ -1,0 +1,47 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 10]"
+    diff_factor: 1
+  speech_num:
+    type: int
+    domain: "[p_num // 2, p_num * 2 - 2]"
+    diff_factor: 1
+  names:
+    formula: get_faker(p_num, 'name')
+  name_desc:
+    formula: "'、'.join(names)"
+symbols:
+  names_s:
+    source:
+    - names
+    type: Bool
+    desc: "{_names}做对了"
+  speeches_s:
+    source:
+    - names_s
+    - "[True, False]"
+    - "['eq']"
+    domain: speech_num
+    formula: make_expr(_sym[2], _sym[0], _sym[1])
+    desc: 有人说："{get_p(_sym[0], "names")}做{"对" if _sym[1] else "错"}了"
+conditions:
+  extra1:
+    source:
+    - range(p_num // 2 - 1, p_num // 2 + 2)
+    formula: gen_event_count_condition(names_s, 'equal', _sym[0])
+    desc: 你们{p_num}个人中有{_sym[0]}个人做对了
+  extra2:
+    source:
+    - range(speech_num // 2 - 1, speech_num // 2 + 2)
+    formula: gen_event_count_condition(speeches_s, 'equal', _sym[0])
+    desc: 以上说法中有{_sym[0]}句话说对了
+max_solution: 1
+queries:
+  q1:
+    desc: 请问，他们中到底谁做对了？
+    ans_formula: get_p(get_TF_events_for_each_solution(names_s, _solutions, True),
+      'names')
+    ans_text: "','.join(_ans[0])"
+    ans_assertion: len(_ans) > 0
+desc: "{name_desc} {p_num}个人在一起做作业，有一道数学题比较难，当他们{p_num}个人都把自己的解法说出来以后，{'，'.join(get_desc(speeches_s))}。在一旁的老师看到他们的答案并听了他们的说法后说：“{extra1}，{extra2}。”{q1}\n"

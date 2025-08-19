@@ -1,0 +1,862 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, Anonymous Authors
+# This file is distributed under the same license as the PuzzleClone
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PuzzleClone \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-18 11:00+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../source/utils.rst:2
+msgid "utils package"
+msgstr ""
+
+#: ../source/utils.rst:5
+msgid "Submodules"
+msgstr ""
+
+#: ../source/utils.rst:8
+msgid "utils.auxiliary\\_operator module"
+msgstr ""
+
+#: of utils.auxiliary_operator:1
+msgid "Auxiliary Operator"
+msgstr ""
+
+#: of utils.auxiliary_operator:3
+msgid ""
+"This module provides functionality for constructing symbols and "
+"conditions, including: 1. Symbol wrapper (CustomSym) 2. Condition wrapper"
+" (CustomCond) 3. Utility functions for generating random indices, "
+"evaluating conditions, and managing symbol metadata."
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:1
+msgid "Bases: :py:class:`str`"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:1
+msgid "Condition wrapper class for structured condition modeling"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:3
+msgid ""
+"Extends metadata support based on the standard string class to achieve: -"
+" Binding of conditional expressions to descriptive text - Domain "
+"identification classification - Additional data payload"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:10
+msgid "Number of expressions"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond
+#: utils.auxiliary_operator.CustomCond.desc utils.auxiliary_operator.CustomSym
+msgid "type"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:12
+msgid "int"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:16
+msgid "Additional data payload"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:18
+msgid "list"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:20
+msgid "Inherits:"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:21
+msgid "All native functionalities and methods of str"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond:24
+#: utils.auxiliary_operator.CustomSym.to_list:10
+msgid "Example"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond.desc:1
+msgid "Natural langauge description"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomCond.desc:3
+#: utils.auxiliary_operator.CustomSym:7
+msgid "str"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:1
+msgid "Bases: :py:class:`dict`"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:1
+msgid ""
+"Symbol wrapper class supporting structured symbol modeling and Z3 "
+"variable integration"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:5
+msgid "Symbol group name, used as symbol prefix"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:11
+msgid "Data source"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:13
+#, python-brace-format
+msgid "Example: {\"Grade\": [1,2,3], \"Subject\": [\"Math\", \"Chinese\"]}"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:15
+msgid "Dict[str, List[Union[str, int]]]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:19
+msgid "Attributes"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:21
+msgid "Example: [\"Score\", \"Difficulty\"]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:23
+msgid "Optional[List[str]]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:27
+msgid "Variable type definition, supports:"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:29
+msgid "'Int' (default)/'Bool'/'Real'/'Float'/'BitVec'"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:31
+msgid "Type list (needs equal length when attr exists)"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:33
+msgid "Union[str, List[str]]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:37
+msgid "Description template system"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:39
+msgid "Single attribute mode: \"Grade variable description\""
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:41
+msgid "Multi-attribute mode: [\"Score description\", \"Difficulty description\"]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:43
+msgid "Optional[Union[str, List[str]]]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym:46
+#: utils.auxiliary_operator.make_expr:26
+#: utils.auxiliary_operator.to_hashable:10 utils.auxiliary_operator.to_unique:9
+msgid "Examples"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.get:1
+msgid "Batch retrieve all variable instances of the specified attribute."
+msgstr ""
+
+#: ../source/utils.rst of utils.auxiliary_operator.to_unique
+msgid "Parameters"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.get:3
+msgid "Target attribute name"
+msgstr ""
+
+#: ../source/utils.rst of utils.auxiliary_operator.CustomSym.to_list:3
+#: utils.auxiliary_operator.to_unique
+msgid "Returns"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.get:5
+msgid ""
+"A list of attribute variables/instances arranged in the order of "
+"initialization."
+msgstr ""
+
+#: ../source/utils.rst
+msgid "Raises"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.get:7
+msgid "When attr does not exist or is currently in single-attribute mode."
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.to_list:1
+msgid "Output a list of Z3 symbols."
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.to_list:5
+msgid "Single attribute: [Var1, Var2, ...]"
+msgstr ""
+
+#: of utils.auxiliary_operator.CustomSym.to_list:7
+msgid ""
+"Multiple attributes: [[Attribute1 variable list], [Attribute2 variable "
+"list], ...]"
+msgstr ""
+
+#: of utils.auxiliary_operator.SafeTemplate:1
+msgid "Bases: :py:class:`object`"
+msgstr ""
+
+#: of utils.auxiliary_operator.choose:1
+msgid ""
+"Select group_num tuples of length group_size from a set of symbols/events"
+" (candidates)."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_letters:1
+msgid "Generate a set of letter identifiers."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_letters:3
+msgid "The number of identifiers to generate."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_letters:5
+msgid "Language option, 'en' for English (default), other values for Chinese."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_letters:8
+msgid ""
+"In English mode, returns a list formatted like ['A1', 'A2', ...]. str: In"
+" Chinese mode, returns a string containing the specified number of "
+"characters."
+msgstr ""
+
+#: ../source/utils.rst
+msgid "Return type"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_letters:12
+msgid "Description:"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_letters:14
+msgid ""
+"English mode: Uses a looped sequence of letters A-Z combined with numbers"
+" (resets letters every 26 iterations)."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_letters:16
+msgid ""
+"Chinese mode: Uses a fixed alphabet \"甲乙丙丁...\" to return the first n "
+"characters."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:1
+msgid "Generate random index combinations."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:3
+msgid ""
+"Number of available elements in each data source, similar to "
+"DerivedSymbol.init."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:5
+msgid ""
+"Number of elements to choose in each data source, similar to "
+"DerivedSymbol.amount. Example: [\"2\", \"1\"] indicates selecting 2 from "
+"the first data source and 1 from the second source."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:8
+msgid "Total number of groups to select, similar to DerivedSymbol.domain."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:10
+msgid "Same as DerivedSymbol.domain_cond, default True."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:12
+msgid "Number of dimensions in each symbol, similar to DerivedSymbol.dim."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:14
+msgid "Same as DerivedSymbol.dim_cond."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:16
+msgid ""
+"List of custom constraints, each dictionary contains: (Same as "
+"DerivedSymbol.custom_cond) - scope: Level of application "
+"('dim'/'domain'). - fields: List of indices of the involved data sources."
+" - constraint: Logical expression for constraints (callable object)."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:21
+msgid ""
+"Configuration of arrangement for each dimension. Same as "
+"DerivedSymbol.order. - True: Arrangement (considering order). - False: "
+"Combination (not considering order)."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:25
+msgid ""
+"Initialization repetition rules. Same as DerivedSymbol.init_cond. - True:"
+" Allow repeated selections. - False: Prohibit repetition."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:29
+msgid ""
+"Importing the environment variables from code generated by the "
+"translator. Used for evaluating some conditional expressions in "
+"custom_cond."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:32
+msgid ""
+"(Selected indices, Formatted selected indices)      - Example: ([[[1, 2],"
+" [3]], [[4, 5], [6]]], [\"__1__, __2__\", \"__3__\"])      - Note: The "
+"formatted indices are for configuration purposes, not for direct use in "
+"the program. In config files, strings that start and end with \"__\" are "
+"considered as indices rather than values."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:34
+msgid "(Selected indices, Formatted selected indices)"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:36
+msgid "Example: ([[[1, 2], [3]], [[4, 5], [6]]], [\"__1__, __2__\", \"__3__\"])"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:38
+msgid ""
+"Note: The formatted indices are for configuration purposes, not for "
+"direct use in the program. In config files, strings that start and end "
+"with \"__\" are considered as indices rather than values."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:41
+msgid "Raised when parameter lengths do not match."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:42
+msgid "Raised when unable to generate valid combinations."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:44
+msgid "Implementation Process:"
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:45
+msgid "Parameter validation and initialization."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:46
+msgid ""
+"Generate a base pool of combinations based on the provided choose and "
+"amount."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_indices:47
+msgid "Handling custom conditions."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list:1
+msgid "Return a random array with element-level range control."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list:3
+#: utils.auxiliary_operator.generate_random_list_with_total:3
+msgid "Length of the array."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list:5
+msgid "Type of elements in the array, such as 'int', 'bool', 'enum', 'float'."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list:7
+msgid ""
+"Global value range for elements (used when element-level range is not "
+"defined)."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list:9
+msgid ""
+"List of conditions that elements must satisfy, each as a function string,"
+" e.g., \"lambda l: sum(l) == 5\"."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list:11
+#: utils.auxiliary_operator.generate_random_list_with_total:9
+msgid ""
+"Independent value range for each element, must have the same length as "
+"size. Can be None or contain None values, indicating that the element "
+"should use the global value range."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list_with_total:1
+msgid ""
+"Return a random integer array with a total sum of total, supporting "
+"element-level range control."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list_with_total:5
+msgid "Global value range for elements (two integers: [min, max])."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_random_list_with_total:7
+msgid "The total sum of all elements in the array."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_var_names:1
+msgid "Return an array of default variable names with a length of n."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_var_names:3
+msgid "When n <= 3, the order is x, y, z."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_var_names:4
+msgid "When 4 <= n <= 11, the order is p, q, r, ... ."
+msgstr ""
+
+#: of utils.auxiliary_operator.generate_var_names:5
+msgid "When n > 11, the order is x1, x2, ... ."
+msgstr ""
+
+#: of utils.auxiliary_operator.get_data:1
+msgid ""
+"Return the random data bound to the condition 'sym'; if 'sym' is a list, "
+"do this for each element."
+msgstr ""
+
+#: of utils.auxiliary_operator.get_desc:1
+msgid ""
+"Return the description of the symbol 'sym'; if 'sym' is a list, do this "
+"for each element."
+msgstr ""
+
+#: of utils.auxiliary_operator.get_p:1
+msgid ""
+"Return the value of the binded variable named 'p' for the symbol 'sym'; "
+"if 'sym' is a list, do this for each element."
+msgstr ""
+
+#: of utils.auxiliary_operator.get_value:1
+msgid "Return the values of 'vars' in the solution 'sol' of the z3-solver."
+msgstr ""
+
+#: of utils.auxiliary_operator.get_var_name:1
+msgid "Return the string representation of the variable name of the z3 variable."
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:1
+msgid "Construct a Z3 expression."
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:3
+msgid ""
+"Operator identifier, supporting the following forms:  - Comparison "
+"operators: `\"eq\"`/`\"==\"`, `\"neq\"`/`\"!=\"`, `\"gt\"`/`\">\"`, "
+"`\"ge\"`/`\">=\"`, `\"lt\"`/`\"<\"`, `\"le\"`/`\"<=\"`  - Logical "
+"operators: `\"and\"`/`\"&&\"`, `\"or\"`/`\"||\"`, `\"not\"`/`\"!\"`, "
+"`\"implies\"`/`\"=>\"`  - Arithmetic operators: `\"add\"`/`\"+\"`, "
+"`\"sub\"`/`\"-\"`, `\"mul\"`/`\"*\"`, `\"div\"`/`\"/\"`"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:3
+msgid "Operator identifier, supporting the following forms:"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:5
+msgid ""
+"Comparison operators: `\"eq\"`/`\"==\"`, `\"neq\"`/`\"!=\"`, "
+"`\"gt\"`/`\">\"`, `\"ge\"`/`\">=\"`, `\"lt\"`/`\"<\"`, `\"le\"`/`\"<=\"`"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:7
+msgid ""
+"Logical operators: `\"and\"`/`\"&&\"`, `\"or\"`/`\"||\"`, "
+"`\"not\"`/`\"!\"`, `\"implies\"`/`\"=>\"`"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:9
+msgid ""
+"Arithmetic operators: `\"add\"`/`\"+\"`, `\"sub\"`/`\"-\"`, "
+"`\"mul\"`/`\"*\"`, `\"div\"`/`\"/\"`"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:11
+msgid ""
+"Z3 expression operands, the number determined by the operator:  - Unary "
+"operators: 1 operand (e.g., `not`)  - Binary operators: 2 operands (e.g.,"
+" `+`, `==`)  - N-ary operators: Any number (e.g., `and`, `or`)"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:11
+msgid "Z3 expression operands, the number determined by the operator:"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:13
+msgid "Unary operators: 1 operand (e.g., `not`)"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:15
+msgid "Binary operators: 2 operands (e.g., `+`, `==`)"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:17
+msgid "N-ary operators: Any number (e.g., `and`, `or`)"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:20
+msgid "The generated Z3 expression object."
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:23
+msgid ""
+"- When an unsupported operator is used.     - When the number of operands"
+" does not meet the operator's requirements."
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:23
+msgid ""
+"When an unsupported operator is used.     - When the number of operands "
+"does not meet the operator's requirements."
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:32
+#: utils.auxiliary_operator.to_hashable:15
+msgid "Notes"
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:33
+msgid "Logical operators `and`/`or` support any number of operands."
+msgstr ""
+
+#: of utils.auxiliary_operator.make_expr:34
+msgid ""
+"Arithmetic operator `+` actually calls the `Sum` function (e.g., `a + b +"
+" c` converts to `Sum(a, b, c)`)."
+msgstr ""
+
+#: of utils.auxiliary_operator.sort_solutions:1
+msgid "Sort the list of solutions obtained from the Z3 solver."
+msgstr ""
+
+#: of utils.auxiliary_operator.sort_solutions:3
+msgid "The list of solutions to be sorted, where each element is a Z3 model."
+msgstr ""
+
+#: of utils.auxiliary_operator.sort_solutions:5
+msgid ""
+"A function to generate the sorting key, which takes a model and returns a"
+" sortable value. Defaults to a tuple of values sorted by variable names."
+msgstr ""
+
+#: of utils.auxiliary_operator.to_hashable:1
+msgid "Recursively convert nested structures to hashable types."
+msgstr ""
+
+#: of utils.auxiliary_operator.to_hashable:3
+msgid "Input element, supports nested lists/tuples."
+msgstr ""
+
+#: of utils.auxiliary_operator.to_hashable:6
+msgid "Converts lists to tuples, preserving the nested structure."
+msgstr ""
+
+#: of utils.auxiliary_operator.to_hashable:16
+msgid "Mainly used to use nested structures as dictionary keys or set elements."
+msgstr ""
+
+#: of utils.auxiliary_operator.to_hashable:17
+msgid ""
+"Only processes list types; other container types (e.g., dict) need to be "
+"handled separately."
+msgstr ""
+
+#: of utils.auxiliary_operator.to_unique:1
+msgid "Remove duplicates from a list (preserving order)."
+msgstr ""
+
+#: of utils.auxiliary_operator.to_unique:3
+msgid "Input list or any type."
+msgstr ""
+
+#: of utils.auxiliary_operator.to_unique:6
+msgid ""
+"A deduplicated list (maintaining the order of elements); returns the "
+"input directly if it's not a list."
+msgstr ""
+
+#: ../source/utils.rst:16
+msgid "utils.condition\\_generator module"
+msgstr ""
+
+#: of utils.condition_generator:1
+msgid "该模块用来生成不同模板问题的约束条件"
+msgstr ""
+
+#: of utils.condition_generator.gen_event_count_condition:1
+msgid ""
+"Return conditions where at most, least, or exactly num events are true in"
+" the event array."
+msgstr ""
+
+#: of utils.condition_generator.gen_event_count_condition:3
+msgid "Array of type z3.Bool."
+msgstr ""
+
+#: of utils.condition_generator.gen_event_count_condition:4
+msgid ""
+"Objective fact about the events: \"most\" (at most), \"least\" (least), "
+"or \"equal\" (exactly)."
+msgstr ""
+
+#: of utils.condition_generator.gen_event_count_condition:5
+msgid ""
+"The quantity, which must be greater than 0 and less than or equal to the "
+"length of the event list."
+msgstr ""
+
+#: of utils.condition_generator.gen_multi_event_count_condition:1
+msgid "Generate conditions based on a multidimensional event array."
+msgstr ""
+
+#: of utils.condition_generator.gen_multi_event_count_condition:3
+msgid "Array of events, where each element is a symbol."
+msgstr ""
+
+#: of utils.condition_generator.gen_multi_event_count_condition:4
+msgid "Operator, such as wc (word count)."
+msgstr ""
+
+#: of utils.condition_generator.gen_multi_event_count_condition:5
+msgid "The target value for the condition."
+msgstr ""
+
+#: ../source/utils.rst:24
+msgid "utils.faker\\_utils module"
+msgstr ""
+
+#: of utils.faker_utils.get_faker:1
+msgid "Generate a specified number of unique fake data entries using Faker."
+msgstr ""
+
+#: of utils.faker_utils.get_faker:3
+msgid "The number of data entries to generate."
+msgstr ""
+
+#: of utils.faker_utils.get_faker:4
+msgid "Name of the provider (also the method name to call)."
+msgstr ""
+
+#: of utils.faker_utils.get_faker:5
+msgid "List of provider classes to add."
+msgstr ""
+
+#: of utils.faker_utils.get_faker:6
+msgid "Locale setting (default is Chinese)."
+msgstr ""
+
+#: of utils.faker_utils.get_faker:7
+msgid "Random seed."
+msgstr ""
+
+#: of utils.faker_utils.get_faker:9
+msgid "A list of generated unique data."
+msgstr ""
+
+#: of utils.faker_utils.get_faker:11
+msgid "Exceptions:"
+msgstr ""
+
+#: of utils.faker_utils.get_faker:12
+msgid "AttributeError: When the provider_name does not exist."
+msgstr ""
+
+#: of utils.faker_utils.get_faker:14
+msgid "ValueError: When it is not possible to generate enough unique data."
+msgstr ""
+
+#: ../source/utils.rst:32
+msgid "utils.option\\_generator module"
+msgstr ""
+
+#: of utils.option_generator:1
+msgid ""
+"This module provides functions to generate options based on Z3 solver "
+"models."
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_combined_events:1
+msgid ""
+"Analyze which combinations of num events in solutions are always true or "
+"false."
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_combined_events:3
+msgid "List[BoolRef], array of Z3 boolean variables (event array)."
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_combined_events:4
+msgid "List[Model], multiple feasible solutions (array of solver.model())."
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_combined_events:5
+msgid "bool, whether the events should be true (True) or false (False)."
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_combined_events:6
+msgid ""
+"int, the number of event combinations. When num = 1, it degenerates into "
+"find_always_TF_events."
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_combined_events:8
+msgid ""
+"List[Tuple[BoolRef]], list of combinations of num events that satisfy the"
+" condition."
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_events:1
+msgid ""
+"Identify events (events) that are always True/False in all feasible "
+"solutions (solutions)."
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_events:3
+#: utils.option_generator.get_TF_events_for_each_solution:3
+msgid "Array of z3.Bool type."
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_events:4
+#: utils.option_generator.get_TF_events_for_each_solution:4
+#: utils.option_generator.get_required_non_solutions:3
+msgid "Array composed of multiple Solver.model() instances."
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_events:5
+#: utils.option_generator.get_TF_events_for_each_solution:5
+msgid "Whether the events should be true (True) or false (False)."
+msgstr ""
+
+#: of utils.option_generator.find_always_TF_events:6
+msgid ""
+"List of events that are always True in all solutions, `satisfied_res`, "
+"and the results that do not meet the condition, `unsatisfied_res`."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:1
+msgid ""
+"Find event_num events that satisfy the condition among all feasible "
+"solutions. By default, it identifies all pairs of events where at most "
+"one is true."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:4
+msgid "Array of events, similar to DerivedSymbol.init in DSL."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:5
+msgid "Number of correct items."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:6
+msgid "Number of incorrect items."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:7
+msgid "Array of feasible solutions (array of Z3 models)."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:8
+msgid "Similar to formula in DSL."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:9
+msgid ""
+"Whether all solutions must satisfy (\"all\") or if at least one "
+"satisfying solution is enough (\"any\"), similar to DerivedSymbol.cond in"
+" DSL."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:10
+msgid ""
+"Array specifying the number of sub-events, similar to "
+"DerivedSymbol.amount in DSL."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:11
+msgid "Similar to DerivedSymbol.order in DSL, default is all False."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:12
+msgid "Similar to init_cond in DSL, default is all False."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:13
+msgid "Similar to custom_cond in DSL."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:14
+msgid ""
+"Environment variables imported from the program generated by the "
+"translator."
+msgstr ""
+
+#: of utils.option_generator.find_required_event_groups:15
+msgid ""
+"Returns a list of satisfied event pairs `satisfied` and their index list "
+"`satisfied_indices`, as well as the unsatisfied combinations "
+"`unsatisfied` and their index list `unsatisfied_indices`."
+msgstr ""
+
+#: of utils.option_generator.get_TF_events_for_each_solution:1
+msgid ""
+"Return the events that are true/false in each feasible solution from "
+"solutions."
+msgstr ""
+
+#: of utils.option_generator.get_required_non_solutions:1
+msgid ""
+"Find num infeasible solutions that satisfy the conditions (conditions) "
+"but are not in solutions, for use as incorrect options."
+msgstr ""
+
+#: of utils.option_generator.get_required_non_solutions:4
+msgid "Conditions that the incorrect options need to satisfy."
+msgstr ""
+
+#: of utils.option_generator.get_required_non_solutions:5
+msgid "The number of groups of incorrect options to return."
+msgstr ""
+
+#: ../source/utils.rst:40
+msgid "Module contents"
+msgstr ""
+

@@ -1,0 +1,32 @@
+variables:
+  item_num:
+    type: int
+    domain: "[7, 14]"
+    diff_factor: 1
+  price:
+    formula: 'generate_random_list(item_num, ''int'', [1, 20], [f"lambda l: sum(l)
+      % 2 == 1"])'
+    diff_factor: 0
+  items:
+    formula: generate_letters(item_num)
+symbols:
+  v:
+    source:
+    - items
+    type: bool
+conditions:
+  sum_of_group_0_smaller_than_group_1:
+    formula: Sum([If(v[items[i]], price[i], -price[i]) for i in range(item_num)])
+      > 0
+optimize:
+  type: minimize
+  formula: Sum([If(v[items[i]], price[i], -price[i]) for i in range(item_num)])
+queries:
+  q1:
+    desc: 请问最终获得遗产较少的那个继承人获得了哪些物品？用逗号分隔输出这些物品的价值（仅数字）。
+    ans_formula: "[price[i] for i in range(item_num) if not get_value(_solutions,\
+      \ v[items[i]])]"
+    ans_text: "','.join([str(v) for v in _ans])"
+    ans_assertion: 'True'
+desc: 一位老人去世后留下了一批贵重物品作为遗产，需要平均分配给两个继承人。每个物品都有其确定的货币价值（单位：万元），且不能拆分（物品必须完整分配）。物品的价值列表如下：{'、'.join([str(v)
+  + '万元' for v in price])}。由于总价值为奇数，无法完全等分，但继承人希望两个子集的总价值差尽可能小，以实现公平分配。{q1}

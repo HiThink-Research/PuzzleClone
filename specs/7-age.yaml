@@ -1,0 +1,94 @@
+custom_operator:
+  part_skills: 'lambda p_skill_list, p_gender_list, gender: sum([p_skill_list[idx]
+    for idx, pi in enumerate(p_gender_list) if pi == gender])'
+  young_old_list: 'lambda all_list, pindex, old_flag: all_list[:pindex] if old_flag
+    else all_list[pindex+1:]'
+  get_relation: 'lambda gender, age: [''妹妹'', ''弟弟'', ''姐姐'', ''哥哥''][int(age) * 2
+    + int(gender)]'
+variables:
+  child_num:
+    type: int
+    domain: "[6, 16]"
+    diff_factor: 1
+  single_skill_num:
+    type: int
+    domain: "[4, 6]"
+  select_gender:
+    formula: random.choice([True, False])
+  skill_list:
+    formula: generate_random_list(child_num, 'int', [1, single_skill_num])
+  total_skill_num:
+    formula: sum(skill_list)
+    diff_factor: 1
+  gender_list:
+    formula: 'generate_random_list(child_num, ''bool'', [False, True], cond=[''lambda
+      l: 1 < sum(l) < child_num-1''])'
+  names:
+    formula: generate_letters(child_num, 'cn')
+symbols:
+  child_s:
+    source:
+    - names
+    attr:
+    - gender
+    - skill
+    type:
+    - bool
+    - int
+    desc:
+    - "{_sym[0]}的性别是{'男' if _value else '女'}"
+    - "{_sym[0]}的擅长{_value}个技能"
+conditions:
+  skill_range:
+    formula: And([And(s>=min(skill_list), s<=max(skill_list)) for s in child_s.get('skill')])
+    desc: 其中擅长技能数最多的孩子拥有{max(skill_list)}个技能，擅长技能数最少的孩子也会{min(skill_list)}个技能。
+  all_skills:
+    formula: Sum(child_s.get('skill')) == total_skill_num
+    desc: 这些孩子擅长的技能数总和为{total_skill_num}。
+  e1:
+    source:
+    - range(0, child_num)
+    - "[False, True]"
+    - "[False, True]"
+    domain: "[child_num // 3, child_num // 2]"
+    formula: And(Sum([If(child_s[ci].get('gender') == _sym[1], 1, 0) for ci in young_old_list(names,
+      _sym[0], _sym[2])]) == young_old_list(gender_list, _sym[0], _sym[2]).count(_sym[1]),
+      Sum([If(child_s[ci].get('gender') == _sym[1], child_s[ci].get('skill'), 0) for
+      ci in young_old_list(names, _sym[0], _sym[2])]) == part_skills(young_old_list(skill_list,
+      _sym[0], _sym[2]), young_old_list(gender_list, _sym[0], _sym[2]), _sym[1]))
+    desc: "{names[_sym[0]]}有{young_old_list(gender_list, _sym[0], _sym[2]).count(_sym[1])}个{get_relation(_sym[1],\
+      \ _sym[2])}，且这些{get_relation(_sym[1], _sym[2])}擅长的技能数总和为{part_skills(young_old_list(skill_list,\
+      \ _sym[0], _sym[2]), young_old_list(gender_list, _sym[0], _sym[2]), _sym[1])}。"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      - 1
+      - 2
+      constraint: 'lambda l: all([True in young_old_list(gender_list, item[0][0][0],item[0][2][0])
+        and False in young_old_list(gender_list, item[0][0][0],item[0][2][0]) for
+        item in l])'
+  e2:
+    source:
+    - range(0, child_num)
+    amount:
+    - '2'
+    domain: "[2, child_num // 2]"
+    formula: child_s[names[_sym[0][0]]].get('skill') - child_s[names[_sym[0][1]]].get('skill')
+      == skill_list[_sym[0][0]]-skill_list[_sym[0][1]]
+    desc: "{(names[_sym[0][0]] + '和' + names[_sym[0][1]] + '拥有的技能数相同。') if skill_list[_sym[0][0]]\
+      \ == skill_list[_sym[0][1]] else (names[_sym[0][0]] + '比' + names[_sym[0][1]]\
+      \ + ('多' if skill_list[_sym[0][0]] > skill_list[_sym[0][1]] else '少') + '拥有'\
+      \ + str(abs(skill_list[_sym[0][0]]-skill_list[_sym[0][1]])) + '个技能。')}"
+max_solution: 600
+queries:
+  q1:
+    desc: 从以上情况可以得出，这{child_num}个子女中有多少个{'男' if select_gender else '女'}孩子？这些{'男' if
+      select_gender else '女'}孩会的技能总数为多少？请用逗号分隔两个数字作答。
+    ans_formula: to_unique([[len([p for p in names if get_value(_model, child_s[p].get('gender'))
+      == select_gender]), sum([get_value(_model, child_s[p].get('skill')) for p in
+      names if get_value(_model, child_s[p].get('gender')) == select_gender])] for
+      _model in _solutions])
+    ans_text: "','.join(map(str, _ans[0]))"
+    ans_assertion: len(_ans) == 1
+desc: 有一个大家族共养有{child_num}个子女，从大到小分别是{'、'.join(names)}，每个孩子都擅长若干个技能，{skill_range}{all_skills}他们的具体情况是这样的：{e1}{e2}{q1}

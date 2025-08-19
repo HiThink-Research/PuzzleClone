@@ -1,0 +1,60 @@
+variables:
+  student_num:
+    type: int
+    domain: "[4, 12]"
+    diff_factor: 1
+  stone_num:
+    type: int
+    domain: "[student_num, 12]"
+    diff_factor: 1
+  correct_num:
+    formula: 'generate_random_list(2 + 1, ''int'', [0, student_num], [f"lambda l:
+      sum(l) == {student_num}"])'
+    diff_factor: 0
+  correct_num_desc:
+    formula: "', '.join([f'有{v}人说对了{k}句话' for k, v in enumerate(correct_num)])"
+  students:
+    formula: get_faker(student_num, 'name')
+  stones:
+    formula: get_faker(stone_num, 'metal_ore')
+symbols:
+  stones_s:
+    source:
+    - stones
+    type: Bool
+    desc: 矿石是{_stones}
+  speech_s:
+    source:
+    - stones_s
+    - "[False, True]"
+    - "['eq']"
+    domain: student_num
+    domain_cond: true
+    dim: 2
+    dim_cond:
+    - - 0
+    custom_cond:
+    - scope: dim
+      fields:
+      - 1
+      constraint: 'lambda l: sum(subl[0][0] for subl in l) <= 1'
+    formula: make_expr(_sym[2], _sym[0], _sym[1])
+    desc: "{students[_index]}说：\"这{\"是\" if _sym[1] else \"不是\"}{get_p(_sym[0], \"\
+      stones\")}\";"
+conditions:
+  base:
+    formula: gen_event_count_condition(stones_s, 'equal', 1)
+    desc: 矿石必须是金属之一
+  teacher_condition:
+    formula: gen_multi_event_count_condition(speech_s, 'wc', correct_num)
+    desc: "{student_num}人判断满足：{correct_num_desc}"
+max_solution: 1
+queries:
+  q1:
+    desc: 根据以上条件，你知道这矿石是什么吗？
+    ans_formula: get_p(get_TF_events_for_each_solution(stones_s, _solutions, True),
+      'stones')
+    ans_text: _ans[0][0]
+    ans_assertion: len(_ans) == 1
+desc: 地理课上，老师拿出一块矿石要同学辨认，可能是{'、'.join(stones)}之一。{', '.join(', '.join(inner_list)
+  for inner_list in get_desc(speech_s))}。老师最后说："你们{teacher_condition}。"{q1}

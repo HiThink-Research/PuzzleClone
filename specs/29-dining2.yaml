@@ -1,0 +1,56 @@
+custom_operator:
+  mo: 'lambda x, y, z, k_min = -1, k_max = 2: Or([x == i * y + z for i in range(k_min,
+    k_max)])'
+variables:
+  pair_num:
+    type: int
+    domain: "[3, 8]"
+    diff_factor: 1
+  names:
+    formula: get_faker(pair_num, 'last_name')
+  p:
+    formula: list(range(pair_num * 2))
+symbols:
+  p_s:
+    source:
+    - p
+    type: int
+conditions:
+  pair_domain:
+    formula: And([And(x >= 0, x < 2 * pair_num) for x in p_s])
+  pair_distinct:
+    formula: gen_event_count_condition(p_s, 'distinct')
+  one_pair_separate:
+    formula: Sum([If(And(Not(mo(p_s[i * 2] - p_s[i * 2 + 1], pair_num * 2, 1)), Not(mo(p_s[i
+      * 2] - p_s[i * 2 + 1], pair_num * 2, -1))), 1, 0) for i in range(pair_num)])
+      == 1
+  e1:
+    source:
+    - range(pair_num * 2)
+    - list(range(-pair_num + 1, 0)) + list(range(1, pair_num + 1))
+    - "[0, 1]"
+    amount:
+    - '2'
+    - '2'
+    - '1'
+    domain: "[pair_num, pair_num]"
+    formula: Or([And(mo(p_s[i * 2 + _sym[2][0]] - p_s[_sym[0][0]], pair_num * 2, _sym[1][0]),
+      mo(p_s[i * 2 + _sym[2][0]] - p_s[_sym[0][1]], pair_num * 2, _sym[1][1]))  for
+      i in range(pair_num)])
+    desc: "{names[_sym[0][0] // 2]}{'先生' if _sym[0][0] % 2 == 1 else '女士'}{'左边' if\
+      \ _sym[1][0] < 0 else '右边' if _sym[1][0] < pair_num else '对面'}{'第' + str(abs(_sym[1][0]))\
+      \ +'位置上' if _sym[1][0] != -1 and _sym[1][0] != 1 and _sym[1][0] != pair_num\
+      \ else ''}的人是坐在{names[_sym[0][1] // 2]}{'先生' if _sym[0][1] % 2 == 1 else '女士'}{'左边'\
+      \ if _sym[1][1] < 0 else '右边' if _sym[1][1] < pair_num else '对面'}{'第' + str(abs(_sym[1][1]))\
+      \ +'位置上' if _sym[1][1] != -1 and _sym[1][1] != 1 and _sym[1][1] != pair_num\
+      \ else ''}的一位{'先生' if _sym[2][0] else '女士'}。"
+queries:
+  q1:
+    desc: 问哪对夫妇在安排座位时被隔开了？
+    ans_formula: to_unique([[i for i in range(pair_num) if (get_value(_model, p_s[i
+      * 2]) - get_value(_model, p_s[i * 2 + 1])) not in [1 - 2 * pair_num, -1, 1,
+      2 * pair_num - 1]][0] for _model in _solutions])
+    ans_text: names[_ans[0]] + '夫妇'
+    ans_assertion: len(_ans) == 1
+desc: 某日，{pair_num}对夫妇来吃饭，他们分别是{'、'.join([x + '夫妇' for x in names])}。用餐时，他们{pair_num
+  * 2}人均匀地坐在一张圆桌旁，且只有一对夫妇是被隔开的，现已知{e1}{q1}

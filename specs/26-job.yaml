@@ -1,0 +1,70 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 10]"
+    diff_factor: 1
+  query_p:
+    type: int
+    domain: "[0, p_num - 1]"
+    diff_factor: 0
+  query_job:
+    type: int
+    domain: "[0, p_num - 1]"
+    diff_factor: 0
+  names:
+    formula: get_faker(p_num, 'name')
+  jobs:
+    formula: get_faker(p_num, 'occupation_cn')
+symbols:
+  job_s:
+    source:
+    - names
+    type: int
+conditions:
+  job_s_domain:
+    formula: And([And(job_s[x] >= 0, job_s[x] < p_num) for x in names])
+  extra1:
+    source:
+    - names
+    - range(p_num)
+    - "['eq', 'neq']"
+    - "['or', 'implies']"
+    amount:
+    - '2'
+    - '2'
+    - '2'
+    - '1'
+    domain: "[p_num - 1, p_num + 2]"
+    formula: And(make_expr(_sym[3][0], make_expr(_sym[2][0], job_s[_sym[0][0]], _sym[1][0]),
+      make_expr(_sym[2][1], job_s[_sym[0][1]], _sym[1][1])))
+    desc: "{'如果' if _sym[3][0] == 'implies' else '或者'}{_sym[0][0]}{'不' if _sym[2][0]\
+      \ == 'neq' else ''}是{jobs[_sym[1][0]]}，{'那么' if _sym[3][0] == 'implies' else\
+      \ '或者'}{_sym[0][1]}{'不' if _sym[2][1] == 'neq' else ''}是{jobs[_sym[1][1]]};"
+queries:
+  q1:
+    source:
+    - names
+    - range(p_num)
+    - "[False, True]"
+    desc: 以下哪项如果为真，可得出“{names[query_p]}是{jobs[query_job]}”的结论？
+    opt_num: 4
+    amount:
+    - '1'
+    - '1'
+    - '1'
+    cond: all
+    opt_formula: get_value(_model, job_s[names[query_p]]) == query_job or (get_value(_model,
+      job_s[_opt[0][0]]) == _opt[1][0]) != _opt[2][0]
+    opt_text: "{_opt[0][0]}{'不' if not _opt[2][0] else ''}是{jobs[_opt[1][0]]}"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      constraint: any([get_value(_model, job_s[names[query_p]]) == query_job for _model
+        in _solutions])
+    - scope: domain
+      fields:
+      - 0
+      - 1
+      constraint: "lambda l: all([item[0][0][0] != names[query_p] and item[0][1][0] != query_job for item in l])"
+desc: "现有{'、'.join(names)+str(len(names))}个人，关于他们的职业有以下几个条件成立：{extra1} {q1}\n"

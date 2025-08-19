@@ -1,0 +1,64 @@
+variables:
+  x1:
+    type: int
+    domain: "[2, 10]"
+  x2:
+    type: int
+    domain: "[x1 + 15, x1 + 100]"
+  x3:
+    type: int
+    domain: "[x1 + 5, x1 + 30]"
+    diff_factor: 1
+  x4:
+    type: int
+    domain: "[300, 800]"
+  plus3:
+    formula: x3 ** 3 - x2 ** 2
+  plus2:
+    formula: x2 ** 2 - x1 ** 3
+  plus1:
+    type: int
+    domain: "[1, x1 ** 2 - 1]"
+  original_num:
+    formula: x1 ** 3 - plus1
+  if_plus4:
+    type: int
+    domain: "[0, 1]"
+    diff_factor: 1
+  divided_num:
+    formula: random.sample([7, 13, 19, 23, 29], 1)[0]
+  plus4:
+    formula: x4 * divided_num - x3 ** 3
+symbols:
+  vars:
+    source:
+    - "['m', 'x1', 'x2', 'x3', 'x4']"
+    type: int
+conditions:
+  non_negative_numbers:
+    formula: And([x > 0 for x in vars])
+  plus1_cond:
+    formula: vars['m'] + plus1 == vars['x1'] ** 3
+    desc: 当它加上{plus1}后，所得的数是一个正整数的立方，
+  plus2_cond:
+    formula: vars['m'] + plus1 + plus2 == vars['x2'] ** 2
+    desc: 然后再{'加' if plus2 >= 0 else '减'}{abs(plus2)}后，又是另一个正整数的平方，
+  plus3_cond:
+    formula: vars['m'] + plus1 + plus2 + plus3 == vars['x3'] ** 3
+    desc: 再与第三个整数{abs(plus3)}相{'加' if plus3 >= 0 else '减'}后，再次成为一个正整数的立方数。
+  plus4_cond:
+    source:
+    - range(1)
+    amount:
+    - '1'
+    domain: "[if_plus4, if_plus4]"
+    formula: vars['m'] + plus1 + plus2 + plus3 + plus4 == vars['x4'] * divided_num
+    desc: 最后再{'加' if plus4 > 0 else '减'}{abs(plus4)}后，能被{divided_num}整除。
+max_solution: 1
+queries:
+  q1:
+    desc: 这个数X是多少？
+    ans_formula: original_num
+    ans_text: str(_ans)
+    ans_assertion: 'True'
+desc: 有一个正整数X，{conditions}{q1}

@@ -1,0 +1,52 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 8]"
+    diff_factor: 1
+  the_sister_in_last_speech:
+    type: int
+    domain: "[0, p_num - 1]"
+    diff_factor: 0
+  names:
+    formula: "[chr(65 + i) for i in range(p_num)]"
+  names2:
+    formula: "[chr(97 + i) for i in range(p_num)]"
+  predefined_answer:
+    formula: 'generate_random_list(p_num, ''int'', [0, p_num - 1], [f"lambda l: len(l)
+      == len(to_unique(l))", f"lambda l: l[-1] != the_sister_in_last_speech"])'
+symbols:
+  names_s:
+    source:
+    - names
+    type: int
+  speeches_s:
+    source:
+    - list(range(p_num))
+    - list(range(p_num))
+    domain: p_num - 1
+    formula: make_expr('neq' if ((predefined_answer[_sym[0]] == _sym[1]) ^ (predefined_answer[_index]
+      == the_sister_in_last_speech)) else 'eq', names_s[names[_sym[0]]], _sym[1])
+    desc: "{names[_index]}说：\"{names[_sym[0]]}的妹妹{'不是' if ((predefined_answer[_sym[0]]\
+      \ == _sym[1]) ^ (predefined_answer[_index] == the_sister_in_last_speech)) else\
+      \ '是'}{names2[_sym[1]]}\"；"
+conditions:
+  domain:
+    formula: And([And(v >= 0, v < p_num) for v in names_s])
+  distinct:
+    formula: Distinct(list(names_s))
+  last_sister_is_not_D_s_sister:
+    formula: names_s[names[-1]] != the_sister_in_last_speech
+  d_sister_true:
+    formula: And([speeches_s[i] == If(names_s[names[i]] == the_sister_in_last_speech,
+      True, False) for i in range(p_num - 1)])
+max_solution: 1
+queries:
+  q1:
+    desc: 如果{names[-1]}的话是真话，请问{'、'.join(names)}的妹妹分别是谁？
+    ans_formula: to_unique([[names2[ind] for ind in get_value(_model, names_s)] for
+      _model in _solutions])
+    ans_text: "','.join(_ans[0])"
+    ans_assertion: len(_ans) == 1
+desc: 在老北京的一个胡同的大杂院里，住着{p_num}户人家，巧合的是每家都有一对双胞胎女孩。这{p_num}对双胞胎中，姐姐分别是{'、'.join(names)}，妹妹分别是{'、'.join(names2)}。一天，一对外国游人夫妇来到这个大杂院里，看到她们{p_num
+  * 2}个，忍不住问：“你们谁和谁是一家的啊？”{'，'.join(get_desc(speeches_s))} {names[-1]}说：“他们{p_num
+  - 1}个人中只有{names2[the_sister_in_last_speech]}的姐姐说的是事实。”{q1}

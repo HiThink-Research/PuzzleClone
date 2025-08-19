@@ -1,0 +1,63 @@
+variables:
+  place_num:
+    type: int
+    domain: "[4, 11]"
+    diff_factor: 1
+  places:
+    formula: get_faker(place_num, 'city')
+symbols:
+  visit:
+    source:
+    - places
+    type: Bool
+conditions:
+  if_a_then_b:
+    source:
+    - places
+    amount:
+    - '2'
+    domain: "[1, place_num//3]"
+    formula: Implies(visit[_sym[0][0]], visit[_sym[0][1]])
+    desc: 若去{_sym[0][0]}，则必须去{_sym[0][1]}；
+  visit_at_least_one:
+    source:
+    - places
+    amount:
+    - '2'
+    domain: "[1, place_num//3]"
+    formula: Or(visit[_sym[0][0]], visit[_sym[0][1]])
+    desc: "{_sym[0][0]}、{_sym[0][1]}至少去一个；"
+  visit_only_one:
+    source:
+    - places
+    amount:
+    - '2'
+    domain: "[1, place_num//3]"
+    formula: Xor(visit[_sym[0][0]], visit[_sym[0][1]])
+    desc: "{_sym[0][0]}、{_sym[0][1]}只去一个；"
+  both_or_none:
+    source:
+    - places
+    amount:
+    - '2'
+    domain: "[1, place_num//3]"
+    formula: Not(Xor(visit[_sym[0][0]], visit[_sym[0][1]]))
+    desc: "{_sym[0][0]}、{_sym[0][1]}都去或都不去；"
+  if_a_then_c_d:
+    source:
+    - places
+    amount:
+    - '3'
+    domain: "[1, place_num//3]"
+    formula: Implies(visit[_sym[0][0]], And(visit[_sym[0][1]], visit[_sym[0][2]]))
+    desc: 若去{_sym[0][0]}，则{_sym[0][1]}、{_sym[0][2]}也必须去；
+queries:
+  q1:
+    desc: 参观团至多能去的城市是什么？
+    ans_formula: to_unique([[p for p in places if get_value(_model, visit[p])] for
+      _model in _solutions])
+    ans_text: "','.join([item for item in _ans if len(item) == max([len(item2) for\
+      \ item2 in _ans])][0])"
+    ans_assertion: (sum([len(item) == max([len(item2) for item2 in _ans]) for item
+      in _ans]) == 1) and all([p in conditions for p in places])
+desc: 某参观团根据以下约束条件在{'、'.join(places)}{place_num}个城市中选择参观地点，{conditions}{q1}

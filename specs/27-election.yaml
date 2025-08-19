@@ -1,0 +1,84 @@
+variables:
+  p_num:
+    type: int
+    domain: "[6, 16]"
+    diff_factor: 1
+  q0_cond_flag:
+    type: int
+    domain: "[0, 1]"
+    diff_factor: -1
+  names:
+    formula: get_faker(p_num, 'name')
+  names2:
+    formula: "[n for n in names]"
+symbols:
+  is_more:
+    source:
+    - names
+    - names2
+    type: bool
+  is_elected:
+    source:
+    - names
+    type: bool
+conditions:
+  is_more_domain:
+    formula: And([Xor(is_more[(x, y)], is_more[(y, x)]) for x in names for y in names
+      if x != y])
+  is_more_domain_2:
+    formula: And([is_more[(x, x)] == False for x in names])
+  is_more_transmissibility:
+    formula: And([Implies(And(is_more[(x,y)], is_more[(y,z)]), is_more[(x,z)]) for
+      x in names for y in names for z in names if x != y and y != z and x != z])
+  elected_domain:
+    formula: gen_event_count_condition(is_elected, 'equal', 1)
+  extra1:
+    source:
+    - names
+    - "['and', 'or']"
+    amount:
+    - '5'
+    - '1'
+    domain: "[1, p_num]"
+    formula: Implies(make_expr(_sym[1][0], is_more[(_sym[0][0], _sym[0][1])], is_more[(_sym[0][2],
+      _sym[0][3])]), is_elected[_sym[0][4]])
+    desc: 如果{_sym[0][0]}的票数多于{_sym[0][1]}，{'并且' if _sym[1][0] == 'and' else '或者'}{_sym[0][2]}的票数多于{_sym[0][3]}，则{_sym[0][4]}当选。
+  extra2:
+    source:
+    - names
+    amount:
+    - '3'
+    domain: "[1, p_num]"
+    formula: Implies(is_more[(_sym[0][0], _sym[0][1])], is_elected[_sym[0][2]])
+    desc: 如果{_sym[0][0]}的票数多于{_sym[0][1]}，则{_sym[0][2]}当选。
+  q0_cond:
+    source:
+    - names
+    amount:
+    - '1'
+    domain: "[q0_cond_flag, q0_cond_flag]"
+    formula: is_elected[_sym[0][0]]
+    desc: 如果事实上{_sym[0][0]}当选，
+  q1_cond:
+    source:
+    - names
+    amount:
+    - '3'
+    domain: "[1-q0_cond_flag, 1-q0_cond_flag]"
+    formula: And(is_more[(_sym[0][0], _sym[0][1])], is_elected[_sym[0][2]] == False)
+    desc: 如果事实上{_sym[0][0]}得票比{_sym[0][1]}多，并且{_sym[0][2]}没有当选，
+max_solution: 200
+queries:
+  q1:
+    source:
+    - names
+    - "[False, True]"
+    desc: 以下哪项一定是真的？
+    opt_num: 5
+    amount:
+    - '2'
+    - '1'
+    cond: all
+    opt_formula: get_value(_model, is_more[(_opt[0][0], _opt[0][1])]) == _opt[1][0]
+    opt_text: "{_opt[0][0]}的票数{'不' if not _opt[1][0] else ''}比{_opt[0][1]}多。"
+desc: "{p_num}位侯选人{'、'.join(names)}竞选厂长。选举的过程满足以下条件：{conditions}{q1}"

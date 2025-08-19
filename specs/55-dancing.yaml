@@ -1,0 +1,61 @@
+variables:
+  p_num:
+    type: int
+    domain: "[6, 16]"
+    diff_factor: 1
+  names:
+    formula: get_faker(p_num, 'country')
+  names2:
+    formula: "[n for n in names]"
+symbols:
+  rank:
+    source:
+    - names
+    type: int
+conditions:
+  rank_domain:
+    formula: And([And(x >= 0, x < p_num) for x in rank])
+  rank_distinct:
+    formula: Distinct(list(rank))
+  extra1:
+    source:
+    - names
+    - "['gt', 'lt']"
+    amount:
+    - '2'
+    - '1'
+    domain: "[1, p_num]"
+    formula: make_expr(_sym[1][0], rank[_sym[0][0]], rank[_sym[0][1]])
+    desc: "{_sym[0][0]}的名次在{_sym[0][1]}{'前' if _sym[1][0] == 'lt' else '后'}面；"
+  extra2:
+    source:
+    - names
+    - "[False, True]"
+    - range(1, p_num)
+    amount:
+    - '2'
+    - '1'
+    - '1'
+    domain: "[1, p_num]"
+    formula: rank[_sym[0][0]] - rank[_sym[0][1]] == (_sym[2][0] if _sym[1][0] else
+      -_sym[2][0])
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+    desc: "{_sym[0][0]}比{_sym[0][1]}{'落后' if _sym[1][0] else '领先'}{_sym[2][0]}个名次；"
+  extra3:
+    source:
+    - names
+    - range(p_num)
+    domain: "[1, p_num // 4]"
+    formula: rank[_sym[0]] == _sym[1]
+    desc: "{_sym[0]}是第{_sym[1] + 1}名。"
+max_solution: 1
+queries:
+  q1:
+    desc: 根据这些情况，你能猜出{'、'.join(names)}各排在第几名吗？请按顺序将名次的数字用逗号分隔输出，如2,1,...。
+    ans_formula: "[str(get_value(_solutions[0], rank[p]) + 1) for p in names]"
+    ans_text: "','.join(_ans)"
+desc: 某届国际标准舞蹈大赛，共有{p_num}个国家参赛队进入决赛，它们是：{'、'.join(names)}。比赛结果如下，{conditions}
+  {q1}

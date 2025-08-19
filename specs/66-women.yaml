@@ -1,0 +1,164 @@
+variables:
+  p_num:
+    type: int
+    domain: "[5, 9]"
+    diff_factor: 1
+  query_idx:
+    type: int
+    domain: "[0, p_num - 1]"
+    diff_factor: 0
+  names:
+    formula: get_faker(p_num, 'name_female')
+  colors:
+    formula: get_faker(p_num, 'color_name_cn')
+  drinks:
+    formula: get_faker(p_num, 'chinese_drink')
+  pets:
+    formula: get_faker(p_num, 'pet_category')
+  fruits:
+    formula: get_faker(p_num, 'fruit_cn')
+symbols:
+  p_s:
+    source:
+    - names
+    attr:
+    - pos
+    - color
+    - drink
+    - pet
+    - fruit
+    type:
+    - int
+    - int
+    - int
+    - int
+    - int
+conditions:
+  pos_domain:
+    formula: And([And(x >= 0, x < p_num) for x in p_s.get('pos')])
+  pos_distinct:
+    formula: gen_event_count_condition(p_s.get('pos'), 'distinct')
+  color_domain:
+    formula: And([And(x >= 0, x < p_num) for x in p_s.get('color')])
+  color_distinct:
+    formula: gen_event_count_condition(p_s.get('color'), 'distinct')
+  drink_domain:
+    formula: And([And(x >= 0, x < p_num) for x in p_s.get('drink')])
+  drink_distinct:
+    formula: gen_event_count_condition(p_s.get('drink'), 'distinct')
+  pet_domain:
+    formula: And([And(x >= 0, x < p_num) for x in p_s.get('pet')])
+  pet_distinct:
+    formula: gen_event_count_condition(p_s.get('pet'), 'distinct')
+  fruit_domain:
+    formula: And([And(x >= 0, x < p_num) for x in p_s.get('fruit')])
+  fruit_distinct:
+    formula: gen_event_count_condition(p_s.get('fruit'), 'distinct')
+  pet_cond:
+    source:
+    - names
+    - range(0, p_num)
+    domain: "[1, p_num // 2]"
+    formula: p_s[_sym[0]].get('pet') == _sym[1]
+    desc: "{_sym[0]}养了一只{pets[_sym[1]]}。"
+  name_color_cond:
+    source:
+    - names
+    - range(0, p_num)
+    domain: "[1, p_num // 2]"
+    formula: p_s[_sym[0]].get('color') == _sym[1]
+    desc: "{_sym[0]}穿{colors[_sym[1]]}衣服。"
+  color_order_cond:
+    source:
+    - range(0, p_num)
+    domain: "[1, p_num // 2]"
+    amount:
+    - '2'
+    formula: "[Implies(And(p_s[i].get('color') == _sym[0][0], p_s[j].get('color')\
+      \ == _sym[0][1]), p_s[i].get('pos') > p_s[j].get('pos')) for i in names for\
+      \ j in names if i != j]"
+    desc: 穿{colors[_sym[0][0]]}的在穿{colors[_sym[0][1]]}的右边。
+  color_order_cond2:
+    source:
+    - range(0, p_num)
+    domain: "[1, p_num // 2]"
+    amount:
+    - '2'
+    formula: "[Implies(And(p_s[i].get('color') == _sym[0][0], p_s[j].get('color')\
+      \ == _sym[0][1]), p_s[i].get('pos') < p_s[j].get('pos')) for i in names for\
+      \ j in names if i != j]"
+    desc: 穿{colors[_sym[0][0]]}的在穿{colors[_sym[0][1]]}的左边。
+  color_drink_cond:
+    source:
+    - range(0, p_num)
+    - range(0, p_num)
+    domain: "[1, p_num // 2]"
+    formula: "[Implies(p_s[p].get('color') == _sym[0], p_s[p].get('drink') == _sym[1])\
+      \ for p in names]"
+    desc: 穿{colors[_sym[0]]}的喝{drinks[_sym[1]]}。
+  fruit_pet_adjacent_cond:
+    source:
+    - range(0, p_num)
+    - range(0, p_num)
+    domain: "[1, p_num // 2]"
+    formula: "[Implies(And(p_s[i].get('fruit') == _sym[0], p_s[j].get('pet') == _sym[1]),\
+      \ Or(p_s[i].get('pos') - p_s[j].get('pos') == 1, p_s[j].get('pos') - p_s[i].get('pos')\
+      \ == 1)) for i in names for j in names if i != j]"
+    desc: 吃{fruits[_sym[0]]}的旁边是养{pets[_sym[1]]}的。
+  pos_drink_cond:
+    source:
+    - range(0, p_num)
+    - range(0, p_num)
+    domain: "[1, p_num // 2]"
+    formula: "[Implies(p_s[p].get('pos') == _sym[0], p_s[p].get('drink') == _sym[1])\
+      \ for p in names]"
+    desc: 第{_sym[0]+1}位的在喝{drinks[_sym[1]]}。
+  name_pos_cond:
+    source:
+    - names
+    - range(0, p_num)
+    domain: "[1, p_num // 2]"
+    formula: p_s[_sym[0]].get('pos') == _sym[1]
+    desc: "{_sym[0]}站在第{_sym[1]+1}位。"
+  adjacent_drink_cond:
+    source:
+    - range(0, p_num)
+    - range(0, p_num)
+    domain: "[1, p_num // 2]"
+    formula: "[Implies(And(p_s[i].get('drink') == _sym[0], p_s[j].get('fruit') ==\
+      \ _sym[1]), Or(p_s[i].get('pos') - p_s[j].get('pos') == 1, p_s[j].get('pos')\
+      \ - p_s[i].get('pos') == 1)) for i in names for j in names if i != j]"
+    desc: 喝{drinks[_sym[0]]}的旁边在吃{fruits[_sym[1]]}。
+  fruit_drink_cond:
+    source:
+    - range(0, p_num)
+    - range(0, p_num)
+    domain: "[1, p_num // 2]"
+    formula: "[Implies(p_s[p].get('fruit') == _sym[0], p_s[p].get('drink') == _sym[1])\
+      \ for p in names]"
+    desc: 吃{fruits[_sym[0]]}的喝{drinks[_sym[1]]}。
+  color_adjacent_cond:
+    source:
+    - range(0, p_num)
+    - names
+    domain: "[1, p_num // 2]"
+    formula: "[Implies(p_s[i].get('color') == _sym[0], Or(p_s[i].get('pos') - p_s[_sym[1]].get('pos')\
+      \ == 1, p_s[_sym[1]].get('pos') - p_s[i].get('pos') == 1)) for i in names]"
+    desc: 穿{colors[_sym[0]]}的旁边是{_sym[1]}。
+  name_fruit_cond:
+    source:
+    - names
+    - range(0, p_num)
+    domain: "[1, p_num // 2]"
+    formula: p_s[_sym[0]].get('fruit') == _sym[1]
+    desc: "{_sym[0]}在吃{fruits[_sym[1]]}。"
+max_solution: 200
+queries:
+  q1:
+    desc: 请问：喝{drinks[query_idx]}的是哪位小姐？
+    ans_formula: to_unique([[n for n in names if get_value(_model, p_s[n].get('drink'))
+      == query_idx][0] for _model in _solutions])
+    ans_text: _ans[0]
+    ans_assertion: len(_ans) == 1
+desc: 有{p_num}位小姐{','.join(names)}排成一列，这{p_num}位小姐衣服的颜色、喝的饮料、喜欢的宠物、吃的水果都不相同。{conditions}
+  {q1}

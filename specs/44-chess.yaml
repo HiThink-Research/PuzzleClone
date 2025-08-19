@@ -1,0 +1,39 @@
+variables:
+  p_num:
+    type: int
+    domain: "[5, 10]"
+    diff_factor: 1
+  names:
+    formula: get_faker(p_num, 'name')
+  names2:
+    formula: names
+  name_desc:
+    formula: "'、'.join(names)"
+  matches:
+    formula: 'generate_random_list(p_num - 1, ''int'', [0, p_num - 1], [''lambda l:
+      any([v != p_num - 1 for v in l])''])'
+symbols:
+  names_s:
+    source:
+    - names
+    - names2
+    type: Bool
+conditions:
+  self_exclusive:
+    formula: And([names_s[(i,i)] == False for i in names])
+  self_symmetry:
+    formula: And([names_s[(i,j)] == names_s[(j,i)] for i in names for j in names if
+      i != j])
+  match_cond:
+    formula: And([Sum([If(names_s[(names[i],names[j])], 1, 0) for j in range(p_num)])
+      == matches[i] for i in range(p_num - 1)])
+max_solution: 5
+queries:
+  q1:
+    desc: 问：这时{names[-1]}{'可能' if len(_solutions) > 1 else ''}已赛过几盘？
+    ans_formula: to_unique([sum([get_value(_model, names_s[(names[-1], i)]) for i
+      in names]) for _model in _solutions])
+    ans_text: "','.join([str(v) for v in _ans])"
+    ans_assertion: len(_ans) <= 5
+desc: "{name_desc}{p_num}个人赛棋，采用单循环制。现在知道：{'、'.join(names[:-1])}{p_num - 1}人已经分别赛过{'、'.join([str(v)\
+  \ for v in matches])}盘。{queries}\n"

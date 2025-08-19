@@ -1,0 +1,72 @@
+custom_operator:
+  generate_buses_list: customs/busstop.py
+  generate_move_list: customs/busstop.py
+variables:
+  num_busstop:
+    type: int
+    domain: "[3, 8]"
+    diff_factor: 1
+  main_buses:
+    type: int
+    domain: "[80, 120]"
+    diff_factor: 1
+  normal_max_buses:
+    type: int
+    domain: "[30, 45]"
+    diff_factor: 0
+  normal_min_buses:
+    type: int
+    domain: "[15, 30]"
+    diff_factor: 0
+  move_max_buses:
+    type: int
+    domain: "[10, 14]"
+    diff_factor: 1
+  move_min_buses:
+    type: int
+    domain: "[5, 8]"
+    diff_factor: 1
+  return_num:
+    type: int
+    domain: "[1, 4]"
+    diff_factor: 0
+  addition_buses:
+    type: int
+    domain: "[20, 50]"
+    diff_factor: 0
+  stop_list:
+    formula: random.sample(['东','南','西','北'],num_busstop) if num_busstop < 4 else
+      ['东','南','西','北'] + random.sample(['东南','东北','西南','西北'],num_busstop-4)
+  end_list:
+    formula: stop_list[1:]
+  buses:
+    formula: generate_buses_list(num_busstop,main_buses,normal_max_buses,normal_min_buses)
+  move_list:
+    formula: generate_move_list(num_busstop-1,move_max_buses,move_min_buses)
+symbols:
+  vars:
+    source:
+    - "['t']"
+    type: int
+conditions:
+  non_negative_numbers:
+    formula: And([x > 2 for x in vars])
+  major_non_negative:
+    formula: main_buses + addition_buses - (sum(move_list)-return_num*(num_busstop-1))*vars['t']
+      > 0
+  greater_cond:
+    formula: main_buses + addition_buses - (sum(move_list)-return_num*(num_busstop-1))*(vars['t']-1)
+      >= buses[1] + (move_list[0]-return_num)*(vars['t']-1)
+  lowwer_cond:
+    formula: main_buses + addition_buses - (sum(move_list)-return_num*(num_busstop-1))*vars['t']
+      < buses[1] + (move_list[0]-return_num)*vars['t']
+max_solution: 1
+queries:
+  q1:
+    desc: 春运开始时，该镇从各村借调了共{addition_buses}辆车给{stop_list[0]}站，请问春运开始几天后，{stop_list[0]}站比{stop_list[1]}站车辆少？
+    ans_formula: "[get_value(_model, vars['t']) for _model in _solutions]"
+    ans_text: str(_ans[0])
+    ans_assertion: 'True'
+desc: 某镇上有{'、'.join(stop_list)}共{num_busstop}个公交车站，{stop_list[0]}站也为火车到达公交站，为该镇的公交枢纽，正常情况下{'、'.join(name+'站有客车'+str(nums)+'辆'
+  for name, nums in zip(stop_list, buses))}，每天各站客车数量保持均衡。但在春运期间，每天增设路线为{'、'.join('从'+stop_list[0]+'站到'+end+'站有'+str(nums)+'辆车'
+  for end, nums in zip(end_list, move_list))}，然后各站每天返回枢纽{return_num}辆车。{q1}

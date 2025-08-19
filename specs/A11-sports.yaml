@@ -1,0 +1,48 @@
+variables:
+  num_students:
+    type: int
+    domain: "[40, 80]"
+    diff_factor: 0
+  num_sports:
+    type: int
+    domain: "[3, 6]"
+    diff_factor: 1
+  end_num:
+    type: int
+    domain: "[num_students // 2, num_students - 1]"
+    diff_factor: 1
+  diff:
+    type: int
+    domain: "[3, 8]"
+    diff_factor: 1
+  select_sports_num:
+    type: int
+    domain: "[2, round(num_sports/2)]"
+    diff_factor: 1
+  select_sports_index:
+    formula: random.sample(range(num_sports), select_sports_num)
+    diff_factor: 0
+  sports:
+    formula: get_faker(num_sports,'sport')
+  num_list:
+    formula: "[end_num - i * diff for i in range(num_sports)]"
+  sum_num_list:
+    formula: sum(num_list)
+  select_sports:
+    formula: "[sports[i] for i in select_sports_index]"
+symbols: {}
+conditions: {}
+max_solution: 1
+queries:
+  q1:
+    desc: 至少有多少学生会{'、'.join(select_sports[:-1]) + '和' + select_sports[-1]}？
+    ans_formula: sum([num_list[i] for i in select_sports_index])-num_students
+    ans_text: str(_ans)
+    ans_assertion: _ans > 0
+  q2:
+    desc: 这个班至少有多少学生这{num_sports}项运动都会？
+    ans_formula: sum_num_list - (num_sports-1)*num_students
+    ans_text: str(_ans)
+    ans_assertion: _ans > 0
+desc: 某班共有学生{num_students}人，会{'、'.join(sports)}分别有{'、'.join(str(l_num) for l_num in
+  num_list)}人，正好为等差数列。那么，{queries}

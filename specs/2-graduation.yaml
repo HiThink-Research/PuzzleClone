@@ -1,0 +1,72 @@
+variables:
+  p_num:
+    type: int
+    domain: "[6, 12]"
+    diff_factor: 1
+  select_num:
+    type: int
+    domain: "[p_num // 2 - 1, p_num // 2 + 1]"
+    diff_factor: 1
+  names:
+    formula: generate_letters(p_num)
+  name_desc:
+    formula: "'、'.join(names)"
+symbols:
+  events:
+    source:
+    - names
+    type: Bool
+    desc: "{_names}被选派参加了"
+conditions:
+  base:
+    formula: gen_event_count_condition(events, 'equal', select_num)
+    desc: 将选派{select_num}个人参加毕业典礼
+  extra1:
+    source:
+    - events
+    domain: "[1, 3]"
+    amount:
+    - '2'
+    formula: gen_event_count_condition(_sym[0], 'equal', 1)
+    desc: "{get_p(_sym[0][0], 'names')}和{get_p(_sym[0][1], 'names')}至少选派一个，但不能都选派。"
+  extra2:
+    source:
+    - events
+    domain: "[1, 3]"
+    amount:
+    - '2'
+    formula: Implies(_sym[0][1], _sym[0][0])
+    desc: 除非选派{get_p(_sym[0][0], 'names')}，否则不能选派{get_p(_sym[0][1], 'names')}。
+queries:
+  q1:
+    source:
+    - events
+    desc: 以下哪项可以是符合条件的人选？
+    opt_num: 5
+    amount:
+    - select_num
+    cond: any
+    opt_formula: sum([get_value(_model, _opt[0][i]) for i in range(select_num)]) ==
+      select_num
+    opt_text: "{'、'.join(get_p(_opt[0], 'names'))}"
+  q2:
+    source:
+    - events
+    desc: 被选派的人中一定包括：
+    opt_num: 4
+    amount:
+    - '2'
+    cond: all
+    opt_formula: sum([get_value(_model, _opt[0][i]) for i in range(2)]) >= 1
+    opt_text: "{get_p(_opt[0][0], 'names')}或{get_p(_opt[0][1], 'names')}或二者都被选派。"
+  q3:
+    source:
+    - events
+    desc: 以下哪两个人不可能被同时选派？
+    opt_num: 5
+    amount:
+    - '2'
+    cond: all
+    opt_formula: sum([get_value(_model, _opt[0][i]) for i in range(2)]) <= 1
+    opt_text: "{get_p(_opt[0][0], 'names')}和{get_p(_opt[0][1], 'names')}"
+desc: "在{p_num}个毕业生{name_desc}中，{base}。选派必须满足以下条件：\n{extra1}\n{extra2}\n{queries}\n"

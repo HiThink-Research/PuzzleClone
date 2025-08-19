@@ -1,0 +1,86 @@
+variables:
+  student_num:
+    type: int
+    domain: "[6, 10]"
+    diff_factor: 1
+  query_student:
+    type: int
+    domain: "[0, student_num - 1]"
+    diff_factor: 0
+  query_days:
+    formula: 'generate_random_list(2, ''int'', [0, student_num - 1], [f"lambda l:
+      len(l) == len(to_unique(l))"])'
+    diff_factor: 0
+  names:
+    formula: generate_letters(student_num)
+symbols:
+  day_s:
+    source:
+    - names
+    type: int
+    desc: "{_sym[0]}上课的日期"
+conditions:
+  days_domain:
+    formula: And([And(x >= 0, x < student_num) for x in day_s])
+  days_distinct:
+    formula: gen_event_count_condition(day_s, 'distinct')
+  e1:
+    source:
+    - day_s
+    - "[False, True]"
+    amount:
+    - '2'
+    - '1'
+    domain: "[1, 2]"
+    formula: _sym[0][0] > _sym[0][1] if _sym[1][0] else _sym[0][0] < _sym[0][1]
+    desc: "{get_p(_sym[0][0], 'names')}的课{'晚' if _sym[1][0] else '早'}于{get_p(_sym[0][1],\
+      \ 'names')}；"
+  e2:
+    source:
+    - day_s
+    - list(range(student_num))
+    - "[False, True]"
+    domain: "[1, 2]"
+    formula: _sym[0] > _sym[1] if _sym[2] else _sym[0] < _sym[1]
+    desc: "{get_p(_sym[0], 'names')}的课{'晚' if _sym[2] else '早'}于第{_sym[1] + 1}天；"
+  e3:
+    source:
+    - day_s
+    - list(range(1, student_num))
+    amount:
+    - '2'
+    - '1'
+    domain: "[1, 2]"
+    formula: _sym[0][1] - _sym[0][0] == _sym[1][0]
+    desc: "{get_p(_sym[0][1], 'names')}的课恰好在{get_p(_sym[0][0], 'names')}的课的{_sym[1][0]}天之后；"
+  e4:
+    source:
+    - day_s
+    - list(range(student_num))
+    amount:
+    - '1'
+    - '2'
+    domain: "[1, 2]"
+    formula: Or(_sym[0][0] == _sym[1][0], _sym[0][0] == _sym[1][1])
+    desc: "{get_p(_sym[0][0], 'names')}的课或者是第{_sym[1][0] + 1}天，或者是第{_sym[1][1] + 1}天；"
+queries:
+  q1:
+    source:
+    - names
+    desc: 如果{names[query_student]}的课安排在第{query_days[0] + 1}天，则以下哪个学生的课一定安排在第{query_days[1]
+      + 1}天？
+    opt_num: 4
+    amount:
+    - '1'
+    cond: all
+    opt_formula: get_value(_model, day_s[names[query_student]]) != query_days[0] or
+      get_value(_model, day_s[_opt[0][0]]) == query_days[1]
+    opt_text: "{_opt[0][0]}"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      constraint: any([get_value(_model, day_s[names[query_student]]) == query_days[0]
+        for _model in _solutions])
+desc: 一个钢琴教师有{student_num}个学生：{','.join(names)}。在连续的{student_num}天中，这个钢琴教师每天上并且只上一次课；每次课给并且只给一个学生上。课程安排必须满足以下条件：{conditions}
+  {q1}

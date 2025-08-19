@@ -1,0 +1,49 @@
+custom_operator:
+  cal_workers: customs/flour.py
+variables:
+  num_AB:
+    type: int
+    domain: "[1, 5]"
+    diff_factor: 0
+  hour_C:
+    type: int
+    domain: "[1, 5]"
+    diff_factor: 0
+  num_worker_A:
+    type: int
+    domain: "[5, 20]"
+    diff_factor: 0
+  hour_delta_1:
+    type: int
+    domain: "[1, 5]"
+    diff_factor: 0
+  hour_delta_2:
+    type: int
+    domain: "[1, 5]"
+    diff_factor: 0
+  num_delta:
+    type: int
+    domain: "[1, 5]"
+    diff_factor: 0
+  worker_delta:
+    type: int
+    domain: "[5, 15]"
+    diff_factor: 0
+  num_C:
+    formula: num_AB+num_delta
+  hour_B:
+    formula: hour_C+hour_delta_1
+  hour_A:
+    formula: hour_B+hour_delta_2
+  num_worker_B:
+    formula: num_worker_A+worker_delta
+symbols: {}
+conditions: {}
+calc_solution: false
+queries:
+  q1:
+    desc: 至少还需要多少个工人？
+    ans_formula: cal_workers(num_AB,num_C,hour_A,hour_B,hour_C,num_worker_A,num_worker_B)
+    ans_text: str(_ans)
+    ans_assertion: _ans > 0
+desc: 甲、乙、丙三个仓库各存放着数量相同的面粉，甲仓库用{num_AB}台机器和{num_worker_A}个工人加工，{hour_A}小时可将甲仓库里的面粉加工完；乙仓库用{num_AB}台机器和{num_worker_B}个工人加工，{hour_B}小时可将仓库内的面粉加工完；丙仓库现有{num_C}台机器，如果每个工人每小时面粉加工工效相同，每台机器每小时面粉加工工效也相同，机器与工人一起加工面粉，那么如果需要在{hour_C}小时内把丙仓库内的面粉加工完，{q1}

@@ -1,0 +1,113 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 7]"
+    diff_factor: 1
+  f_num:
+    type: int
+    domain: "[3, 5]"
+    diff_factor: 1
+  names:
+    formula: get_faker(p_num, 'name')
+  names2:
+    formula: names
+  food:
+    formula: get_faker(f_num, 'chinese_drink')
+symbols:
+  buy:
+    source:
+    - names
+    - food
+    type: bool
+conditions:
+  at_least_buy_one_kind:
+    formula: And([Or([buy[(p, f)] for f in food]) for p in names])
+  if_a_then_not_b:
+    source:
+    - food
+    - "[False, True]"
+    amount:
+    - '2'
+    - '2'
+    order:
+    - true
+    - true
+    init_cond:
+    - false
+    - true
+    formula: And([Implies(buy[(p, _sym[0][0])] if _sym[1][0] else Not(buy[(p, _sym[0][0])]),
+      buy[(p, _sym[0][1])] if _sym[1][1] else Not(buy[(p, _sym[0][1])])) for p in
+      names])
+    desc: 如果{'不' if _sym[1][0] else ''}买{_sym[0][0]}，则{'不' if _sym[1][1] else ''}买{_sym[0][1]}；
+  at_least_one_person_buys:
+    source:
+    - food
+    domain: "[1, 2]"
+    formula: Or([buy[(p, _sym[0])] for p in names])
+    desc: 至少有一人买{_sym[0]}；
+  a_buys_b:
+    source:
+    - names
+    - food
+    - "[False, True]"
+    domain: "[p_num * f_num // 3, p_num * f_num // 2]"
+    formula: buy[(_sym[0], _sym[1])] == _sym[2]
+    desc: "{_sym[0]}{'买了' if _sym[2] else '没买'}{_sym[1]}；"
+  a_b_exclusive:
+    source:
+    - names
+    amount:
+    - '2'
+    order:
+    - true
+    init_cond:
+    - false
+    domain: "[1, 2]"
+    formula: And([Implies(buy[(_sym[0][0], f)], Not(buy[(_sym[0][1], f)])) for f in
+      food])
+    desc: "{_sym[0][0]}买的东西，{_sym[0][1]}都没买；"
+  exclusion_pet_beer:
+    source:
+    - names
+    - range(2, f_num)
+    amount:
+    - '2'
+    - '1'
+    formula: And([Sum([If(buy[(p, f)], 1, 0) for f in food]) == _sym[1][0] for p in
+      _sym[0]])
+    desc: 如果{_sym[0][0]}和{_sym[0][1]}各买了{_sym[1][0]}种食品，
+queries:
+  q1:
+    desc: 则以下哪项一定为真？
+    opt_num: 4
+    templates:
+    - source:
+      - names
+      amount:
+      - '2'
+      domain: "[2, 2]"
+      cond: all
+      opt_formula: all([get_value(_model, buy[(_opt[0][0], f)]) != None and get_value(_model,
+        buy[(_opt[0][1], f)]) != None for f in food]) and sum([get_value(_model, buy[(_opt[0][0],
+        f)]) and get_value(_model, buy[(_opt[0][1], f)]) for f in food]) == 1
+      opt_text: 有且只有1种食品，{_opt[0][0]}和{_opt[0][1]}都买了。
+    - source:
+      - names
+      - food
+      - "[False, True]"
+      amount:
+      - '1'
+      - '1'
+      - '1'
+      domain: "[2, 2]"
+      cond: all
+      opt_formula: get_value(_model, buy[(_opt[0][0], _opt[1][0])]) == _opt[2][0]
+      opt_text: "{_opt[0][0]}{'买了' if _opt[2][0] else '没买'}{_opt[1][0]}。"
+      custom_cond:
+      - scope: domain
+        fields:
+        - 0
+        - 1
+        constraint: 'lambda l: all([all([names[item[0][0][0]] != d[0][0] or food[item[0][1][0]]
+          != d[1][0] for d in a_buys_b.data])  for item in l])'
+desc: 有{'、'.join(names)}{p_num}个人，在{'、'.join(food)}{f_num}种快餐食品中，至少买了一种。他们对食品的选择满足以下条件：{conditions}{q1}

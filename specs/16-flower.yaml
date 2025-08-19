@@ -1,0 +1,93 @@
+variables:
+  flower_num:
+    type: int
+    domain: "[4, 6]"
+    diff_factor: 1
+  max_selected_num:
+    type: int
+    domain: "[6, 6]"
+    diff_factor: 0
+  added_flower_index:
+    type: int
+    domain: "[0, flower_num - 1]"
+    diff_factor: 0
+  flowers:
+    formula: get_faker(flower_num, 'flower_name')
+  flowers_desc:
+    formula: "'、'.join(flowers)"
+symbols:
+  flower_s:
+    source:
+    - flowers
+    type: int
+conditions:
+  flower_domain:
+    formula: And([And(flower_s[p] >= 0, flower_s[p] <= max_selected_num) for p in
+      flowers])
+  select_two_distinct_types_at_least:
+    formula: Sum([If(flower_s[p] > 0, 1, 0) for p in flowers]) >= 2
+  add_flower:
+    formula: flower_s[flowers[added_flower_index]] >= 1
+  e1:
+    source:
+    - flowers
+    domain: "[1, 2]"
+    amount:
+    - '2'
+    formula: "[Implies(flower_s[_sym[0][0]] > 0, flower_s[_sym[0][1]] == 0)]"
+    desc: 如果有{_sym[0][0]}，则不能有{_sym[0][1]}；
+  e2:
+    source:
+    - flowers
+    domain: "[1, 1]"
+    amount:
+    - '2'
+    formula: "[Implies(flower_s[_sym[0][0]] > 0, flower_s[_sym[0][1]] == flower_s[_sym[0][0]])]"
+    desc: 如果有{_sym[0][0]}，则必须有{_sym[0][1]}，并且{_sym[0][1]}的数量必须和{_sym[0][0]}一样多；
+  e3:
+    source:
+    - flowers
+    - range(2, 5)
+    domain: "[1, 1]"
+    amount:
+    - '2'
+    - '1'
+    formula: "[Implies(flower_s[_sym[0][0]] > 0, flower_s[_sym[0][1]] == _sym[1][0]\
+      \ * flower_s[_sym[0][0]])]"
+    desc: 如果有{_sym[0][0]}，则必须有{_sym[0][1]}，并且{_sym[0][1]}的数量是{_sym[0][0]}的{_sym[1][0]}倍；
+  e4:
+    source:
+    - flowers
+    domain: "[1, 1]"
+    formula: "[Implies(flower_s[_sym[0]] > 0, flower_s[_sym[0]] > Sum([flower_s[p]\
+      \ for p in flowers if p != _sym[0]]))]"
+    desc: 如果有{_sym[0]}，则{_sym[0]}的数量必须大于所用到的其它花的数量的总和；
+queries:
+  q1:
+    source:
+    - range(max_selected_num + 1)
+    desc: 以下哪个配制，只须加上一枝{flowers[added_flower_index]}，就可成为一件合格的插花？
+    opt_num: 4
+    amount:
+    - flower_num
+    init_cond:
+    - 'true'
+    cond: any
+    opt_formula: all([get_value(_model, flower_s[flowers[i]]) == _opt[0][i] + (1 if
+      i == added_flower_index else 0) for i in range(flower_num)])
+    opt_text: "{'，'.join([(str(_opt[0][i]) + '枝' + flowers[i]) for i in range(flower_num)\
+      \ if _opt[0][i] > 0])}"
+  q2:
+    source:
+    - flowers
+    desc: 以下各项所列的两种花都可以搭配在一起组成一件合格的插花，除了：
+    opt_num: 4
+    amount:
+    - '2'
+    cond: any
+    select_type: false
+    opt_formula: get_value(_model, flower_s[_opt[0][0]]) > 0 and get_value(_model,
+      flower_s[_opt[0][1]]) > 0
+    opt_text: "{_opt[0][0]}和{_opt[0][1]}"
+desc: 一个花匠正在配制插花。可供配制的花共有{flowers_desc} {flower_num}个品种。一件合格的插花须有两种以上花组成，同时须满足以下条件：{e1}
+  {e2} {e3} {e4}。{queries}

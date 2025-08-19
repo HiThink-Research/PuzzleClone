@@ -1,0 +1,68 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 10]"
+    diff_factor: 1
+  exam_num:
+    type: int
+    domain: "[2, p_num]"
+    diff_factor: 1
+  num_performed_well:
+    type: int
+    domain: "[1, p_num - 1]"
+    diff_factor: 0
+  names:
+    formula: get_faker(p_num, 'name')
+  exams:
+    formula: get_faker(exam_num, 'major')
+symbols:
+  performed_well:
+    source:
+    - names
+    type: bool
+  passed:
+    source:
+    - names
+    - exams
+    type: bool
+conditions:
+  num_performed_well_cond:
+    formula: gen_event_count_condition(performed_well, 'equal', num_performed_well)
+    desc: "{p_num}个人中，只有{num_performed_well}个人在考试中发挥正常。"
+  extra1:
+    source:
+    - exams
+    amount:
+    - '2'
+    domain: "[p_num, p_num]"
+    domain_cond: false
+    order:
+    - true
+    init_cond:
+    - true
+    formula: And(Implies(performed_well[names[_index]], passed[(names[_index], _sym[0][0])]),
+      Implies(Not(performed_well[names[_index]]), Not(passed[(names[_index], _sym[0][1])])))
+    desc: "{names[_index]}说：“如果我在考试中发挥不正常，我将不能通过{_sym[0][1]}考试。如果我在考试中发挥正常，我将能通过{_sym[0][0]}考试。”"
+  only_one_who_passed_some_exam:
+    source:
+    - "[False, True]"
+    amount:
+    - '2'
+    order:
+    - false
+    init_cond:
+    - true
+    domain: "[2, 2]"
+    formula: Or([Sum([If(And(passed[(p, e)] == _sym[0][1], performed_well[p] != _sym[0][0]),
+      1, 0) for p in names]) == 0 for e in exams])
+    desc: "{'同时，' if _index > 0 else ''}这{exam_num}门科目中的某门考试只有发挥{'' if _sym[0][0]\
+      \ else '不'}正常的人{'' if _sym[0][1] else '没有'}通过；"
+max_solution: 500
+queries:
+  q1:
+    desc: 请问{'哪个' if num_performed_well == 1 else '哪些'}人是发挥正常的人？
+    ans_formula: to_unique([[p for p in names if get_value(_model, performed_well[p])]
+      for _model in _solutions])
+    ans_text: "','.join(_ans[0])"
+    ans_assertion: len(_ans) <= 1
+desc: "{'、'.join(names)} {p_num}人一起参加了{'、'.join(exams)} {exam_num}门考试。{num_performed_well_cond}考试前，{extra1}并且：{only_one_who_passed_some_exam}{q1}\n"

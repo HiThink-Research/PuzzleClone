@@ -1,0 +1,120 @@
+variables:
+  patient_num:
+    type: int
+    domain: "[4, 8]"
+    diff_factor: 1
+  doctor_num:
+    type: int
+    domain: "[patient_num // 2 + 1, patient_num // 2 + 2]"
+    diff_factor: 1
+  genders:
+    formula: 'generate_random_list(patient_num, ''bool'', [False, True], [f"lambda
+      l: sum(l) > 0 and sum(l) < {patient_num}"])'
+    diff_factor: 0
+  is_adult:
+    formula: 'generate_random_list(patient_num, ''bool'', [False, True], [f"lambda
+      l: sum(l) > 0 and sum(l) < {patient_num}"])'
+    diff_factor: 0
+  names:
+    formula: get_faker(patient_num + doctor_num, 'name')
+  patients:
+    formula: names[:patient_num]
+  doctors:
+    formula: names[patient_num:]
+  males:
+    formula: "[a for a, b in zip(patients, genders) if b]"
+  children:
+    formula: "[a for a, b in zip(patients, is_adult) if not b]"
+symbols:
+  patient_s:
+    source:
+    - patients
+    attr:
+    - gender
+    - is_adult
+    - doctor
+    type:
+    - bool
+    - bool
+    - int
+conditions:
+  doctor_domain:
+    formula: And([And(patient_s[p].get('doctor') >= 0, patient_s[p].get('doctor')
+      < doctor_num) for p in patients])
+  two_patients_at_most_per_doctor:
+    formula: And([Sum([If(x == d, 1, 0) for x in patient_s.get('doctor')]) <= 2 for
+      d in range(doctor_num)])
+  set_genders:
+    formula: "[patient_s[p].get('gender') == g for p, g in zip(patients, genders)]"
+  set_is_adult:
+    formula: "[patient_s[p].get('is_adult') == i for p, i in zip(patients, is_adult)]"
+  e1:
+    source:
+    - range(doctor_num)
+    - "[False, True]"
+    domain: "[1, 2]"
+    formula: "[Implies(patient_s[p].get('gender') != _sym[1], patient_s[p].get('doctor')\
+      \ != _sym[0]) for p in patients]"
+    desc: "{doctors[_sym[0]]}只负责治疗{'男' if _sym[1] else '女'}性患者；"
+  e2:
+    source:
+    - range(doctor_num)
+    domain: "[1, 1]"
+    formula: Sum([If(patient_s[p].get('doctor') == _sym[0], 1, 0) for p in patients])
+      == 1
+    desc: "{doctors[_sym[0]]}只负责1名患者的治疗工作；"
+  e3:
+    formula: And([Implies(And(patient_s[p].get('is_adult') == False, patient_s[p].get('doctor')
+      == d), Or([And(patient_s[p2].get('is_adult') == True, patient_s[p2].get('doctor')
+      == d, patient_s[p2].get('gender') == patient_s[p].get('gender')) for p2 in patients]))
+      for d in range(doctor_num) for p in patients])
+    desc: 如果某名医生负责治疗1名儿童患者，那么他必须负责与这个患儿性别相同的1名成人患者的治疗工作；
+queries:
+  q1:
+    source:
+    - patients
+    - range(doctor_num)
+    desc: 根据上面的条件，以下哪项肯定为真？
+    opt_num: 4
+    amount:
+    - '1'
+    - '1'
+    cond: all
+    opt_formula: get_value(_model, patient_s[_opt[0][0]].get('doctor')) == _opt[1][0]
+    opt_text: "{_opt[0][0]}由{doctors[_opt[1][0]]}负责治疗"
+  q2:
+    source:
+    - patients
+    - range(doctor_num)
+    desc: 根据上面的条件，以下哪项可能为真？
+    opt_num: 4
+    amount:
+    - '2'
+    - '1'
+    cond: any
+    opt_formula: get_value(_model, patient_s[_opt[0][0]].get('doctor')) == _opt[1][0]
+      and get_value(_model, patient_s[_opt[0][1]].get('doctor')) == _opt[1][0]
+    opt_text: "{_opt[0][0]}和{_opt[0][1]}由{doctors[_opt[1][0]]}负责治疗"
+  q3:
+    source:
+    - range(doctor_num)
+    - "[False, True]"
+    - "[False, True]"
+    desc: 根据题干，以下哪一项肯定为真？
+    opt_num: 4
+    amount:
+    - '1'
+    - '1'
+    - '1'
+    cond: all
+    opt_formula: sum([get_value(_model, patient_s[p].get('doctor')) == _opt[0][0]
+      and get_value(_model, patient_s[p].get('gender')) == _opt[1][0] for p in patients])
+      >= 1 if _opt[2][0] else sum([get_value(_model, patient_s[p].get('doctor')) ==
+      _opt[0][0] and get_value(_model, patient_s[p].get('is_adult')) == _opt[1][0]
+      for p in patients]) >= 1
+    opt_text: "{(doctors[_opt[0][0]] + '至少负责治疗一名' + ('男' if _opt[1][0] else '女') +\
+      \ '性患者') if _opt[2][0] else (doctors[_opt[0][0]] + '至少负责治疗一名' + ('成年' if _opt[1][0]\
+      \ else '儿童') + '患者')}"
+desc: "有{patient_num}名心脏病患者{','.join(patients)}要分配给{doctor_num}名医生负责治疗，他们是{','.join(doctors)}。每名患者只能由1位医生负责，每位医生最多负责两名患者的治疗。患者中{','.join(children)}是儿童，其余{patient_num\
+  \ - len(children)}个是成年人；{','.join(males)}是男性，其余{patient_num - len(males)}人是女性。以下条件必须满足：{e1}\
+  \ {e2} {e3}\n{queries}"

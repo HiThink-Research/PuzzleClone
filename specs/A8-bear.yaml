@@ -1,0 +1,33 @@
+custom_operator:
+  BFS_cal: customs/bear.py
+variables:
+  start:
+    type: int
+    domain: "[3, 20]"
+    diff_factor: 1
+  total_bear:
+    type: int
+    domain: "[90, 200]"
+    diff_factor: 1
+  target:
+    type: int
+    domain: "[start+1, total_bear]"
+    diff_factor: 0
+  colors:
+    formula: get_faker(2,'color_name_cn')
+symbols: {}
+conditions: {}
+calc_solution: false
+queries:
+  q1:
+    desc: 最少要点击多少次按钮？
+    ans_formula: BFS_cal(start, target, colors)
+    ans_text: str(_ans[0])
+    ans_assertion: 'True'
+  q2:
+    desc: 每次应按什么顺序点击按钮。请用逗号分隔依次输出按钮颜色。
+    ans_formula: BFS_cal(start, target, colors)
+    ans_text: str(_ans[1])
+    ans_assertion: 'True'
+desc: 有一种电子游戏，其中有一个{colors[0]}按钮、一个{colors[1]}按钮和 {total_bear} 个能坐站的电子熊。如果用鼠标点一下{colors[1]}按钮，就会有
+  1 只站着的电子熊坐下；如果点击一下{colors[0]}按钮，就会使站着的电子熊增加一倍。要想使站着的电子熊从 {start} 只增加到 {target} 只，{queries}

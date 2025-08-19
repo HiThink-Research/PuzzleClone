@@ -1,0 +1,58 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 12]"
+    diff_factor: 1
+  names:
+    formula: get_faker(p_num, 'name_male')
+  name_desc:
+    formula: "'、'.join(names)"
+symbols:
+  hunt_s:
+    source:
+    - names
+    type: Bool
+  speeches_s:
+    total: p_num
+    templates:
+    - source:
+      - names
+      formula: Or(hunt_s[names[_index]], hunt_s[_sym[0]])
+      desc: "{names[_index]}说：\"或者是我射中的，或者是{_sym[0]}射中的。\""
+    - source:
+      - names
+      formula: Not(hunt_s[_sym[0]])
+      desc: "{names[_index]}说：\"不是{_sym[0]}射中的。\""
+    - source:
+      - names
+      amount:
+      - '2'
+      formula: Implies(Not(hunt_s[_sym[0][0]]), hunt_s[_sym[0][1]])
+      desc: "{names[_index]}说：\"如果不是{_sym[0][0]}射中的，那么一定是{_sym[0][1]}射中的。\""
+    - source:
+      - names
+      formula: And(Not(hunt_s[names[_index]]), Not(hunt_s[_sym[0]]))
+      desc: "{names[_index]}说：\"既不是我射中的，也不是{_sym[0]}射中的。\""
+    - source:
+      - names
+      amount:
+      - '2'
+      formula: And(Not(hunt_s[_sym[0][0]]), Not(hunt_s[_sym[0][1]]))
+      desc: "{names[_index]}说：\"既不是{_sym[0][0]}射中的，也不是{_sym[0][1]}射中的。\""
+conditions:
+  e1:
+    formula: gen_event_count_condition(hunt_s, 'equal', 1)
+  e2:
+    source:
+    - range(1, p_num)
+    formula: gen_event_count_condition(speeches_s, 'equal', _sym[0])
+    desc: 国王让人把射中鹿的箭拿来，看了看，说：“你们{p_num}位将军的猜测，只有{_sym[0]}个人的话是真的。”
+queries:
+  q1:
+    desc: 请问鹿是谁射中的？
+    ans_formula: to_unique([[p for p in names if get_value(_model, hunt_s[p])] for
+      _model in _solutions])
+    ans_text: "','.join(_ans[0])"
+    ans_assertion: len(_ans) <= 1
+desc: "古代一位国王和他的{name_desc} {p_num}位将军一同出外打猎，各人的箭上都刻有自己的姓氏。打猎中， 一只鹿中箭倒下，但不知是何人所射。{'，'.join(get_desc(speeches_s))}\
+  \ {e2} {queries}\n"

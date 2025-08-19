@@ -1,0 +1,44 @@
+variables:
+  p_num:
+    type: int
+    domain: "[3, 10]"
+    diff_factor: 1
+  broken_vase_num:
+    type: int
+    domain: "[1, round(p_num/3)]"
+    diff_factor: 1
+  names:
+    formula: get_faker(p_num, 'name')
+  name_desc:
+    formula: "'、'.join(names)"
+symbols:
+  names_s:
+    source:
+    - names
+    type: Bool
+    desc: "{_names}打破了花瓶"
+  speeches_s:
+    source:
+    - names_s
+    - "[True, False]"
+    - "['eq']"
+    domain: p_num
+    domain_cond: false
+    formula: make_expr(_sym[2], _sym[0], _sym[1])
+    desc: "{names[_index]}说：“{get_p(_sym[0], 'names')}{'打碎了' if _sym[1] else '没有打碎'}花瓶”"
+conditions:
+  extra1:
+    formula: gen_event_count_condition(names_s, 'equal', broken_vase_num)
+    desc: 妈妈知道，{p_num}个孩子中有{broken_vase_num}个人打碎了花瓶
+  extra2:
+    formula: "[Implies(names_s[names[i]], Not(speeches_s[i])) for i in range(p_num)]"
+    desc: 且打破花瓶那{broken_vase_num}个孩子一定在撒谎
+queries:
+  q1:
+    desc: 请问，他们中到底谁打碎了花瓶？{'请用逗号分隔输出孩子的名字。' if broken_vase_num > 1 else ''}
+    ans_formula: get_p(get_TF_events_for_each_solution(names_s, _solutions, True),
+      'names')
+    ans_text: "','.join(_ans[0])"
+    ans_assertion: len(_ans) == 1
+desc: "在家里有{name_desc} {p_num}个孩子，其中有{broken_vase_num}个孩子把花瓶打碎了，妈妈回来后问怎么回事：{'，'.join(get_desc(speeches_s))}。{extra1},\
+  \ {extra2}。{q1}\n"

@@ -1,0 +1,92 @@
+variables:
+  ship_num:
+    type: int
+    domain: "[3, 5]"
+    diff_factor: 1
+  num_per_ship:
+    type: int
+    domain: "[2, 4]"
+    diff_factor: 0
+  p_num:
+    formula: ship_num * num_per_ship
+    diff_factor: 1
+  child_num:
+    type: int
+    domain: "[p_num // 2 - 1, p_num // 2 + 1]"
+    diff_factor: 1
+  names:
+    formula: generate_letters(p_num)
+symbols:
+  board:
+    source:
+    - names
+    type: int
+conditions:
+  board_cond:
+    formula: And([Sum([If(board[j] == i, 1, 0) for j in names]) == num_per_ship for
+      i in range(ship_num)])
+  board_domain:
+    formula: And([And(board[x] >= 0, board[x] < ship_num) for x in names])
+  at_least_one_adult_per_ship:
+    formula: And([Or([board[names[j]] == i for j in range(child_num, p_num)]) for
+      i in range(ship_num)])
+    desc: 每个游艇上至少有一名成年人。
+  extra1:
+    source:
+    - names
+    - "[False, True]"
+    amount:
+    - '2'
+    - '1'
+    domain: "[2, ship_num]"
+    formula: make_expr('eq' if _sym[1][0] else 'neq', board[_sym[0][0]], board[_sym[0][1]])
+    desc: "{_sym[0][0]}和{_sym[0][1]}{'必须' if _sym[1][0] else '不能'}乘坐同一游艇。"
+  extra2:
+    source:
+    - names
+    - range(ship_num)
+    amount:
+    - '1'
+    - '1'
+    domain: "[1, ship_num]"
+    formula: board[_sym[0][0]] != _sym[1][0]
+    desc: "{_sym[0][0]}不能乘坐{_sym[1][0] + 1}号艇。"
+  extra3:
+    source:
+    - names
+    - range(ship_num)
+    amount:
+    - '1'
+    - '1'
+    formula: board[_sym[0][0]] == _sym[1][0]
+    desc: 如果{_sym[0][0]}乘坐{_sym[1][0] + 1}号艇，
+queries:
+  q1:
+    source:
+    - names
+    - range(ship_num)
+    desc: 以下哪项可能为真？
+    opt_num: 5
+    amount:
+    - '2'
+    - '1'
+    cond: any
+    opt_formula: get_value(_model, board[_opt[0][0]]) == _opt[1][0] and get_value(_model,
+      board[_opt[0][1]]) == _opt[1][0]
+    opt_text: "{_opt[0][0]}和{_opt[0][1]}乘坐{_opt[1][0] + 1}号艇。"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      constraint: "lambda l: all([extra3.data[0][0][0] not in item[0][0] for item in l])"
+    - scope: domain
+      fields:
+      - 0
+      constraint: "lambda l: all([d[0] != item[0][0] for d in extra1.data for item in l])"
+    - scope: domain
+      fields:
+      - 0
+      - 1
+      constraint: "lambda l: all([(d[0][0], d[1][0]) not in [(item[0][0][0], item[0][1][0]), (item[0][0][1], item[0][1][0])] for d in extra2.data for item in l])"
+desc: "{child_num}个儿童{'、'.join(names[:child_num])}和{p_num - child_num}个成年人{'、'.join(names[child_num:p_num])}分别乘坐{'、'.join([str(i\
+  \ + 1) + '号' for i in range(ship_num)])}{ship_num}个游艇，每个游艇乘坐{num_per_ship}人。以下条件必须满足：{at_least_one_adult_per_ship}{conditions}{q1}"

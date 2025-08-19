@@ -1,0 +1,49 @@
+custom_operator: {}
+variables:
+  p_num:
+    type: int
+    domain: "[3, 7]"
+    diff_factor: 1
+  round_num:
+    type: int
+    domain: "[3, 7]"
+    diff_factor: 1
+  final_num:
+    type: int
+    domain: "[70, 400]"
+    diff_factor: 1
+  names:
+    formula: generate_letters(p_num)
+  rounds:
+    formula: generate_letters(round_num + 1)
+  sum_num:
+    formula: final_num * p_num
+symbols:
+  num:
+    source:
+    - names
+    - rounds
+    type: int
+conditions:
+  domain:
+    formula: And([num[(n, s)] > 0 for n in names for s in rounds])
+  final_num_cond:
+    formula: And([num[(n, rounds[-1])] == final_num for n in names])
+  sum_cond:
+    formula: And([Sum([num[(n, s)] for n in names]) == sum_num for s in rounds])
+  giving:
+    source:
+    - range(1, 10)
+    amount:
+    - p_num
+    formula: And([num[(names[i], rounds[j + 1])] == num[(names[i], rounds[j])] - _sym[0][i]
+      + _sym[0][i-1] for i in range(p_num) for j in range(round_num)])
+    desc: 游戏开始时，{','.join(['第' + str(i + 1) + '个人给第' + str((i + 1) % p_num + 1) +
+      '个人' + str(_sym[0][i]) + '颗石子' for i in range(p_num)])}，....
+queries:
+  q1:
+    desc: 则游戏前，每个人各有几颗石子？用逗号分隔输出每个人的石子数。
+    ans_formula: "[get_value(_solutions[0], num[(n, rounds[0])]) for n in names]"
+    ans_text: "','.join([str(v) for v in _ans])"
+    ans_assertion: len(_solutions) == 1
+desc: "{p_num}个人围成一圈做游戏，每人都有一袋小石子。{conditions}如此操作{round_num}圈后所有人袋中的石子都一样多。若所有石子总数为{sum_num}颗。{q1}"

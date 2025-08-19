@@ -1,0 +1,54 @@
+custom_operator:
+  pair_max: 'lambda x, y: x if x > y else y'
+variables:
+  p_num:
+    type: int
+    domain: "[4, 4]"
+    diff_factor: 1
+  pair_num:
+    formula: p_num * (p_num - 1) // 2
+    diff_factor: 0
+  pig_weight:
+    formula: 'generate_random_list(p_num, ''int'', [20, 60], [f"lambda l: len(l) ==
+      len(to_unique(l))"])'
+    diff_factor: 0
+  pair_weight_sum:
+    formula: sorted([pig_weight[i] + pig_weight[j] for i in range(p_num) for j in
+      range(i + 1, p_num)])
+    diff_factor: 0
+  pair_indices:
+    formula: "[(i, j) for i in range(p_num) for j in range(i + 1, p_num)]"
+    diff_factor: 0
+  eliminated_pair_indice:
+    type: int
+    domain: "[0, pair_num - 1]"
+    diff_factor: 0
+  remaining_pair_weight_sum:
+    formula: pair_weight_sum[:eliminated_pair_indice] + pair_weight_sum[eliminated_pair_indice
+      + 1:]
+    diff_factor: 0
+  remaining_pair_weight_sum_combinations:
+    formula: list(itertools.permutations(remaining_pair_weight_sum))
+    diff_factor: 0
+  pig_id:
+    formula: generate_letters(p_num)
+symbols:
+  pigs:
+    source:
+    - pig_id
+    type: int
+conditions:
+  pig_domain:
+    formula: And([And(x > 0, x < 120) for x in pigs])
+  pig_weight_cond:
+    formula: Or([And([ pigs[pig_id[pig_pair[0]]] + pigs[pig_id[pig_pair[1]]] == perm[idx]
+      for idx, pig_pair in enumerate(pair_indices[:-1]) ]) for perm in remaining_pair_weight_sum_combinations])
+queries:
+  q1:
+    desc: 那么，这两头猪中重量较重那头有多重？
+    ans_formula: to_unique([pair_max(get_value(_model, pigs[pig_id[p_num - 2]]), get_value(_model,
+      pigs[pig_id[p_num - 1]])) for _model in _solutions])
+    ans_text: _ans[0]
+    ans_assertion: len(_ans) == 1
+desc: 有{p_num}头猪，这{p_num}头猪的重量都是整千克数，把这{p_num}头猪两两合称体重，共称{pair_num - 1}次，分别是{'、'.join([str(i)
+  for i in remaining_pair_weight_sum])}，其中有两头猪没有一起称过。{queries}

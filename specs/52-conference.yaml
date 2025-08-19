@@ -1,0 +1,70 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 9]"
+    diff_factor: 1
+  supplies_num:
+    type: int
+    domain: "[2, 4]"
+    diff_factor: 1
+  query_index:
+    type: int
+    domain: "[0, p_num - 1]"
+    diff_factor: 0
+  names:
+    formula: get_faker(p_num, 'name')
+  name_desc:
+    formula: "'、'.join(names)"
+  supplies:
+    formula: get_faker(supplies_num, 'office_supplies')
+symbols:
+  hold:
+    source:
+    - names
+    - supplies
+    type: int
+conditions:
+  hold_distinct:
+    formula: And([Distinct([hold[(n, s)] for n in names]) for s in supplies])
+  hold_domain:
+    formula: And([And(hold[(n, s)] >= 0, hold[(n, s)] < p_num) for n in names for
+      s in supplies])
+  nobody_is_fully_correct:
+    formula: And([Not(And([hold[(names[i], s)] == i for s in supplies])) for i in
+      range(p_num)])
+    desc: 而且没有人把{'、'.join(supplies)}全部拿对了。
+  extra1:
+    source:
+    - range(1, p_num - 1)
+    - supplies
+    formula: Sum([If(hold[(names[i], _sym[1])] == i, 1, 0) for i in range(p_num)])
+      == _sym[0]
+    domain: "[2, supplies_num]"
+    desc: 他们中间只有{_sym[0]}个人拿了自己的{_sym[1]}，
+    custom_cond:
+    - scope: domain
+      fields:
+      - 1
+  extra2:
+    source:
+    - names
+    - supplies
+    amount:
+    - '2'
+    - '2'
+    domain: "[2, int(p_num*supplies_num/2)]"
+    order:
+    - false
+    - false
+    formula: And(hold[(_sym[0][0], _sym[1][0])] != _ind[0][0], And([Implies(hold[(_sym[0][0],
+      _sym[1][0])] == ind, hold[(v, _sym[1][1])] == _ind[0][1]) for ind, v in enumerate(names)
+      if v != _ind[0][0]]))
+    desc: "{_sym[0][0]}拿了别的同事的{_sym[1][0]}，而这个人又拿着{_sym[0][1]}的{_sym[1][1]}。"
+max_solution: 1
+queries:
+  q1:
+    desc: 请问，{names[query_index]}拿着的{'、'.join(supplies)}分别是谁的？用逗号分隔输出对应的人名，如小红，小李，……。
+    ans_formula: "[names[get_value(_solutions[0], hold[(names[query_index], s)])]\
+      \ for s in supplies]"
+    ans_text: "','.join(_ans)"
+desc: 会议室散会了，因为人很多，{name_desc}{p_num}个职员互相把{'、'.join(supplies)}拿错了。已知：{extra1}{nobody_is_fully_correct}{extra2}{q1}

@@ -1,0 +1,132 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 9]"
+    diff_factor: 1
+  father_base_age:
+    type: int
+    domain: "[42, 52]"
+    diff_factor: 0
+  daughter_base_age:
+    type: int
+    domain: "[12, 22]"
+    diff_factor: 0
+  f_names:
+    formula: get_faker(p_num, 'name_male')
+  d_names:
+    formula: get_faker(p_num, 'name_female')
+symbols:
+  fathers:
+    source:
+    - f_names
+    attr:
+    - daughter
+    - age
+    type:
+    - int
+    - int
+  daughters_age:
+    source:
+    - d_names
+    type: int
+conditions:
+  father_daughter_distinct:
+    formula: gen_event_count_condition(fathers.get('daughter'), 'distinct')
+  father_age_distinct:
+    formula: gen_event_count_condition(fathers.get('age'), 'distinct')
+  daughter_age_distinct:
+    formula: gen_event_count_condition(daughters_age, 'distinct')
+  father_daughter_domain:
+    formula: And([And(v >= 0, v < p_num) for v in fathers.get('daughter')])
+  father_age_domain:
+    formula: Or([And([And(v2 >= v1, v2 < v1 + p_num)  for v2 in fathers.get('age')])
+      for v1 in fathers.get('age')])
+  daughter_age_domain:
+    formula: Or([And([And(v2 >= v1, v2 < v1 + p_num)  for v2 in daughters_age]) for
+      v1 in daughters_age])
+  extra1:
+    source:
+    - f_names
+    - range(father_base_age, father_base_age + p_num)
+    formula: fathers[_sym[0]].get('age') == _sym[1]
+    domain: "[1, p_num // 2]"
+    desc: "{_sym[0]}{_sym[1]}岁；"
+  extra2:
+    source:
+    - d_names
+    - range(daughter_base_age, daughter_base_age + p_num)
+    formula: daughters_age[_sym[0]] == _sym[1]
+    domain: "[1, p_num // 2]"
+    desc: "{_sym[0]}{_sym[1]}岁；"
+  extra3:
+    source:
+    - f_names
+    - d_names
+    domain: "[1, p_num // 4]"
+    formula: fathers[_sym[0]].get('daughter') == _ind[1]
+    desc: "{_sym[0]}的女儿是{_sym[1]}；"
+  extra4:
+    source:
+    - f_names
+    - d_names
+    domain: "[1, p_num // 4]"
+    formula: fathers[_sym[0]].get('daughter') == _ind[1]
+    desc: "{_sym[1]}的父亲是{_sym[0]}；"
+  extra5:
+    source:
+    - f_names
+    - range(daughter_base_age, daughter_base_age + p_num)
+    domain: "[1, p_num // 4]"
+    formula: And([Implies(fathers[_sym[0]].get('daughter') == i, daughters_age[d_names[i]]
+      == _sym[1]) for i in range(p_num)])
+    desc: "{_sym[0]}有一个{_sym[1]}岁的女儿；"
+  extra6:
+    source:
+    - f_names
+    - range(1, p_num)
+    - "[False, True]"
+    amount:
+    - '2'
+    - '1'
+    - '1'
+    domain: "[1, p_num // 4]"
+    formula: fathers[_sym[0][0]].get('age') - fathers[_sym[0][1]].get('age') == (_sym[1][0]
+      if _sym[2][0] else -_sym[1][0])
+    desc: "{_sym[0][0]}比{_sym[0][1]}{'大' if _sym[2][0] else '小'}{_sym[1][0]}岁；"
+  extra7:
+    source:
+    - d_names
+    - range(1, p_num)
+    - "[False, True]"
+    amount:
+    - '2'
+    - '1'
+    - '1'
+    domain: "[1, p_num // 4]"
+    formula: daughters_age[_sym[0][0]] - daughters_age[_sym[0][1]] == (_sym[1][0]
+      if _sym[2][0] else -_sym[1][0])
+    desc: "{_sym[0][0]}比{_sym[0][1]}{'大' if _sym[2][0] else '小'}{_sym[1][0]}岁；"
+  extra8:
+    source:
+    - f_names
+    - "['le', 'ge']"
+    formula: And([make_expr(_sym[1], fathers[v].get('age') - fathers[_sym[0]].get('age'),
+      0) for v in f_names if v != _sym[0]])
+    desc: "{_sym[0]}是这{p_num}个父亲中最{'大' if _sym[1] == 'le' else '小'}的一个；"
+  extra9:
+    source:
+    - d_names
+    - "['le', 'ge']"
+    formula: And([make_expr(_sym[1], daughters_age[v] - daughters_age[_sym[0]], 0)
+      for v in d_names if v != _sym[0]])
+    desc: "{_sym[0]}是这{p_num}个女儿中最{'大' if _sym[1] == 'le' else '小'}的一个；"
+max_solution: 1
+queries:
+  q1:
+    desc: 请您推算出这{p_num}对父女之间的关系和年龄。请输出一个二维数组，包含{p_num}个长度为3的一维数组，分别表示{'、'.join(f_names)}的年龄、女儿及女儿年龄，如[[51,
+      \"小红\", 21], ....]。
+    ans_formula: "[[get_value(_solutions[0], fathers[v].get('age')), d_names[get_value(_solutions[0],\
+      \ fathers[v].get('daughter'))], get_value(_solutions[0], daughters_age[d_names[get_value(_solutions[0],\
+      \ fathers[v].get('daughter'))]])] for v in f_names]"
+    ans_text: _ans
+desc: 办公室里有{p_num}位已婚男士，他们的年龄分别相差一岁，各有一个女儿，年龄恰好也都相差一岁。所有男士的名字为{'、'.join(f_names)}，所有女儿的名字为{'、'.join(d_names)}。已知：{conditions}{q1}

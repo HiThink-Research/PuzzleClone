@@ -1,0 +1,36 @@
+custom_operator:
+  find_nth_meeting: customs/ant.py
+variables:
+  distance:
+    type: int
+    domain: "[6, 20]"
+    diff_factor: 1
+  min_speed:
+    type: int
+    domain: "[1, 4]"
+    diff_factor: 0
+  max_speed:
+    type: int
+    domain: "[min_speed, 6]"
+    diff_factor: 0
+  num_of_meeting:
+    type: int
+    domain: "[10, 20]"
+    diff_factor: 1
+  meeting:
+    formula: find_nth_meeting(num_of_meeting, distance, min_speed, max_speed)[-1]
+symbols: {}
+conditions: {}
+calc_solution: false
+queries:
+  q1:
+    desc: 相遇的地点距离A地多少米？（结果请保留1位小数）
+    ans_formula: meeting[1]
+    ans_text: "'{:.1f}'.format(_ans)"
+    ans_assertion: 'True'
+  q2:
+    desc: 此时A、B两只蚂蚁是同向还是反向行走？（请回答\"同向\"或者\"反向\"）
+    ans_formula: meeting[-1]
+    ans_text: _ans
+    ans_assertion: 'True'
+desc: A、B两只蚂蚁在相距{distance}米的甲、乙两地往返搬运粮食，A从甲地出发，B从乙地同时出发，A的速度是{min_speed}米/秒，B的速度是{max_speed}米/秒。当两只蚂蚁第{num_of_meeting}次相遇时（注：相遇包括迎面相遇和同向追上两种情况，蚂蚁搬运粮食的时间忽略不计）{queries}最终的回答格式形如："20.0,同向"。

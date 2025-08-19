@@ -1,0 +1,998 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>model package &mdash; PuzzleClone v0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2fea6348"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="translator module" href="translator.html" />
+    <link rel="prev" title="PuzzleClone" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PuzzleClone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">PuzzleClone</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">model package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-model.template">model.template module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.DefinedSymbol"><code class="docutils literal notranslate"><span class="pre">DefinedSymbol</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.DerivedSymbol"><code class="docutils literal notranslate"><span class="pre">DerivedSymbol</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.DerivedSymbols"><code class="docutils literal notranslate"><span class="pre">DerivedSymbols</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.DynamicCondition"><code class="docutils literal notranslate"><span class="pre">DynamicCondition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.Optimize"><code class="docutils literal notranslate"><span class="pre">Optimize</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.PostGen"><code class="docutils literal notranslate"><span class="pre">PostGen</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.PuzzleTemplate"><code class="docutils literal notranslate"><span class="pre">PuzzleTemplate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.Query"><code class="docutils literal notranslate"><span class="pre">Query</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.QueryBase"><code class="docutils literal notranslate"><span class="pre">QueryBase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.QuerySelectionBase"><code class="docutils literal notranslate"><span class="pre">QuerySelectionBase</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.QuerySelectionTemplate"><code class="docutils literal notranslate"><span class="pre">QuerySelectionTemplate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.QuerySelectionWithMultipleTemplates"><code class="docutils literal notranslate"><span class="pre">QuerySelectionWithMultipleTemplates</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.QuerySelectionWithSingleTemplate"><code class="docutils literal notranslate"><span class="pre">QuerySelectionWithSingleTemplate</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.StaticCondition"><code class="docutils literal notranslate"><span class="pre">StaticCondition</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#model.template.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-model">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="translator.html">translator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PuzzleClone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">PuzzleClone</a></li>
+      <li class="breadcrumb-item active">model package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/model.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="model-package">
+<h1>model package<a class="headerlink" href="#model-package" title="Link to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+</section>
+<section id="module-model.template">
+<span id="model-template-module"></span><h2>model.template module<a class="headerlink" href="#module-model.template" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.DefinedSymbol">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">DefinedSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#DefinedSymbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.DefinedSymbol" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Base class for defining symbol templates used in puzzle generation.</p>
+<p>This class provides the fundamental structure for creating basic symbol elements in puzzles.</p>
+<p>Note: The base data structure is a dictionary, where the keys are the symbol names (or tuples when len(source) &gt; 1) and the values are the Z3 symbols.</p>
+<p>If only the list of Z3 symbols are needed, use <cite>&lt;dict_name&gt;.to_list()</cite> or <cite>list(&lt;dict_name&gt;)</cite> method to convert the dictionary values to a list.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DefinedSymbol.attr">
+<span class="sig-name descname"><span class="pre">attr</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DefinedSymbol.attr" title="Link to this definition"></a></dt>
+<dd><p>List of symbol attributes defining additional characteristics.</p>
+<p class="rubric">Examples</p>
+<ul class="simple">
+<li><p>[“color”, “size”] indicates the symbol has color and size attributes.</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>When None (default), symbols can be accessed directly via dictionary keys (event[key]).</p></li>
+<li><p>When specified, symbols must be accessed using get() method (event[key].get(‘color’)).</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DefinedSymbol.desc">
+<span class="sig-name descname"><span class="pre">desc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DefinedSymbol.desc" title="Link to this definition"></a></dt>
+<dd><p>Description template for the symbol.</p>
+<p class="rubric">Examples</p>
+<ul class="simple">
+<li><p>Single string when no attributes: “Basic proposition symbol”</p></li>
+<li><p>List matching attr length when attributes exist: [“Color description”, “Size description”]</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DefinedSymbol.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.DefinedSymbol.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DefinedSymbol.source">
+<span class="sig-name descname"><span class="pre">source</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#model.template.DefinedSymbol.source" title="Link to this definition"></a></dt>
+<dd><p>Initialization expressions for the symbol, serving as primary keys.</p>
+<p class="rubric">Examples</p>
+<ul>
+<li><p>When length is 1: The primary key is a string.</p>
+<p>Example: source = [“children”] with children = [“Alice”, “Bob”] will generate two symbols
+with primary keys “Alice” and “Bob”.</p>
+</li>
+<li><p>When length &gt; 1: The primary key is a tuple.</p>
+<p>Example: source = [“children”, “adults”] with children = [“Alice”, “Bob”], adults = [“Chris”]
+will generate symbols with primary keys (“Alice”, “Chris”) and (“Bob”, “Chris”).</p>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DefinedSymbol.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#model.template.DefinedSymbol.type" title="Link to this definition"></a></dt>
+<dd><p>Type definition rules for the symbol.</p>
+<p>Valid Values: ‘int’ (default), ‘bool’, ‘float’, and ‘enum’.</p>
+<p class="rubric">Examples</p>
+<ul class="simple">
+<li><p>Single type string when attr is None: “Bool”</p></li>
+<li><p>Type list matching attr length when attr exists: [“int”, “bool”]</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.template.DefinedSymbol.validate_type_desc_based_on_attr">
+<em class="property"><span class="k"><span class="pre">classmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_type_desc_based_on_attr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#DefinedSymbol.validate_type_desc_based_on_attr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.DefinedSymbol.validate_type_desc_based_on_attr" title="Link to this definition"></a></dt>
+<dd><p>Validates consistency between attributes, types and descriptions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – <ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">attr</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>, but <code class="docutils literal notranslate"><span class="pre">type</span></code> is a list.
+    
+    - <code class="docutils literal notranslate"><span class="pre">attr</span></code> exists, but <code class="docutils literal notranslate"><span class="pre">type</span></code> is not a list.
+    
+    - The format of <code class="docutils literal notranslate"><span class="pre">desc</span></code> does not match the presence of <code class="docutils literal notranslate"><span class="pre">attr</span></code>.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DefinedSymbol</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="n">attr</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">],</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;Str&quot;</span><span class="p">)</span>  <span class="c1"># Raises ValueError</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DefinedSymbol</span><span class="p">(</span><span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;A&quot;</span><span class="p">],</span> <span class="n">desc</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;desc1&quot;</span><span class="p">,</span> <span class="s2">&quot;desc2&quot;</span><span class="p">])</span>  <span class="c1"># Raises ValueError</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">DerivedSymbol</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_cond</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim_cond</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_cond</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#DerivedSymbol"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.DerivedSymbol" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Class defining rules for generating derived symbols from existing ones.</p>
+<p>The derivation works by first randomly selecting a number of values from the <cite>source</cite> list and creating new symbols with the selected values.</p>
+<p>Selection Process (before optimization):</p>
+<ol class="arabic simple">
+<li><dl class="simple">
+<dt>For each domain (total count specified by <code class="docutils literal notranslate"><span class="pre">domain</span></code>):</dt><dd><ol class="loweralpha simple">
+<li><dl class="simple">
+<dt>For each dimension (count specified by <code class="docutils literal notranslate"><span class="pre">dim</span></code>):</dt><dd><ol class="lowerroman simple">
+<li><dl class="simple">
+<dt>For each data source in <code class="docutils literal notranslate"><span class="pre">source</span></code>:</dt><dd><ul class="simple">
+<li><p>Select <code class="docutils literal notranslate"><span class="pre">amount[k]</span></code> items from <code class="docutils literal notranslate"><span class="pre">source[k]</span></code> following <code class="docutils literal notranslate"><span class="pre">order</span></code> and <code class="docutils literal notranslate"><span class="pre">duplicate</span></code> rules</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p>Verify dimension-level conditions (<code class="docutils literal notranslate"><span class="pre">dim_cond</span></code> and custom conditions with scope=’dim’)</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p>Verify domain-level conditions (<code class="docutils literal notranslate"><span class="pre">domain_cond</span></code> and custom conditions with scope=’domain’)</p></li>
+</ol>
+<p>Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;max_num&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;range(p_num)&quot;</span><span class="p">,</span> <span class="s2">&quot;range(2, 11)&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;custom_cond&quot;</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="s2">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;domain&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+        <span class="s2">&quot;constraint&quot;</span><span class="p">:</span> <span class="s2">&quot;lambda l: all([item[0][1][0] &lt; money // prices[item[0][0][0]] for item in l])&quot;</span>
+    <span class="p">}],</span>
+    <span class="s2">&quot;formula&quot;</span><span class="p">:</span> <span class="s2">&quot;num[names[_sym[0]]] &lt;= _sym[1]&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;desc&quot;</span><span class="p">:</span> <span class="s2">&quot;The maximum number of Award {names[_sym[0]]} that a person can take is </span><span class="si">{_sym[1]}</span><span class="s2">.&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This configuration will:</p>
+<ul class="simple">
+<li><p>Generate 3 symbols (<code class="docutils literal notranslate"><span class="pre">domain</span> <span class="pre">=</span> <span class="pre">3</span></code>)</p></li>
+<li><p>Each symbol has 1 dimension (default <code class="docutils literal notranslate"><span class="pre">dim</span> <span class="pre">=</span> <span class="pre">1</span></code>)</p></li>
+<li><p>Each dimension uses 2 data sources (<code class="docutils literal notranslate"><span class="pre">len(source)</span> <span class="pre">=</span> <span class="pre">2</span></code>)</p></li>
+<li><p>The first source provides integers from 0 to <code class="docutils literal notranslate"><span class="pre">p_num</span> <span class="pre">-</span> <span class="pre">1</span></code></p></li>
+<li><p>The second source provides integers from 2 to 10</p></li>
+<li><p>Selects 1 item from each source (default when <code class="docutils literal notranslate"><span class="pre">amount</span></code> is None)</p></li>
+<li><p>Applies custom domain-level constraint on the selected values</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol.amount">
+<span class="sig-name descname"><span class="pre">amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DerivedSymbol.amount" title="Link to this definition"></a></dt>
+<dd><p>Number of items selected from each data source.</p>
+<p class="rubric">Examples</p>
+<ul class="simple">
+<li><p>[“2”, “1”]: Select 2 items from first source, 1 from second</p></li>
+<li><p>None: Select exactly 1 item from each source (default)</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Length must match <code class="docutils literal notranslate"><span class="pre">source</span></code></p></li>
+<li><p>Each value must be a string (literal or variable name)</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol.custom_cond">
+<span class="sig-name descname"><span class="pre">custom_cond</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DerivedSymbol.custom_cond" title="Link to this definition"></a></dt>
+<dd><p>Custom constraint dictionaries containing:</p>
+<ul class="simple">
+<li><p>scope: Application level (‘domain’/’dim’)</p></li>
+<li><p>fields: List of field indices from source</p></li>
+<li><dl class="simple">
+<dt>constraint: Constraint logic expression. Must be a valid Python lambda function string.</dt><dd><ul>
+<li><p>When scope=”domain”, the input is a 4-dimensional list, where the selected values can be fetched by <cite>l[domain_index][dim_index][source_index (in ‘fields’)][amount_index]</cite>.</p></li>
+<li><p>When scope=”dim”, the input is a 3-dimensional list, where the selected values can be fetched by <cite>l[dim_index][source_index (in ‘fields’)][amount_index]</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol.desc">
+<span class="sig-name descname"><span class="pre">desc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#model.template.DerivedSymbol.desc" title="Link to this definition"></a></dt>
+<dd><p>Symbol collection description text for puzzle generation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol.dim">
+<span class="sig-name descname"><span class="pre">dim</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#model.template.DerivedSymbol.dim" title="Link to this definition"></a></dt>
+<dd><p>Number of dimensions for the derived symbol.</p>
+<p class="rubric">Example</p>
+<ul class="simple">
+<li><p>2 generates two-dimensional symbol matrix (useful for statements with multiple clauses).</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol.dim_cond">
+<span class="sig-name descname"><span class="pre">dim_cond</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DerivedSymbol.dim_cond" title="Link to this definition"></a></dt>
+<dd><p>Inter-dimensional constraints (list of conditions).</p>
+<p class="rubric">Example</p>
+<ul class="simple">
+<li><p>[[0, 1], [2]] means values from <cite>source[0]</cite> and <cite>source[1]</cite> cannot be identical at the same time AND values from <cite>source[2]</cite> cannot be identical.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Cannot contain duplicate indices.</p></li>
+</ul>
+</div>
+<dl class="simple">
+<dt>Default:</dt><dd><ul class="simple">
+<li><p>[[0, 1, …, <cite>len(source)</cite>]] (i.e., all selections must be different in at least one source).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol.domain">
+<span class="sig-name descname"><span class="pre">domain</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DerivedSymbol.domain" title="Link to this definition"></a></dt>
+<dd><p>Total number of selections.</p>
+<p class="rubric">Examples</p>
+<ul class="simple">
+<li><p>“5”: Make 5 selections from the data sources</p></li>
+<li><p>“n”: Use variable <cite>n</cite> to determine count</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Must be a string representing a literal or variable name</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol.domain_cond">
+<span class="sig-name descname"><span class="pre">domain_cond</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#model.template.DerivedSymbol.domain_cond" title="Link to this definition"></a></dt>
+<dd><p>Global repetition rule for symbol selection:</p>
+<p>Controls whether identical symbol combinations are allowed:</p>
+<ul class="simple">
+<li><p>True: Disallow identical combinations</p></li>
+<li><p>False: Allow duplicates</p></li>
+</ul>
+<dl class="simple">
+<dt>Default:</dt><dd><p>True (no identical combinations)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol.duplicate">
+<span class="sig-name descname"><span class="pre">duplicate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DerivedSymbol.duplicate" title="Link to this definition"></a></dt>
+<dd><p>Selection repetition rules per data source during selection.</p>
+<p>Controls whether duplicates are allowed:</p>
+<ul class="simple">
+<li><p>True: Allow duplicate selections</p></li>
+<li><p>False: Disallow duplicates</p></li>
+</ul>
+<dl class="simple">
+<dt>Default:</dt><dd><p>All False (no duplicates allowed)</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Length must match <code class="docutils literal notranslate"><span class="pre">source</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol.formula">
+<span class="sig-name descname"><span class="pre">formula</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DerivedSymbol.formula" title="Link to this definition"></a></dt>
+<dd><p>Symbol generation formula using Python syntax.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.DerivedSymbol.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol.order">
+<span class="sig-name descname"><span class="pre">order</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DerivedSymbol.order" title="Link to this definition"></a></dt>
+<dd><p>Permutation configuration per data source during selection.</p>
+<p>Controls whether selection order matters:</p>
+<ul class="simple">
+<li><p>True: Permutation (order matters)</p></li>
+<li><p>False: Combination (order doesn’t matter)</p></li>
+</ul>
+<dl class="simple">
+<dt>Default:</dt><dd><p>All True (order matters for all sources)</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Length must match <code class="docutils literal notranslate"><span class="pre">source</span></code></p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbol.source">
+<span class="sig-name descname"><span class="pre">source</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#model.template.DerivedSymbol.source" title="Link to this definition"></a></dt>
+<dd><p>Data sources for the selection.</p>
+<p>Each element must be a string representing either:</p>
+<ul class="simple">
+<li><p>A stringified list of literals (e.g., ‘[True, False]’)</p></li>
+<li><p>A variable name containing the data</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.DerivedSymbols">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">DerivedSymbols</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">templates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#model.template.DerivedSymbol" title="model.template.DerivedSymbol"><span class="pre">DerivedSymbol</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#DerivedSymbols"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.DerivedSymbols" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Container for multiple derived symbol templates with random counts.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbols.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.DerivedSymbols.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbols.templates">
+<span class="sig-name descname"><span class="pre">templates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#model.template.DerivedSymbol" title="model.template.DerivedSymbol"><span class="pre">DerivedSymbol</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#model.template.DerivedSymbols.templates" title="Link to this definition"></a></dt>
+<dd><p>List of symbol templates for generation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DerivedSymbols.total">
+<span class="sig-name descname"><span class="pre">total</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#model.template.DerivedSymbols.total" title="Link to this definition"></a></dt>
+<dd><p>Total number of symbols to generate.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.DynamicCondition">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">DynamicCondition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain_cond</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_cond</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#DynamicCondition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.DynamicCondition" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#model.template.StaticCondition" title="model.template.StaticCondition"><code class="xref py py-class docutils literal notranslate"><span class="pre">StaticCondition</span></code></a></p>
+<p>Extended constraints with multi-dimensional parameters.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DynamicCondition.amount">
+<span class="sig-name descname"><span class="pre">amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DynamicCondition.amount" title="Link to this definition"></a></dt>
+<dd><p>Number of selections per data source. (same format as DerivedSymbol)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DynamicCondition.custom_cond">
+<span class="sig-name descname"><span class="pre">custom_cond</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DynamicCondition.custom_cond" title="Link to this definition"></a></dt>
+<dd><p>Custom constraints (same format as DerivedSymbol).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DynamicCondition.domain">
+<span class="sig-name descname"><span class="pre">domain</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DynamicCondition.domain" title="Link to this definition"></a></dt>
+<dd><p>Total condition count. Must be a range string “[min, max]”. If None, one condition will be generated.</p>
+<p class="rubric">Example</p>
+<ul class="simple">
+<li><p>“[1, 5]”: Generate between 1 and 5 conditions.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DynamicCondition.domain_cond">
+<span class="sig-name descname"><span class="pre">domain_cond</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#model.template.DynamicCondition.domain_cond" title="Link to this definition"></a></dt>
+<dd><p>Global repetition rule.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DynamicCondition.duplicate">
+<span class="sig-name descname"><span class="pre">duplicate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DynamicCondition.duplicate" title="Link to this definition"></a></dt>
+<dd><p>Repetition rule configuration (default all False).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DynamicCondition.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.DynamicCondition.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DynamicCondition.order">
+<span class="sig-name descname"><span class="pre">order</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.DynamicCondition.order" title="Link to this definition"></a></dt>
+<dd><p>Permutation configuration (default all True).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.DynamicCondition.source">
+<span class="sig-name descname"><span class="pre">source</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#model.template.DynamicCondition.source" title="Link to this definition"></a></dt>
+<dd><p>Data sources (same format as DerivedSymbol).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.Optimize">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">Optimize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#Optimize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.Optimize" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Optimization target definition (for optimization problems only).</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.Optimize.formula">
+<span class="sig-name descname"><span class="pre">formula</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#model.template.Optimize.formula" title="Link to this definition"></a></dt>
+<dd><p>Formula to optimize.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.Optimize.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.Optimize.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.Optimize.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#model.template.Optimize.type" title="Link to this definition"></a></dt>
+<dd><p>Optimization type (“minimize” or “maximize”).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.PostGen">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">PostGen</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_gen_vars</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_gen_conditions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#model.template.StaticCondition" title="model.template.StaticCondition"><span class="pre">StaticCondition</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#PostGen"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.PostGen" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Initialization after computing the problem solution for the first time. (Applicable for scenarios where parameters in the actual problem need to be computed using z3)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PostGen.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.PostGen.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PostGen.post_gen_conditions">
+<span class="sig-name descname"><span class="pre">post_gen_conditions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#model.template.StaticCondition" title="model.template.StaticCondition"><span class="pre">StaticCondition</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.PostGen.post_gen_conditions" title="Link to this definition"></a></dt>
+<dd><p>New constraints to add after initial solution.</p>
+<p>Key: The new constraint name.</p>
+<p>Value: A string of the formula for the constraint.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PostGen.post_gen_vars">
+<span class="sig-name descname"><span class="pre">post_gen_vars</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.PostGen.post_gen_vars" title="Link to this definition"></a></dt>
+<dd><p>Extracting the values of symbols from _sol (the selected solution) as new variables.</p>
+<p>Key: The new variable name.</p>
+<p>Value: The expression to compute the variable value, which can be a string of a Python expression.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.PuzzleTemplate">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">PuzzleTemplate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_operator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#model.template.Variable" title="model.template.Variable"><span class="pre">Variable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symbols</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#model.template.DefinedSymbol" title="model.template.DefinedSymbol"><span class="pre">DefinedSymbol</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#model.template.DerivedSymbols" title="model.template.DerivedSymbols"><span class="pre">DerivedSymbols</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#model.template.DerivedSymbol" title="model.template.DerivedSymbol"><span class="pre">DerivedSymbol</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conditions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#model.template.StaticCondition" title="model.template.StaticCondition"><span class="pre">StaticCondition</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#model.template.DynamicCondition" title="model.template.DynamicCondition"><span class="pre">DynamicCondition</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calc_solution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_solution</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">6000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_generation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#model.template.PostGen" title="model.template.PostGen"><span class="pre">PostGen</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#model.template.Optimize" title="model.template.Optimize"><span class="pre">Optimize</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#model.template.QuerySelectionWithMultipleTemplates" title="model.template.QuerySelectionWithMultipleTemplates"><span class="pre">QuerySelectionWithMultipleTemplates</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#model.template.QuerySelectionWithSingleTemplate" title="model.template.QuerySelectionWithSingleTemplate"><span class="pre">QuerySelectionWithSingleTemplate</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#model.template.Query" title="model.template.Query"><span class="pre">Query</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#PuzzleTemplate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.PuzzleTemplate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Main puzzle template structure integrating all components.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PuzzleTemplate.calc_solution">
+<span class="sig-name descname"><span class="pre">calc_solution</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#model.template.PuzzleTemplate.calc_solution" title="Link to this definition"></a></dt>
+<dd><p>Whether to compute solutions (default True).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PuzzleTemplate.conditions">
+<span class="sig-name descname"><span class="pre">conditions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#model.template.StaticCondition" title="model.template.StaticCondition"><span class="pre">StaticCondition</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#model.template.DynamicCondition" title="model.template.DynamicCondition"><span class="pre">DynamicCondition</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.PuzzleTemplate.conditions" title="Link to this definition"></a></dt>
+<dd><p>Dictionary of conditions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PuzzleTemplate.custom_operator">
+<span class="sig-name descname"><span class="pre">custom_operator</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.PuzzleTemplate.custom_operator" title="Link to this definition"></a></dt>
+<dd><p>Dictionary of custom operators.</p>
+<p>Key: Operator name.</p>
+<p>Value: Python expression string defining the operator OR the path to a Python file containing the operator definition.</p>
+<p>Example: {“double”: “lambda x: x * 2”, “reformat”: “customs/mathexpr_generator.py”}</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PuzzleTemplate.desc">
+<span class="sig-name descname"><span class="pre">desc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#model.template.PuzzleTemplate.desc" title="Link to this definition"></a></dt>
+<dd><p>Overall template description for puzzle introduction.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PuzzleTemplate.max_solution">
+<span class="sig-name descname"><span class="pre">max_solution</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#model.template.PuzzleTemplate.max_solution" title="Link to this definition"></a></dt>
+<dd><p>Maximum number of solutions to generate.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Here, “solution” refers to a valid configuration of all symbols that satisfies all constraints. It does NOT mean the number of valid answers to the final question.</p></li>
+<li><p>If the number of solutions exceeds this limit, the solver will stop and raise an exception.</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PuzzleTemplate.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.PuzzleTemplate.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PuzzleTemplate.optimize">
+<span class="sig-name descname"><span class="pre">optimize</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#model.template.Optimize" title="model.template.Optimize"><span class="pre">Optimize</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.PuzzleTemplate.optimize" title="Link to this definition"></a></dt>
+<dd><p>Optimization target (for optimization problems only).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PuzzleTemplate.post_generation">
+<span class="sig-name descname"><span class="pre">post_generation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#model.template.PostGen" title="model.template.PostGen"><span class="pre">PostGen</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.PuzzleTemplate.post_generation" title="Link to this definition"></a></dt>
+<dd><p>Post-generation configuration including:</p>
+<ul class="simple">
+<li><p>post_gen_vars: New variables from solutions</p></li>
+<li><p>post_gen_conditions: Additional constraints</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PuzzleTemplate.queries">
+<span class="sig-name descname"><span class="pre">queries</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#model.template.QuerySelectionWithMultipleTemplates" title="model.template.QuerySelectionWithMultipleTemplates"><span class="pre">QuerySelectionWithMultipleTemplates</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#model.template.QuerySelectionWithSingleTemplate" title="model.template.QuerySelectionWithSingleTemplate"><span class="pre">QuerySelectionWithSingleTemplate</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#model.template.Query" title="model.template.Query"><span class="pre">Query</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.PuzzleTemplate.queries" title="Link to this definition"></a></dt>
+<dd><p>Dictionary of question definitions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PuzzleTemplate.symbols">
+<span class="sig-name descname"><span class="pre">symbols</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#model.template.DefinedSymbol" title="model.template.DefinedSymbol"><span class="pre">DefinedSymbol</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#model.template.DerivedSymbols" title="model.template.DerivedSymbols"><span class="pre">DerivedSymbols</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="#model.template.DerivedSymbol" title="model.template.DerivedSymbol"><span class="pre">DerivedSymbol</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.PuzzleTemplate.symbols" title="Link to this definition"></a></dt>
+<dd><p>definition).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of symbol definitions (name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.PuzzleTemplate.variables">
+<span class="sig-name descname"><span class="pre">variables</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#model.template.Variable" title="model.template.Variable"><span class="pre">Variable</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#model.template.PuzzleTemplate.variables" title="Link to this definition"></a></dt>
+<dd><p>definition).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dictionary of variable definitions (name</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.Query">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">Query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ans_formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ans_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ans_assertion</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'len(_solutions)</span> <span class="pre">==</span> <span class="pre">1'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#Query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.Query" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#model.template.QueryBase" title="model.template.QueryBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">QueryBase</span></code></a></p>
+<p>Open-ended question definition.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.Query.ans_assertion">
+<span class="sig-name descname"><span class="pre">ans_assertion</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.Query.ans_assertion" title="Link to this definition"></a></dt>
+<dd><p>Assertion for answer validation.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.Query.ans_formula">
+<span class="sig-name descname"><span class="pre">ans_formula</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#model.template.Query.ans_formula" title="Link to this definition"></a></dt>
+<dd><p>Answer generation formula.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.Query.ans_text">
+<span class="sig-name descname"><span class="pre">ans_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#model.template.Query.ans_text" title="Link to this definition"></a></dt>
+<dd><p>Answer text format.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.Query.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.Query.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.QueryBase">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">QueryBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#QueryBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.QueryBase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Base class for question definitions.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QueryBase.desc">
+<span class="sig-name descname"><span class="pre">desc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#model.template.QueryBase.desc" title="Link to this definition"></a></dt>
+<dd><p>Question description text (may contain placeholders).</p>
+<p>Example: “Which option satisfies the condition?”</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QueryBase.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.QueryBase.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.QuerySelectionBase">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">QuerySelectionBase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'single_choice'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#QuerySelectionBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.QuerySelectionBase" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#model.template.QueryBase" title="model.template.QueryBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">QueryBase</span></code></a></p>
+<p>Multiple-choice question definition.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionBase.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.QuerySelectionBase.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionBase.opt_num">
+<span class="sig-name descname"><span class="pre">opt_num</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.QuerySelectionBase.opt_num" title="Link to this definition"></a></dt>
+<dd><p>Total number of options to present (default 4).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionBase.query_type">
+<span class="sig-name descname"><span class="pre">query_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#model.template.QuerySelectionBase.query_type" title="Link to this definition"></a></dt>
+<dd><p>Question type:</p>
+<ul class="simple">
+<li><p>‘single_choice’: Single correct answer</p></li>
+<li><p>‘multiple_choice’: Multiple correct answers</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionBase.select_type">
+<span class="sig-name descname"><span class="pre">select_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><a class="headerlink" href="#model.template.QuerySelectionBase.select_type" title="Link to this definition"></a></dt>
+<dd><p>Whether to select the correct or incorrect option(s):</p>
+<ul class="simple">
+<li><p>True: Select the correct option(s)</p></li>
+<li><p>False: Select the incorrect option(s)</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.QuerySelectionTemplate">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">QuerySelectionTemplate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cond</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'any'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt_formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_cond</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#QuerySelectionTemplate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.QuerySelectionTemplate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Template for multiple-choice options.</p>
+<p>The option generation process works by randomly selecting a number of values from the <cite>source</cite> list to create options.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionTemplate.amount">
+<span class="sig-name descname"><span class="pre">amount</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.QuerySelectionTemplate.amount" title="Link to this definition"></a></dt>
+<dd><p>Number of selections per source. (Same format as DerivedSymbol.amount)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionTemplate.cond">
+<span class="sig-name descname"><span class="pre">cond</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#model.template.QuerySelectionTemplate.cond" title="Link to this definition"></a></dt>
+<dd><p>Constraint scope:</p>
+<ul class="simple">
+<li><p>‘any’: At least one solution satisfies</p></li>
+<li><p>‘all’: All solutions satisfy</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionTemplate.custom_cond">
+<span class="sig-name descname"><span class="pre">custom_cond</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.QuerySelectionTemplate.custom_cond" title="Link to this definition"></a></dt>
+<dd><p>Custom constraints (same format as DerivedSymbol.custom_cond).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionTemplate.duplicate">
+<span class="sig-name descname"><span class="pre">duplicate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.QuerySelectionTemplate.duplicate" title="Link to this definition"></a></dt>
+<dd><p>Repetition rule configuration. (default all False)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionTemplate.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.QuerySelectionTemplate.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionTemplate.opt_formula">
+<span class="sig-name descname"><span class="pre">opt_formula</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#model.template.QuerySelectionTemplate.opt_formula" title="Link to this definition"></a></dt>
+<dd><p>Option correctness evaluation expression.</p>
+<p>Example: “x % 2 == 0”</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionTemplate.opt_text">
+<span class="sig-name descname"><span class="pre">opt_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.QuerySelectionTemplate.opt_text" title="Link to this definition"></a></dt>
+<dd><p>Option display template (may contain placeholders).</p>
+<p>Example: “{_opt[0][0]}”</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Automatically prefixed with ABCD, no need to include in string.</p></li>
+</ul>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionTemplate.order">
+<span class="sig-name descname"><span class="pre">order</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.QuerySelectionTemplate.order" title="Link to this definition"></a></dt>
+<dd><p>Permutation configuration (default first dimension False, others True).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionTemplate.source">
+<span class="sig-name descname"><span class="pre">source</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span></em><a class="headerlink" href="#model.template.QuerySelectionTemplate.source" title="Link to this definition"></a></dt>
+<dd><p>Data source. (Same format as DerivedSymbol.source)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.QuerySelectionWithMultipleTemplates">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">QuerySelectionWithMultipleTemplates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'single_choice'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">templates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#model.template.QuerySelectionTemplate" title="model.template.QuerySelectionTemplate"><span class="pre">QuerySelectionTemplate</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#QuerySelectionWithMultipleTemplates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.QuerySelectionWithMultipleTemplates" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#model.template.QuerySelectionBase" title="model.template.QuerySelectionBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySelectionBase</span></code></a></p>
+<p>Multiple templates for multiple-choice questions.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionWithMultipleTemplates.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.QuerySelectionWithMultipleTemplates.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionWithMultipleTemplates.templates">
+<span class="sig-name descname"><span class="pre">templates</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#model.template.QuerySelectionTemplate" title="model.template.QuerySelectionTemplate"><span class="pre">QuerySelectionTemplate</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#model.template.QuerySelectionWithMultipleTemplates.templates" title="Link to this definition"></a></dt>
+<dd><p>List of option templates.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.QuerySelectionWithSingleTemplate">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">QuerySelectionWithSingleTemplate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">order</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duplicate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cond</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'any'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt_formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">custom_cond</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'single_choice'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opt_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#QuerySelectionWithSingleTemplate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.QuerySelectionWithSingleTemplate" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#model.template.QuerySelectionBase" title="model.template.QuerySelectionBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySelectionBase</span></code></a>, <a class="reference internal" href="#model.template.QuerySelectionTemplate" title="model.template.QuerySelectionTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">QuerySelectionTemplate</span></code></a></p>
+<p>Single template for multiple-choice questions.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.QuerySelectionWithSingleTemplate.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.QuerySelectionWithSingleTemplate.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.StaticCondition">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">StaticCondition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#StaticCondition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.StaticCondition" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Base constraint definition for puzzle rules.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.StaticCondition.desc">
+<span class="sig-name descname"><span class="pre">desc</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.StaticCondition.desc" title="Link to this definition"></a></dt>
+<dd><p>Natural language description for puzzle text generation.</p>
+<p>Example: “Sum of two numbers must be less than 10”</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.StaticCondition.formula">
+<span class="sig-name descname"><span class="pre">formula</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#model.template.StaticCondition.formula" title="Link to this definition"></a></dt>
+<dd><p>Constraint logic expression using Python syntax.</p>
+<p>Example: “x + y &lt; 10”</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.StaticCondition.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.StaticCondition.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="model.template.Variable">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">model.template.</span></span><span class="sig-name descname"><span class="pre">Variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">domain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#Variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.Variable" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
+<p>Unified class for defining variables in puzzles.</p>
+<p>This class supports two mutually exclusive ways of defining variables:</p>
+<ul class="simple">
+<li><p>By specifying <cite>type</cite> and <cite>domain</cite>.</p></li>
+<li><p>By providing a custom formula in <cite>formula</cite>.</p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.Variable.domain">
+<span class="sig-name descname"><span class="pre">domain</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.Variable.domain" title="Link to this definition"></a></dt>
+<dd><p>The domain of the variable.</p>
+<p class="rubric">Example</p>
+<ul class="simple">
+<li><p><cite>“[1, 10]”</cite>: Represents integers from 1 to 10.</p></li>
+<li><p><cite>“[True, False]”</cite>: Represents boolean values.</p></li>
+<li><p><cite>“[‘red’, ‘blue’, ‘green’]”</cite>: Represents a selection from the given options.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.Variable.formula">
+<span class="sig-name descname"><span class="pre">formula</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.Variable.formula" title="Link to this definition"></a></dt>
+<dd><p>The formula used to initialize the variable.</p>
+<p class="rubric">Example</p>
+<ul class="simple">
+<li><p><cite>“randint(1,6) + randint(1,6)”</cite>: Represents the sum of two dice rolls.</p></li>
+</ul>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>Custom operators defined in the <cite>custom_operator</cite> field of the puzzle template can be used in the formula.</p></li>
+<li><p>If <cite>formula</cite> is defined, <cite>type</cite> and <cite>domain</cite> must not be defined.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.Variable.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ClassVar</span><span class="p"><span class="pre">[</span></span><span class="pre">ConfigDict</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#model.template.Variable.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="model.template.Variable.type">
+<span class="sig-name descname"><span class="pre">type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#model.template.Variable.type" title="Link to this definition"></a></dt>
+<dd><p>The type of the variable.</p>
+<p class="rubric">Example</p>
+<ul class="simple">
+<li><p><cite>“int”</cite>: Represents an integer variable.</p></li>
+<li><p><cite>“bool”</cite>: Represents a boolean variable.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="model.template.Variable.validate_exclusive_fields">
+<span class="sig-name descname"><span class="pre">validate_exclusive_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/model/template.html#Variable.validate_exclusive_fields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#model.template.Variable.validate_exclusive_fields" title="Link to this definition"></a></dt>
+<dd><p>Validates the mutually exclusive constraints between fields.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – <ul class="simple">
+<li><p>If both <cite>formula</cite> and <cite>type</cite>/<cite>domain</cite> are defined.
+    
+    - If <cite>formula</cite> is not defined, but <cite>type</cite> or <cite>domain</cite> is missing.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">DefinedVar</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s2">&quot;x+y&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>  <span class="c1"># Raises ValueError</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DefinedVar</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>  <span class="c1"># Raises ValueError (missing `domain`)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DefinedVar</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="s2">&quot;[1, 10]&quot;</span><span class="p">)</span>  <span class="c1"># Valid</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">DefinedVar</span><span class="p">(</span><span class="n">formula</span><span class="o">=</span><span class="s2">&quot;randint(1,6)&quot;</span><span class="p">)</span>  <span class="c1"># Valid</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-model">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-model" title="Link to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="PuzzleClone" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="translator.html" class="btn btn-neutral float-right" title="translator module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Anonymous Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

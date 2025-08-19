@@ -1,0 +1,53 @@
+custom_operator:
+  find_nth_meeting: customs/athlete.py
+variables:
+  distance:
+    type: int
+    domain: "[50, 150]"
+    diff_factor: 1
+  female_up_speed:
+    type: int
+    domain: "[2, 4]"
+    diff_factor: 0
+  female_down_speed:
+    type: int
+    domain: "[female_up_speed + 1, 6]"
+    diff_factor: 0
+  male_up_speed:
+    type: int
+    domain: "[female_up_speed + 1, 6]"
+    diff_factor: 0
+  male_down_speed:
+    type: int
+    domain: "[female_down_speed + 1, 8]"
+    diff_factor: 0
+  num_of_meeting:
+    type: int
+    domain: "[10, 20]"
+    diff_factor: 1
+  start_dir:
+    formula: generate_random_list(2, 'int', [0, 1])
+  directions:
+    formula: "['up', 'down']"
+  pos:
+    formula: "['B', 'A']"
+  meeting:
+    formula: find_nth_meeting(num_of_meeting, distance, [male_up_speed, female_up_speed],
+      [male_down_speed, female_down_speed], [directions[start_dir[0]], directions[start_dir[1]]])[-1]
+symbols: {}
+conditions: {}
+calc_solution: false
+queries:
+  q1:
+    desc: 此时已经过了多长时间？（单位为秒）
+    ans_formula: meeting[0]
+    ans_text: "'{:.1f}'.format(_ans)"
+    ans_assertion: 'True'
+  q2:
+    desc: 男运动员总共走了多少米？
+    ans_formula: meeting[3]
+    ans_text: "'{:.1f}'.format(_ans)"
+    ans_assertion: 'True'
+desc: 男、女两名田径运动员在长{distance}米的斜坡上练习跑步(坡顶为A，坡底为B)。{'男运动员从' + pos[start_dir[0]] +'点出发，女运动员同时从'
+  + pos[start_dir[1]] + '点出发' if start_dir[0] != start_dir[1] else '男女运动员同时从' + pos[start_dir[0]]
+  + '点出发'}，他们在A、B之间不停地往返奔跑。如果男运动员上坡速度是每秒{male_up_speed}米，下坡速度是每秒{male_down_speed}米；女运动员上坡速度是每秒{female_up_speed}米，下坡速度是每秒{female_down_speed}米。那么两人第{num_of_meeting}次相遇时（注：相遇包括迎面相遇和同向追上两种情况），{queries}以上结果均保留1位小数，最终的回答格式形如："52.1,188.6"

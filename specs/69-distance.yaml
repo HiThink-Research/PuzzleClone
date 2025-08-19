@@ -1,0 +1,43 @@
+variables:
+  v2:
+    type: int
+    domain: "[1, 6]"
+    diff_factor: 0
+  v1:
+    type: int
+    domain: "[v2+1, 13]"
+    diff_factor: 1
+  down_rate:
+    type: int
+    domain: "[1, 30]"
+    diff_factor: 0
+  up_rate:
+    type: int
+    domain: "[1, 30]"
+    diff_factor: 0
+  delta_distance:
+    type: int
+    domain: "[5, 30]"
+    diff_factor: 0
+symbols:
+  vars:
+    source:
+    - "['total_s', 't1', 't2']"
+    type: float
+conditions:
+  non_negative_numbers:
+    formula: And([x > 0 for x in vars])
+  s_cond:
+    formula: v1*vars['t1'] + v2*vars['t1'] == vars['total_s']
+  v1_cond:
+    formula: v1*(100-down_rate)/100 * vars['t2'] == v2 * vars['t1']
+  v2_cond:
+    formula: v2*(100+up_rate)/100 * vars['t2'] == v1 * vars['t1'] - delta_distance
+max_solution: 1
+queries:
+  q1:
+    desc: 问：A、B两地相距多少千米？答案请保留两位小数。
+    ans_formula: "[get_value(_model, vars['total_s']) for _model in _solutions]"
+    ans_text: str(round(_ans[0], 2))
+    ans_assertion: 'True'
+desc: 甲、乙两车分别从A、B两地同时出发，相向而行。出发时，甲、乙的速度分别为{v1}千米/时、{v2}千米/时，相遇后，甲的速度减少{down_rate}%，乙的速度增加{up_rate}%，这样，当甲到达B地时，乙离A地还有{delta_distance}千米。{q1}

@@ -1,0 +1,63 @@
+variables:
+  p_num:
+    type: int
+    domain: "[5, 8]"
+    diff_factor: 1
+  correct_num:
+    type: int
+    domain: "[1, 3]"
+    diff_factor: 0
+  name_num:
+    type: int
+    domain: "[p_num // 2, p_num]"
+    diff_factor: 0
+  subject_num:
+    type: int
+    domain: "[p_num // 2, p_num]"
+    diff_factor: 0
+  age_num:
+    type: int
+    domain: "[3, 3]"
+    diff_factor: 0
+  gender_num:
+    type: int
+    domain: "[2, 2]"
+    diff_factor: 0
+  names:
+    formula: get_faker(name_num, 'last_name')
+  ages:
+    formula: "['青年', '中年', '老年']"
+  genders:
+    formula: "['男', '女']"
+  subjects:
+    formula: get_faker(subject_num, 'major')
+  attrs:
+    formula: "['name', 'age', 'gender', 'subject']"
+symbols:
+  vars:
+    source:
+    - attrs
+    type: int
+conditions:
+  domain:
+    formula: And(vars['name'] >= 0, vars['name'] < name_num, vars['age'] >= 0, vars['age']
+      < age_num, vars['gender'] >= 0, vars['gender'] < gender_num, vars['subject']
+      >= 0, vars['subject'] < subject_num)
+  extra1:
+    source:
+    - range(name_num)
+    - range(age_num)
+    - range(gender_num)
+    - range(subject_num)
+    domain: "[p_num, p_num]"
+    formula: Sum([If(vars[attr] == _sym[i], 1, 0) for i, attr in enumerate(attrs)])
+      == correct_num
+    desc: ({_index + 1}) 是一位姓{names[_sym[0]]}的{ages[_sym[1]]}{genders[_sym[2]]}老师，教{subjects[_sym[3]]}课；
+max_solution: 1
+queries:
+  q1:
+    desc: 由此可知，该老师是姓___的___年___老师，教___课。
+    ans_formula: get_value(_solutions[0], list(vars))
+    ans_text: "','.join([names[_ans[0]], ages[_ans[1]], genders[_ans[2]], subjects[_ans[3]]])"
+    ans_assertion: all([isinstance(v, int) for v in _ans])
+desc: 学校新来了一位老师，可能教{'、'.join(subjects)}中的其中一门课，{p_num}个学生分别听到如下的情况：{conditions}他们听到的情况各有{correct_num}项正确，{q1}

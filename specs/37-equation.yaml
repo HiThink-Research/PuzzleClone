@@ -1,0 +1,38 @@
+variables:
+  vars_num:
+    type: int
+    domain: "[2, 8]"
+    diff_factor: 1
+  formula_num:
+    type: int
+    domain: "[vars_num, vars_num + vars_num // 2]"
+    diff_factor: 1
+  var_names:
+    formula: generate_var_names(vars_num)
+  var_values:
+    formula: generate_random_list(vars_num, 'int', [-50, 50])
+  cond_formulae:
+    formula: generate_formulas(formula_num, vars_num, is_cond=False, allow_power=True,
+      max_depth=5)
+  cond_values:
+    formula: "[get_formula_value(f, var_values) for f in cond_formulae]"
+  cond_formulae_complete:
+    formula: "['(Cmp == ' + f + ' (Const ' + str(v) + '))' for f, v in zip(cond_formulae,\
+      \ cond_values)]"
+symbols:
+  vars:
+    source:
+    - var_names
+    type: float
+conditions:
+  cond:
+    formula: And(*(build_system(cond_formulae_complete, vars, var_names)['z3_expr']))
+queries:
+  q1:
+    desc: 解方程：{build_system(cond_formulae_complete, vars, var_names)['latex_str']},
+      依次输出变量{', '.join(var_names)}的值，用','分隔。
+    ans_formula: to_unique([[get_value(_model, v) for v in vars] for _model in _solutions])
+    ans_text: "','.join([str(int(v)) for v in _ans[0]])"
+    ans_assertion: len(_ans) == 1 and all([isinstance(v, int) or isinstance(v, float)
+      for v in _ans[0]])
+desc: "{q1}"

@@ -1,0 +1,36 @@
+variables:
+  item_num:
+    type: int
+    domain: "[5, 12]"
+    diff_factor: 1
+  weight:
+    formula: generate_random_list(item_num, 'int', [1, 10])
+    diff_factor: 0
+  price:
+    formula: generate_random_list(item_num, 'int', [1, 10])
+    diff_factor: 0
+  bag_size:
+    type: int
+    domain: "[sum(weight) // 3, sum(weight) // 2]"
+    diff_factor: 0
+  items:
+    formula: generate_letters(item_num)
+symbols:
+  v:
+    source:
+    - items
+    type: bool
+conditions:
+  weight_constraint:
+    formula: Sum([If(v[items[i]], weight[i], 0) for i in range(item_num)]) <= bag_size
+optimize:
+  type: maximize
+  formula: Sum([If(v[items[i]], price[i], 0) for i in range(item_num)])
+queries:
+  q1:
+    desc: 请问你能获得的最大价值是多少？
+    ans_formula: _value
+    ans_text: str(_value)
+    ans_assertion: 'True'
+desc: 你是一名探险家，在探索一座古老的遗迹时发现了{item_num}件珍贵的宝物：{'；'.join(['宝物' + str(i + 1) + '的重量为'
+  + str(w) + 'kg，价值为' + str(p) + '金币' for i, (w, p) in enumerate(zip(weight, price))])}。你现在有一个最大承重为{bag_size}kg的背包，希望在不超重的情况下，选择一些宝物带走，使得背包中宝物的总价值最大。{q1}

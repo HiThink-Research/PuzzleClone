@@ -1,0 +1,33 @@
+variables:
+  name:
+    formula: get_faker(1, 'name')[0]
+symbols:
+  num:
+    source:
+    - "['v']"
+    type: int
+conditions:
+  extra1:
+    source:
+    - range(3, 10)
+    - range(2, 10)
+    - "['eq', 'neq']"
+    domain: "[3, 7]"
+    formula: Implies(make_expr(_sym[2], num['v'] % _sym[0], 0), And(num['v'] >= _sym[1]
+      * 10, num['v'] <= _sym[1] * 10 + 9))
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+    - scope: domain
+      fields:
+      - 1
+    desc: ({_index + 1})若{'不' if _sym[2] == 'neq' else ''}是{_sym[0]}的倍数,则它就是{_sym[1]
+      * 10}~{_sym[1] * 10 + 9}中的数;
+max_solution: 1
+queries:
+  q1:
+    desc: 求{name}家的门牌号码?
+    ans_formula: get_value(_solutions[0], num['v'])
+    ans_text: _ans
+desc: "{name}家门牌号码满足:{conditions}{q1}"

@@ -1,0 +1,74 @@
+custom_operator: {}
+variables:
+  total_cards:
+    type: int
+    domain: "[10, 20]"
+    diff_factor: 1
+  rids:
+    formula: generate_letters(4)
+  cids:
+    formula: generate_letters(13)
+  colors:
+    formula: "['黑桃', '红桃', '方块', '梅花']"
+  values:
+    formula: "['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']"
+  names:
+    formula: get_faker(3, 'name')
+symbols:
+  matrix:
+    source:
+    - rids
+    - cids
+    type: bool
+  is_row_duplicate:
+    source:
+    - rids
+    type: bool
+  is_col_duplicate:
+    source:
+    - cids
+    type: bool
+conditions:
+  total_cond:
+    formula: Sum([If(matrix[(rids[i], cids[j])], 1, 0) for i in range(4) for j in
+      range(13)]) == total_cards
+  matrix_hidden_cond:
+    formula: And([Sum([If(matrix[(rids[i], cids[j])], 1, 0) for j in range(13)]) >=
+      2 for i in range(4)])
+  is_col_duplicate_def:
+    formula: And([is_col_duplicate[cids[j]] == (Sum([If(matrix[(rids[i], cids[j])],
+      1, 0) for i in range(4)]) >= 2) for j in range(13)])
+  P_does_not_know:
+    formula: Sum([If(is_col_duplicate[cids[j]], 1, 0) for j in range(13)]) >= 1
+  is_row_duplicate_def:
+    formula: And([is_row_duplicate[rids[i]] == And([Implies(matrix[(rids[i], cids[j])],
+      is_col_duplicate[cids[j]]) for j in range(13)]) for i in range(4)])
+  Q_knows_P_does_not_know:
+    formula: Sum([If(is_row_duplicate[rids[i]], 1, 0) for i in range(4)]) >= 2
+  P_knows_and_Q_knows:
+    formula: Sum([Sum([If(And(is_col_duplicate[cids[j]], matrix[(rids[i], cids[j])],
+      Sum([If(And(is_row_duplicate[rids[i2]], matrix[(rids[i2], cids[j])]), 1, 0)
+      for i2 in range(4)]) == 1), 1, 0) for j in range(13)]) == 1 for i in range(4)])
+      == 1
+calc_solution: false
+post_generation:
+  post_gen_vars:
+    ans_mat: "[(i, j) for i in range(4) for j in range(13) if get_value(_sol, matrix[(rids[i],cids[j])])\
+      \ ]"
+    row_dup: get_value(_sol, is_row_duplicate)
+    col_dup: get_value(_sol, is_col_duplicate)
+    ans_r: "[i for i in range(4) if row_dup[i] and sum([1 if col_dup[j] and (i,j)\
+      \ in ans_mat and sum([1 if row_dup[i2] and (i2,j) in ans_mat else 0 for i2 in\
+      \ range(4)]) == 1  else 0 for j in range(13)]) == 1 ]"
+    ans_c: "[j for j in range(13) if col_dup[j] and (ans_r[0], j) in ans_mat and sum([1\
+      \ if row_dup[i2] and (i2, j) in ans_mat else 0 for i2 in range(4)]) == 1]"
+queries:
+  q1:
+    desc: 请问：这张牌是什么牌？
+    ans_formula: colors[ans_r[0]] + values[ans_c[0]]
+    ans_text: _ans
+    ans_assertion: len(ans_r) == 1 and len(ans_c) == 1
+desc: "{names[0]}、{names[1]}和{names[2]}知道桌子的抽屉里有{total_cards}张扑克牌: {', '. join([colors[p[0]]\
+  \ + values[p[1]] for p in ans_mat])}。教授从这{total_cards}张牌中挑出一张牌来，并把这张牌的点数告诉{names[1]}，把这张牌的花色告诉{names[2]}。这时，教授问{names[1]}和{names[2]}：你们能从已知的点数或花色中推知这张牌是什么牌吗？于是，{names[0]}听到如下的对话：\n\
+  {names[1]}：我不知道这张牌。\n{names[2]}：我知道你不知道这张牌。\n{names[1]}：现在我知道这张牌了。\n{names[2]}：我也知道了。\n\
+  听罢以上的对话，{names[0]}想了一想之后，就正确地推出这张牌是什么牌。{q1}"

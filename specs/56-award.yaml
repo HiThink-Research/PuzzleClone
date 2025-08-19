@@ -1,0 +1,51 @@
+custom_operator: {}
+variables:
+  p_num:
+    type: int
+    domain: "[3, 5]"
+    diff_factor: 1
+  money_div_10:
+    type: int
+    domain: "[15, 50]"
+    diff_factor: 1
+  names:
+    formula: "[chr(65 + i) for i in range(p_num)]"
+  prices_div_10:
+    formula: 'sorted(generate_random_list(p_num, ''int'', [1, 5], [f"lambda l: len(l)
+      == len(to_unique(l))"]))'
+  prices:
+    formula: "[v * 10 for v in prices_div_10]"
+  money:
+    formula: money_div_10 * 10
+symbols:
+  num:
+    source:
+    - names
+    type: int
+conditions:
+  domain:
+    formula: And([v >= 0 for v in num])
+  total_price_cond:
+    formula: Sum([prices[i] * num[names[i]] for i in range(p_num)]) == money
+  max_num:
+    source:
+    - range(p_num)
+    - range(2, 11)
+    domain: "[1, 3]"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      - 1
+      constraint: 'lambda l: all([item[0][1][0] < money // prices[item[0][0][0]] for
+        item in l]) '
+    formula: num[names[_sym[0]]] <= _sym[1]
+    desc: "{names[_sym[0]]}种奖品不超过{_sym[1]}个，"
+queries:
+  q1:
+    desc: 在钱全部用完的情况下,购买方案有几种？
+    ans_formula: len(_solutions)
+    ans_text: str(_ans)
+    ans_assertion: len(_solutions) <= 50
+desc: 在抗击疫情网络知识竞赛中,为奖励成绩突出的学生,学校计划用{money}元钱购买{'、'.join(names)}三种奖品（可以不全买）,{','.join([names[i]
+  + '种每个' + str(prices[i]) + '元' for i in range(p_num)])}, {conditions}{q1}

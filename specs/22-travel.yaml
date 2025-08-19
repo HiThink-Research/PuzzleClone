@@ -1,0 +1,86 @@
+variables:
+  student_num:
+    type: int
+    domain: "[5, 10]"
+    diff_factor: 1
+  local_student_num:
+    type: int
+    domain: "[2, student_num - 2]"
+    diff_factor: 0
+  city_num:
+    type: int
+    domain: "[3, student_num]"
+    diff_factor: 1
+  query_city:
+    type: int
+    domain: "[0, city_num - 1]"
+    diff_factor: 0
+  students:
+    formula: get_faker(local_student_num, 'name') + get_faker(student_num - local_student_num,
+      'foreign_name_cn')
+  cities:
+    formula: get_faker(city_num, 'city')
+symbols:
+  stu_s:
+    source:
+    - students
+    type: int
+conditions:
+  stu_s_domain:
+    formula: And([And(stu_s[x] >= 0, stu_s[x] < city_num) for x in students])
+    desc: 每人只能去一个地方；
+  local_implies_foreign:
+    formula: And([Implies(Sum([stu_s[students[j]] == i for j in range(local_student_num)])
+      > 0, Sum([stu_s[students[j]] == i for j in range(local_student_num, student_num)])
+      > 0) for i in range(city_num)])
+    desc: 凡是有中国学生去的地方，就必须有外国留学生去；
+  foreign_implies_local:
+    formula: And([Implies(Sum([stu_s[students[j]] == i for j in range(local_student_num,
+      student_num)]) > 0, Sum([stu_s[students[j]] == i for j in range(local_student_num)])
+      > 0) for i in range(city_num)])
+    desc: 凡是有外国留学生去的地方，就必须有中国学生去；
+  e1:
+    source:
+    - students
+    - cities
+    domain: "[1, student_num // 2]"
+    formula: stu_s[_sym[0]] == _ind[1]
+    desc: "{_sym[0]}去{_sym[1]}。"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+    - scope: domain
+      fields:
+      - 1
+  e2:
+    source:
+    - students
+    - cities
+    amount:
+    - '1'
+    - '2'
+    domain: "[1, student_num // 2]"
+    formula: Or(stu_s[_sym[0][0]] == _ind[1][0], stu_s[_sym[0][0]] == _ind[1][1])
+    desc: "{_sym[0][0]}去{_sym[1][0]}或者{_sym[1][1]}。"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      constraint: 'lambda l:  all([students[item2[0][0][0]] != item1[0][0] for item1
+        in e1.data for item2 in l])'
+queries:
+  q1:
+    source:
+    - students
+    desc: 如果题干的断定为真，则去{cities[query_city]}的人中不可能同时包含哪两位？
+    opt_num: 4
+    amount:
+    - '2'
+    cond: all
+    opt_formula: get_value(_model, stu_s[_opt[0][0]]) != query_city or get_value(_model,
+      stu_s[_opt[0][1]]) != query_city
+    opt_text: "{_opt[0][0]}和{_opt[0][1]}"
+desc: "{local_student_num}个中国学生{'、'.join(students[:local_student_num])}和{student_num\
+  \ - local_student_num}位外国留学生{'、'.join(students[local_student_num:student_num])}暑假外出旅游。可供选择的旅游地有{'、'.join(cities)}。已经知道：{conditions}\
+  \ {queries}"

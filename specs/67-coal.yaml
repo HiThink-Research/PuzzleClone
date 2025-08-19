@@ -1,0 +1,58 @@
+custom_operator:
+  generate_weather_list: customs/coal.py
+variables:
+  warm_demand:
+    type: int
+    domain: "[7, 13]"
+    diff_factor: 0
+  norm_demand:
+    type: int
+    domain: "[warm_demand+2, warm_demand+8]"
+    diff_factor: 0
+  cold_demand:
+    type: int
+    domain: "[norm_demand+2, norm_demand+8]"
+    diff_factor: 0
+  warm_price:
+    type: int
+    domain: "[90, 110]"
+    diff_factor: 0
+  norm_price:
+    type: int
+    domain: "[warm_price+20, warm_price+70]"
+    diff_factor: 0
+  cold_price:
+    type: int
+    domain: "[norm_price+20, norm_price+70]"
+    diff_factor: 0
+  interest_rate:
+    type: int
+    domain: "[2,16]"
+    diff_factor: 0
+  deposit_years:
+    type: int
+    domain: "[1,3]"
+    diff_factor: 1
+  weather_prob:
+    formula: generate_weather_list()
+symbols:
+  vars:
+    source:
+    - "['num_coal']"
+    type: int
+conditions:
+  num_domain:
+    formula: And(warm_demand <= vars['num_coal'], vars['num_coal'] <= cold_demand)
+optimize:
+  type: minimize
+  formula: Sum((vars['num_coal']-warm_demand)*warm_price*interest_rate/100*deposit_years*weather_prob[0]/100,
+    If(vars['num_coal'] < norm_demand, (norm_demand-vars['num_coal'])*norm_price,
+    (vars['num_coal']-norm_demand)*warm_price*interest_rate/100*deposit_years)*weather_prob[1]/100,
+    (cold_demand-vars['num_coal'])*cold_price*weather_prob[2]/100, warm_price*vars['num_coal'])
+queries:
+  q1:
+    desc: 当年冬季气温温和、正常、寒冷的预测概率分别为{'、'.join(str(round(item/100,2)) for item in weather_prob)}，该校在初秋时应购进多少吨煤最好（煤需整吨买）？提示，结果需要让成本与各温度情况下可能损失之和最小。注意：如果学校在初秋时购买了过量的煤，则多余未使用的煤会形成积压资金；如果学校在初秋时购买的煤数量不够，则需要在冬季再次购买。
+    ans_formula: get_value(_solutions, vars['num_coal'])
+    ans_text: str(_ans)
+    ans_assertion: 'True'
+desc: 某学校资金存款的年利率为{interest_rate}%（即如果有资金从银行取出但未使用，会形成积压资金，若积压资金有100元，相当于每年损失{interest_rate}元），原本存款还剩{deposit_years}年到期。现在学校决定在初秋时购买冬季取暖用的煤。根据以往经验，在正常的冬季气温下要消耗{norm_demand}吨，但如果冬季比较暖和，只要用煤{warm_demand}吨；若冬季比较寒冷，就要用煤{cold_demand}吨。而煤的价格是根据天气的寒冷程度而变化的，在比较暖和、正常和比较寒冷的天气下，每吨煤的价格分别是{warm_price}元、{norm_price}元、{cold_price}元，而在初秋时每吨煤是{warm_price}元。{q1}

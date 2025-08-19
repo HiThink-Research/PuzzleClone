@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utils.faker_utils &mdash; PuzzleClone v0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PuzzleClone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">PuzzleClone</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PuzzleClone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">utils.faker_utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for utils.faker_utils</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">faker</span><span class="w"> </span><span class="kn">import</span> <span class="n">Faker</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">faker.providers</span><span class="w"> </span><span class="kn">import</span> <span class="n">DynamicProvider</span>
+
+<span class="n">providers</span> <span class="o">=</span> <span class="p">[</span><span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;major&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;计算机科学&quot;</span><span class="p">,</span> <span class="s2">&quot;软件工程&quot;</span><span class="p">,</span> <span class="s2">&quot;人工智能&quot;</span><span class="p">,</span> 
+        <span class="s2">&quot;电子信息工程&quot;</span><span class="p">,</span> <span class="s2">&quot;机械工程&quot;</span><span class="p">,</span> <span class="s2">&quot;土木工程&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;金融学&quot;</span><span class="p">,</span> <span class="s2">&quot;经济学&quot;</span><span class="p">,</span> <span class="s2">&quot;会计学&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;临床医学&quot;</span><span class="p">,</span> <span class="s2">&quot;护理学&quot;</span><span class="p">,</span> <span class="s2">&quot;药学&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;法学&quot;</span><span class="p">,</span> <span class="s2">&quot;新闻传播学&quot;</span><span class="p">,</span> <span class="s2">&quot;教育学&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;数学与应用数学&quot;</span><span class="p">,</span> <span class="s2">&quot;物理学&quot;</span><span class="p">,</span> <span class="s2">&quot;化学&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;英语&quot;</span><span class="p">,</span> <span class="s2">&quot;日语&quot;</span><span class="p">,</span> <span class="s2">&quot;法语&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;美术学&quot;</span><span class="p">,</span> <span class="s2">&quot;音乐学&quot;</span><span class="p">,</span> <span class="s2">&quot;舞蹈学&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;color_name_cn&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;红色&quot;</span><span class="p">,</span> <span class="s2">&quot;橙色&quot;</span><span class="p">,</span> <span class="s2">&quot;黄色&quot;</span><span class="p">,</span> <span class="s2">&quot;绿色&quot;</span><span class="p">,</span> <span class="s2">&quot;蓝色&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;靛蓝&quot;</span><span class="p">,</span> <span class="s2">&quot;紫色&quot;</span><span class="p">,</span> <span class="s2">&quot;粉色&quot;</span><span class="p">,</span> <span class="s2">&quot;棕色&quot;</span><span class="p">,</span> <span class="s2">&quot;灰色&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;黑色&quot;</span><span class="p">,</span> <span class="s2">&quot;白色&quot;</span><span class="p">,</span> <span class="s2">&quot;金色&quot;</span><span class="p">,</span> <span class="s2">&quot;银色&quot;</span><span class="p">,</span> <span class="s2">&quot;青色&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;珊瑚色&quot;</span><span class="p">,</span> <span class="s2">&quot;栗色&quot;</span><span class="p">,</span> <span class="s2">&quot;橄榄色&quot;</span><span class="p">,</span> <span class="s2">&quot;藏青色&quot;</span><span class="p">,</span> <span class="s2">&quot;茶色&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;米色&quot;</span><span class="p">,</span> <span class="s2">&quot;卡其色&quot;</span><span class="p">,</span> <span class="s2">&quot;琥珀色&quot;</span><span class="p">,</span> <span class="s2">&quot;翡翠绿&quot;</span><span class="p">,</span> <span class="s2">&quot;天蓝色&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;桃红色&quot;</span><span class="p">,</span> <span class="s2">&quot;紫红色&quot;</span><span class="p">,</span> <span class="s2">&quot;柠檬黄&quot;</span><span class="p">,</span> <span class="s2">&quot;象牙白&quot;</span><span class="p">,</span> <span class="s2">&quot;咖啡色&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;chinese_drink&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;可口可乐&quot;</span><span class="p">,</span> <span class="s2">&quot;雪碧&quot;</span><span class="p">,</span> <span class="s2">&quot;芬达&quot;</span><span class="p">,</span> <span class="s2">&quot;冰红茶&quot;</span><span class="p">,</span> <span class="s2">&quot;绿茶&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;乌龙茶&quot;</span><span class="p">,</span> <span class="s2">&quot;珍珠奶茶&quot;</span><span class="p">,</span> <span class="s2">&quot;拿铁咖啡&quot;</span><span class="p">,</span> <span class="s2">&quot;美式咖啡&quot;</span><span class="p">,</span> <span class="s2">&quot;橙汁&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;苹果汁&quot;</span><span class="p">,</span> <span class="s2">&quot;葡萄汁&quot;</span><span class="p">,</span> <span class="s2">&quot;柠檬水&quot;</span><span class="p">,</span> <span class="s2">&quot;矿泉水&quot;</span><span class="p">,</span> <span class="s2">&quot;苏打水&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;椰汁&quot;</span><span class="p">,</span> <span class="s2">&quot;杏仁露&quot;</span><span class="p">,</span> <span class="s2">&quot;酸梅汤&quot;</span><span class="p">,</span> <span class="s2">&quot;王老吉&quot;</span><span class="p">,</span> <span class="s2">&quot;红牛&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;pet_category&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;猫&quot;</span><span class="p">,</span> <span class="s2">&quot;狗&quot;</span><span class="p">,</span> <span class="s2">&quot;仓鼠&quot;</span><span class="p">,</span> <span class="s2">&quot;兔子&quot;</span><span class="p">,</span> <span class="s2">&quot;鹦鹉&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;金鱼&quot;</span><span class="p">,</span> <span class="s2">&quot;乌龟&quot;</span><span class="p">,</span> <span class="s2">&quot;蜥蜴&quot;</span><span class="p">,</span> <span class="s2">&quot;蛇&quot;</span><span class="p">,</span> <span class="s2">&quot;蜘蛛&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;荷兰猪&quot;</span><span class="p">,</span> <span class="s2">&quot;龙猫&quot;</span><span class="p">,</span> <span class="s2">&quot;刺猬&quot;</span><span class="p">,</span> <span class="s2">&quot;蜜袋鼯&quot;</span><span class="p">,</span> <span class="s2">&quot;宠物猪&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;八哥&quot;</span><span class="p">,</span> <span class="s2">&quot;鸽子&quot;</span><span class="p">,</span> <span class="s2">&quot;孔雀鱼&quot;</span><span class="p">,</span> <span class="s2">&quot;蝾螈&quot;</span><span class="p">,</span> <span class="s2">&quot;变色龙&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;fruit_cn&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;苹果&quot;</span><span class="p">,</span> <span class="s2">&quot;香蕉&quot;</span><span class="p">,</span> <span class="s2">&quot;橙子&quot;</span><span class="p">,</span> <span class="s2">&quot;梨&quot;</span><span class="p">,</span> <span class="s2">&quot;葡萄&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;草莓&quot;</span><span class="p">,</span> <span class="s2">&quot;西瓜&quot;</span><span class="p">,</span> <span class="s2">&quot;桃子&quot;</span><span class="p">,</span> <span class="s2">&quot;李子&quot;</span><span class="p">,</span> <span class="s2">&quot;菠萝&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;芒果&quot;</span><span class="p">,</span> <span class="s2">&quot;猕猴桃&quot;</span><span class="p">,</span> <span class="s2">&quot;樱桃&quot;</span><span class="p">,</span> <span class="s2">&quot;蓝莓&quot;</span><span class="p">,</span> <span class="s2">&quot;石榴&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;柚子&quot;</span><span class="p">,</span> <span class="s2">&quot;柠檬&quot;</span><span class="p">,</span> <span class="s2">&quot;火龙果&quot;</span><span class="p">,</span> <span class="s2">&quot;荔枝&quot;</span><span class="p">,</span> <span class="s2">&quot;龙眼&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;山竹&quot;</span><span class="p">,</span> <span class="s2">&quot;榴莲&quot;</span><span class="p">,</span> <span class="s2">&quot;椰子&quot;</span><span class="p">,</span> <span class="s2">&quot;木瓜&quot;</span><span class="p">,</span> <span class="s2">&quot;杨桃&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;百香果&quot;</span><span class="p">,</span> <span class="s2">&quot;桑葚&quot;</span><span class="p">,</span> <span class="s2">&quot;无花果&quot;</span><span class="p">,</span> <span class="s2">&quot;柿子&quot;</span><span class="p">,</span> <span class="s2">&quot;哈密瓜&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;hobby_cn&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="c1"># 艺术类</span>
+        <span class="s2">&quot;摄影&quot;</span><span class="p">,</span> <span class="s2">&quot;绘画&quot;</span><span class="p">,</span> <span class="s2">&quot;书法&quot;</span><span class="p">,</span> <span class="s2">&quot;雕塑&quot;</span><span class="p">,</span> <span class="s2">&quot;陶艺&quot;</span><span class="p">,</span>
+        <span class="c1"># 音乐类</span>
+        <span class="s2">&quot;钢琴&quot;</span><span class="p">,</span> <span class="s2">&quot;吉他&quot;</span><span class="p">,</span> <span class="s2">&quot;小提琴&quot;</span><span class="p">,</span> <span class="s2">&quot;声乐&quot;</span><span class="p">,</span> <span class="s2">&quot;作曲&quot;</span><span class="p">,</span>
+        <span class="c1"># 舞蹈类</span>
+        <span class="s2">&quot;芭蕾舞&quot;</span><span class="p">,</span> <span class="s2">&quot;街舞&quot;</span><span class="p">,</span> <span class="s2">&quot;民族舞&quot;</span><span class="p">,</span> <span class="s2">&quot;拉丁舞&quot;</span><span class="p">,</span> <span class="s2">&quot;现代舞&quot;</span><span class="p">,</span>
+        <span class="c1"># 运动类</span>
+        <span class="s2">&quot;篮球&quot;</span><span class="p">,</span> <span class="s2">&quot;足球&quot;</span><span class="p">,</span> <span class="s2">&quot;羽毛球&quot;</span><span class="p">,</span> <span class="s2">&quot;游泳&quot;</span><span class="p">,</span> <span class="s2">&quot;瑜伽&quot;</span><span class="p">,</span>
+        <span class="c1"># 手工类</span>
+        <span class="s2">&quot;编织&quot;</span><span class="p">,</span> <span class="s2">&quot;木工&quot;</span><span class="p">,</span> <span class="s2">&quot;烘焙&quot;</span><span class="p">,</span> <span class="s2">&quot;插花&quot;</span><span class="p">,</span> <span class="s2">&quot;手工皮具&quot;</span><span class="p">,</span>
+        <span class="c1"># 其他</span>
+        <span class="s2">&quot;阅读&quot;</span><span class="p">,</span> <span class="s2">&quot;写作&quot;</span><span class="p">,</span> <span class="s2">&quot;旅行&quot;</span><span class="p">,</span> <span class="s2">&quot;棋牌&quot;</span><span class="p">,</span> <span class="s2">&quot;园艺&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;foreign_name_cn&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="c1"># 男性常见译名</span>
+        <span class="s2">&quot;约翰&quot;</span><span class="p">,</span> <span class="s2">&quot;迈克尔&quot;</span><span class="p">,</span> <span class="s2">&quot;大卫&quot;</span><span class="p">,</span> <span class="s2">&quot;詹姆斯&quot;</span><span class="p">,</span> <span class="s2">&quot;罗伯特&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;威廉&quot;</span><span class="p">,</span> <span class="s2">&quot;理查德&quot;</span><span class="p">,</span> <span class="s2">&quot;查尔斯&quot;</span><span class="p">,</span> <span class="s2">&quot;约瑟夫&quot;</span><span class="p">,</span> <span class="s2">&quot;托马斯&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;丹尼尔&quot;</span><span class="p">,</span> <span class="s2">&quot;马修&quot;</span><span class="p">,</span> <span class="s2">&quot;安东尼&quot;</span><span class="p">,</span> <span class="s2">&quot;唐纳德&quot;</span><span class="p">,</span> <span class="s2">&quot;史蒂文&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;保罗&quot;</span><span class="p">,</span> <span class="s2">&quot;马克&quot;</span><span class="p">,</span> <span class="s2">&quot;乔治&quot;</span><span class="p">,</span> <span class="s2">&quot;肯尼思&quot;</span><span class="p">,</span> <span class="s2">&quot;爱德华&quot;</span><span class="p">,</span>
+        
+        <span class="c1"># 女性常见译名</span>
+        <span class="s2">&quot;玛丽&quot;</span><span class="p">,</span> <span class="s2">&quot;安娜&quot;</span><span class="p">,</span> <span class="s2">&quot;丽莎&quot;</span><span class="p">,</span> <span class="s2">&quot;米歇尔&quot;</span><span class="p">,</span> <span class="s2">&quot;桑德拉&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;艾米&quot;</span><span class="p">,</span> <span class="s2">&quot;杰西卡&quot;</span><span class="p">,</span> <span class="s2">&quot;莎拉&quot;</span><span class="p">,</span> <span class="s2">&quot;金伯利&quot;</span><span class="p">,</span> <span class="s2">&quot;伊丽莎白&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;玛格丽特&quot;</span><span class="p">,</span> <span class="s2">&quot;艾玛&quot;</span><span class="p">,</span> <span class="s2">&quot;朱莉娅&quot;</span><span class="p">,</span> <span class="s2">&quot;凯瑟琳&quot;</span><span class="p">,</span> <span class="s2">&quot;南希&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;劳拉&quot;</span><span class="p">,</span> <span class="s2">&quot;维多利亚&quot;</span><span class="p">,</span> <span class="s2">&quot;奥利维亚&quot;</span><span class="p">,</span> <span class="s2">&quot;索菲娅&quot;</span><span class="p">,</span> <span class="s2">&quot;艾米丽&quot;</span><span class="p">,</span>
+        
+        <span class="c1"># 中性译名</span>
+        <span class="s2">&quot;克里斯&quot;</span><span class="p">,</span> <span class="s2">&quot;亚历克斯&quot;</span><span class="p">,</span> <span class="s2">&quot;泰勒&quot;</span><span class="p">,</span> <span class="s2">&quot;乔丹&quot;</span><span class="p">,</span> <span class="s2">&quot;凯瑞&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;product_cn&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="c1"># 食品类</span>
+        <span class="s2">&quot;奶油饼干&quot;</span><span class="p">,</span> <span class="s2">&quot;巧克力蛋糕&quot;</span><span class="p">,</span> <span class="s2">&quot;草莓冰淇淋&quot;</span><span class="p">,</span> <span class="s2">&quot;全麦面包&quot;</span><span class="p">,</span> <span class="s2">&quot;芝士披萨&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;牛肉干&quot;</span><span class="p">,</span> <span class="s2">&quot;水果罐头&quot;</span><span class="p">,</span> <span class="s2">&quot;酸奶&quot;</span><span class="p">,</span> <span class="s2">&quot;薯片&quot;</span><span class="p">,</span> <span class="s2">&quot;坚果礼盒&quot;</span><span class="p">,</span>
+        <span class="c1"># 饮料类</span>
+        <span class="s2">&quot;冰红茶&quot;</span><span class="p">,</span> <span class="s2">&quot;拿铁咖啡&quot;</span><span class="p">,</span> <span class="s2">&quot;鲜榨橙汁&quot;</span><span class="p">,</span> <span class="s2">&quot;珍珠奶茶&quot;</span><span class="p">,</span> <span class="s2">&quot;气泡水&quot;</span><span class="p">,</span>
+        <span class="c1"># 日用品类</span>
+        <span class="s2">&quot;洗衣液&quot;</span><span class="p">,</span> <span class="s2">&quot;洗发水&quot;</span><span class="p">,</span> <span class="s2">&quot;牙膏&quot;</span><span class="p">,</span> <span class="s2">&quot;抽纸&quot;</span><span class="p">,</span> <span class="s2">&quot;保鲜膜&quot;</span><span class="p">,</span>
+        <span class="c1"># 电子产品</span>
+        <span class="s2">&quot;无线耳机&quot;</span><span class="p">,</span> <span class="s2">&quot;智能手表&quot;</span><span class="p">,</span> <span class="s2">&quot;蓝牙音箱&quot;</span><span class="p">,</span> <span class="s2">&quot;充电宝&quot;</span><span class="p">,</span> <span class="s2">&quot;电子书阅读器&quot;</span><span class="p">,</span>
+        <span class="c1"># 服饰类</span>
+        <span class="s2">&quot;纯棉T恤&quot;</span><span class="p">,</span> <span class="s2">&quot;牛仔裤&quot;</span><span class="p">,</span> <span class="s2">&quot;运动鞋&quot;</span><span class="p">,</span> <span class="s2">&quot;羽绒服&quot;</span><span class="p">,</span> <span class="s2">&quot;针织帽&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;car_brand&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="c1"># 德系品牌</span>
+        <span class="s2">&quot;奥迪&quot;</span><span class="p">,</span> <span class="s2">&quot;宝马&quot;</span><span class="p">,</span> <span class="s2">&quot;奔驰&quot;</span><span class="p">,</span> <span class="s2">&quot;大众&quot;</span><span class="p">,</span> <span class="s2">&quot;保时捷&quot;</span><span class="p">,</span>
+        <span class="c1"># 日系品牌</span>
+        <span class="s2">&quot;丰田&quot;</span><span class="p">,</span> <span class="s2">&quot;本田&quot;</span><span class="p">,</span> <span class="s2">&quot;日产&quot;</span><span class="p">,</span> <span class="s2">&quot;马自达&quot;</span><span class="p">,</span> <span class="s2">&quot;雷克萨斯&quot;</span><span class="p">,</span>
+        <span class="c1"># 美系品牌</span>
+        <span class="s2">&quot;福特&quot;</span><span class="p">,</span> <span class="s2">&quot;雪佛兰&quot;</span><span class="p">,</span> <span class="s2">&quot;凯迪拉克&quot;</span><span class="p">,</span> <span class="s2">&quot;特斯拉&quot;</span><span class="p">,</span> <span class="s2">&quot;林肯&quot;</span><span class="p">,</span>
+        <span class="c1"># 韩系品牌</span>
+        <span class="s2">&quot;现代&quot;</span><span class="p">,</span> <span class="s2">&quot;起亚&quot;</span><span class="p">,</span> <span class="s2">&quot;捷尼赛思&quot;</span><span class="p">,</span>
+        <span class="c1"># 国产品牌</span>
+        <span class="s2">&quot;比亚迪&quot;</span><span class="p">,</span> <span class="s2">&quot;吉利&quot;</span><span class="p">,</span> <span class="s2">&quot;长城&quot;</span><span class="p">,</span> <span class="s2">&quot;长安&quot;</span><span class="p">,</span> <span class="s2">&quot;红旗&quot;</span><span class="p">,</span>
+        <span class="c1"># 意大利品牌</span>
+        <span class="s2">&quot;法拉利&quot;</span><span class="p">,</span> <span class="s2">&quot;兰博基尼&quot;</span><span class="p">,</span> <span class="s2">&quot;玛莎拉蒂&quot;</span><span class="p">,</span> <span class="s2">&quot;阿尔法·罗密欧&quot;</span><span class="p">,</span>
+        <span class="c1"># 英国品牌</span>
+        <span class="s2">&quot;路虎&quot;</span><span class="p">,</span> <span class="s2">&quot;捷豹&quot;</span><span class="p">,</span> <span class="s2">&quot;宾利&quot;</span><span class="p">,</span> <span class="s2">&quot;劳斯莱斯&quot;</span><span class="p">,</span>
+        <span class="c1"># 法系品牌</span>
+        <span class="s2">&quot;标致&quot;</span><span class="p">,</span> <span class="s2">&quot;雪铁龙&quot;</span><span class="p">,</span> <span class="s2">&quot;雷诺&quot;</span><span class="p">,</span> <span class="s2">&quot;DS&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;occupation_cn&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="c1"># 医疗健康类</span>
+        <span class="s2">&quot;医生&quot;</span><span class="p">,</span> <span class="s2">&quot;护士&quot;</span><span class="p">,</span> <span class="s2">&quot;药剂师&quot;</span><span class="p">,</span> <span class="s2">&quot;牙医&quot;</span><span class="p">,</span> <span class="s2">&quot;心理医生&quot;</span><span class="p">,</span>
+        <span class="c1"># 教育类</span>
+        <span class="s2">&quot;教师&quot;</span><span class="p">,</span> <span class="s2">&quot;大学教授&quot;</span><span class="p">,</span> <span class="s2">&quot;幼儿园老师&quot;</span><span class="p">,</span> <span class="s2">&quot;校长&quot;</span><span class="p">,</span> <span class="s2">&quot;辅导员&quot;</span><span class="p">,</span>
+        <span class="c1"># 科技类</span>
+        <span class="s2">&quot;软件工程师&quot;</span><span class="p">,</span> <span class="s2">&quot;数据分析师&quot;</span><span class="p">,</span> <span class="s2">&quot;人工智能工程师&quot;</span><span class="p">,</span> <span class="s2">&quot;网络安全专家&quot;</span><span class="p">,</span> <span class="s2">&quot;系统架构师&quot;</span><span class="p">,</span>
+        <span class="c1"># 金融类</span>
+        <span class="s2">&quot;会计师&quot;</span><span class="p">,</span> <span class="s2">&quot;金融分析师&quot;</span><span class="p">,</span> <span class="s2">&quot;投资顾问&quot;</span><span class="p">,</span> <span class="s2">&quot;银行职员&quot;</span><span class="p">,</span> <span class="s2">&quot;保险经纪人&quot;</span><span class="p">,</span>
+        <span class="c1"># 艺术创意类</span>
+        <span class="s2">&quot;设计师&quot;</span><span class="p">,</span> <span class="s2">&quot;摄影师&quot;</span><span class="p">,</span> <span class="s2">&quot;作家&quot;</span><span class="p">,</span> <span class="s2">&quot;画家&quot;</span><span class="p">,</span> <span class="s2">&quot;音乐家&quot;</span><span class="p">,</span>
+        <span class="c1"># 服务行业</span>
+        <span class="s2">&quot;厨师&quot;</span><span class="p">,</span> <span class="s2">&quot;服务员&quot;</span><span class="p">,</span> <span class="s2">&quot;理发师&quot;</span><span class="p">,</span> <span class="s2">&quot;导游&quot;</span><span class="p">,</span> <span class="s2">&quot;健身教练&quot;</span><span class="p">,</span>
+        <span class="c1"># 管理类</span>
+        <span class="s2">&quot;项目经理&quot;</span><span class="p">,</span> <span class="s2">&quot;人力资源经理&quot;</span><span class="p">,</span> <span class="s2">&quot;运营总监&quot;</span><span class="p">,</span> <span class="s2">&quot;市场经理&quot;</span><span class="p">,</span> <span class="s2">&quot;销售经理&quot;</span><span class="p">,</span>
+        <span class="c1"># 蓝领职业</span>
+        <span class="s2">&quot;电工&quot;</span><span class="p">,</span> <span class="s2">&quot;木匠&quot;</span><span class="p">,</span> <span class="s2">&quot;水管工&quot;</span><span class="p">,</span> <span class="s2">&quot;建筑工人&quot;</span><span class="p">,</span> <span class="s2">&quot;汽车修理工&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;metal_ore&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;铁矿石&quot;</span><span class="p">,</span> <span class="s2">&quot;铜矿石&quot;</span><span class="p">,</span> <span class="s2">&quot;铝土矿&quot;</span><span class="p">,</span> <span class="s2">&quot;铅锌矿&quot;</span><span class="p">,</span> <span class="s2">&quot;镍矿&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;锡矿石&quot;</span><span class="p">,</span> <span class="s2">&quot;钨矿石&quot;</span><span class="p">,</span> <span class="s2">&quot;钼矿石&quot;</span><span class="p">,</span> <span class="s2">&quot;锰矿石&quot;</span><span class="p">,</span> <span class="s2">&quot;铬铁矿&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;钛铁矿&quot;</span><span class="p">,</span> <span class="s2">&quot;钒钛磁铁矿&quot;</span><span class="p">,</span> <span class="s2">&quot;金矿石&quot;</span><span class="p">,</span> <span class="s2">&quot;银矿石&quot;</span><span class="p">,</span> <span class="s2">&quot;铂矿石&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;稀土矿&quot;</span><span class="p">,</span> <span class="s2">&quot;铀矿石&quot;</span><span class="p">,</span> <span class="s2">&quot;钴矿石&quot;</span><span class="p">,</span> <span class="s2">&quot;锑矿石&quot;</span><span class="p">,</span> <span class="s2">&quot;汞矿石&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;flower_name&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;樱花&quot;</span><span class="p">,</span> <span class="s2">&quot;桃花&quot;</span><span class="p">,</span> <span class="s2">&quot;杏花&quot;</span><span class="p">,</span> <span class="s2">&quot;海棠&quot;</span><span class="p">,</span> <span class="s2">&quot;迎春花&quot;</span><span class="p">,</span> <span class="s2">&quot;郁金香&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;玫瑰&quot;</span><span class="p">,</span> <span class="s2">&quot;百合&quot;</span><span class="p">,</span> <span class="s2">&quot;茉莉&quot;</span><span class="p">,</span> <span class="s2">&quot;栀子花&quot;</span><span class="p">,</span> <span class="s2">&quot;向日葵&quot;</span><span class="p">,</span> <span class="s2">&quot;睡莲&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;菊花&quot;</span><span class="p">,</span> <span class="s2">&quot;桂花&quot;</span><span class="p">,</span> <span class="s2">&quot;芙蓉&quot;</span><span class="p">,</span> <span class="s2">&quot;彼岸花&quot;</span><span class="p">,</span> <span class="s2">&quot;金盏花&quot;</span><span class="p">,</span> <span class="s2">&quot;木芙蓉&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;腊梅&quot;</span><span class="p">,</span> <span class="s2">&quot;山茶&quot;</span><span class="p">,</span> <span class="s2">&quot;一品红&quot;</span><span class="p">,</span> <span class="s2">&quot;君子兰&quot;</span><span class="p">,</span> <span class="s2">&quot;仙客来&quot;</span><span class="p">,</span> <span class="s2">&quot;水仙&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;sport&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;百米跑&quot;</span><span class="p">,</span> <span class="s2">&quot;跳高&quot;</span><span class="p">,</span> <span class="s2">&quot;跳远&quot;</span><span class="p">,</span> <span class="s2">&quot;铅球&quot;</span><span class="p">,</span> <span class="s2">&quot;标枪&quot;</span><span class="p">,</span> 
+        <span class="s2">&quot;110米栏&quot;</span><span class="p">,</span> <span class="s2">&quot;撑杆跳高&quot;</span><span class="p">,</span> <span class="s2">&quot;三级跳远&quot;</span><span class="p">,</span> <span class="s2">&quot;马拉松&quot;</span><span class="p">,</span> <span class="s2">&quot;链球&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;足球&quot;</span><span class="p">,</span> <span class="s2">&quot;篮球&quot;</span><span class="p">,</span> <span class="s2">&quot;排球&quot;</span><span class="p">,</span> <span class="s2">&quot;乒乓球&quot;</span><span class="p">,</span> <span class="s2">&quot;羽毛球&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;网球&quot;</span><span class="p">,</span> <span class="s2">&quot;棒球&quot;</span><span class="p">,</span> <span class="s2">&quot;垒球&quot;</span><span class="p">,</span> <span class="s2">&quot;手球&quot;</span><span class="p">,</span> <span class="s2">&quot;曲棍球&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;自由泳&quot;</span><span class="p">,</span> <span class="s2">&quot;蛙泳&quot;</span><span class="p">,</span> <span class="s2">&quot;蝶泳&quot;</span><span class="p">,</span> <span class="s2">&quot;仰泳&quot;</span><span class="p">,</span> <span class="s2">&quot;跳水&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;水球&quot;</span><span class="p">,</span> <span class="s2">&quot;花样游泳&quot;</span><span class="p">,</span> <span class="s2">&quot;皮划艇&quot;</span><span class="p">,</span> <span class="s2">&quot;赛艇&quot;</span><span class="p">,</span> <span class="s2">&quot;帆船&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;自由体操&quot;</span><span class="p">,</span> <span class="s2">&quot;鞍马&quot;</span><span class="p">,</span> <span class="s2">&quot;吊环&quot;</span><span class="p">,</span> <span class="s2">&quot;跳马&quot;</span><span class="p">,</span> <span class="s2">&quot;双杠&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;单杠&quot;</span><span class="p">,</span> <span class="s2">&quot;高低杠&quot;</span><span class="p">,</span> <span class="s2">&quot;平衡木&quot;</span><span class="p">,</span> <span class="s2">&quot;艺术体操&quot;</span><span class="p">,</span> <span class="s2">&quot;蹦床&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;举重&quot;</span><span class="p">,</span> <span class="s2">&quot;拳击&quot;</span><span class="p">,</span> <span class="s2">&quot;击剑&quot;</span><span class="p">,</span> <span class="s2">&quot;跆拳道&quot;</span><span class="p">,</span> <span class="s2">&quot;柔道&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;摔跤&quot;</span><span class="p">,</span> <span class="s2">&quot;射击&quot;</span><span class="p">,</span> <span class="s2">&quot;射箭&quot;</span><span class="p">,</span> <span class="s2">&quot;自行车&quot;</span><span class="p">,</span> <span class="s2">&quot;马术&quot;</span>
+    <span class="p">]</span>
+<span class="p">),</span> <span class="n">DynamicProvider</span><span class="p">(</span>
+    <span class="n">provider_name</span><span class="o">=</span><span class="s2">&quot;office_supplies&quot;</span><span class="p">,</span>
+    <span class="n">elements</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">&#39;手机&#39;</span><span class="p">,</span> <span class="s1">&#39;笔记本&#39;</span><span class="p">,</span> <span class="s1">&#39;鼠标&#39;</span><span class="p">,</span> <span class="s1">&#39;U盘&#39;</span><span class="p">,</span> <span class="s1">&#39;签字笔&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;订书机&#39;</span><span class="p">,</span> <span class="s1">&#39;胶带&#39;</span><span class="p">,</span> <span class="s1">&#39;便签纸&#39;</span><span class="p">,</span> <span class="s1">&#39;计算器&#39;</span><span class="p">,</span> <span class="s1">&#39;耳机&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;移动硬盘&#39;</span><span class="p">,</span> <span class="s1">&#39;充电器&#39;</span><span class="p">,</span> <span class="s1">&#39;墨水&#39;</span><span class="p">,</span> <span class="s1">&#39;文件夹&#39;</span><span class="p">,</span> <span class="s1">&#39;便利贴&#39;</span>
+    <span class="p">]</span>
+<span class="p">)]</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">faker</span><span class="w"> </span><span class="kn">import</span> <span class="n">Faker</span>
+
+<div class="viewcode-block" id="get_faker">
+<a class="viewcode-back" href="../../utils.html#utils.faker_utils.get_faker">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_faker</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">provider_name</span><span class="p">,</span> <span class="n">locale</span><span class="o">=</span><span class="s1">&#39;zh_CN&#39;</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a specified number of unique fake data entries using Faker.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        num: The number of data entries to generate.</span>
+
+<span class="sd">        provider_name: Name of the provider (also the method name to call).</span>
+
+<span class="sd">        providers: List of provider classes to add.</span>
+
+<span class="sd">        locale: Locale setting (default is Chinese).</span>
+<span class="sd">        </span>
+<span class="sd">        seed: Random seed.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of generated unique data.</span>
+
+<span class="sd">    Exceptions:</span>
+<span class="sd">        AttributeError: When the provider_name does not exist.</span>
+<span class="sd">        </span>
+<span class="sd">        ValueError: When it is not possible to generate enough unique data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">fake</span> <span class="o">=</span> <span class="n">Faker</span><span class="p">(</span><span class="n">locale</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fake</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    
+    <span class="c1"># 添加自定义Providers</span>
+    <span class="k">for</span> <span class="n">provider</span> <span class="ow">in</span> <span class="n">providers</span><span class="p">:</span>
+        <span class="n">fake</span><span class="o">.</span><span class="n">add_provider</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
+    
+    <span class="c1"># 检查provider是否存在</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fake</span><span class="p">,</span> <span class="n">provider_name</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Faker has no provider named &#39;</span><span class="si">{</span><span class="n">provider_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    
+    <span class="n">method</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fake</span><span class="p">,</span> <span class="n">provider_name</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">max_attempts</span> <span class="o">=</span> <span class="n">num</span> <span class="o">*</span> <span class="mi">100</span>  <span class="c1"># 最大尝试次数</span>
+    <span class="n">attempts</span> <span class="o">=</span> <span class="mi">0</span>
+    
+    <span class="c1"># 生成唯一数据</span>
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">num</span> <span class="ow">and</span> <span class="n">attempts</span> <span class="o">&lt;</span> <span class="n">max_attempts</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">method</span><span class="p">()</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">attempts</span> <span class="o">+=</span> <span class="mi">1</span>
+    
+    <span class="c1"># 检查是否生成足够数据</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Only generated </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="s2"> unique elements after </span><span class="si">{</span><span class="n">max_attempts</span><span class="si">}</span><span class="s2"> attempts. &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Try increasing max attempts or using a different provider.&quot;</span>
+        <span class="p">)</span>
+    
+    <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">results</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Anonymous Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+custom_operator:
+  cal_stairs: customs/stairs.py
+variables:
+  based_num:
+    type: int
+    domain: "[6, 12]"
+    diff_factor: 0
+  stairs_per_floor_mul:
+    type: int
+    domain: "[1, 2]"
+    diff_factor: 0
+  v_a_mul:
+    type: int
+    domain: "[1, 3]"
+    diff_factor: 0
+  v_delta:
+    type: int
+    domain: "[1, 5]"
+    diff_factor: 0
+  l:
+    type: int
+    domain: "[1, 4]"
+    diff_factor: 0
+  t:
+    type: int
+    domain: "[5, 100]"
+    diff_factor: 0
+  delta:
+    formula: int(2*t*v_delta)
+  stairs_per_floor:
+    formula: int(based_num*stairs_per_floor_mul)
+  v_a:
+    formula: int(l*stairs_per_floor_mul*based_num)
+  v_b:
+    formula: int(v_a-v_delta)
+symbols: {}
+conditions: {}
+calc_solution: false
+queries:
+  q1:
+    desc: 这幢高层建筑有多少层楼？
+    ans_formula: cal_stairs(l,stairs_per_floor,v_a,v_b,delta)
+    ans_text: str(_ans)
+    ans_assertion: 2*stairs_per_floor*_ans*l<=3000
+desc: 甲、乙两人在一幢高层建筑内比赛走楼梯，每层之间有{stairs_per_floor}级楼梯，甲的速度是每{l*stairs_per_floor_mul}秒{v_a}级，乙的速度是每{l*stairs_per_floor_mul}秒{v_b}级，甲乙两人同时从底层出发，走了{l}趟来回后，又返回到底层，甲返回底层时，乙还要走{delta}级才能回到底层，{q1}

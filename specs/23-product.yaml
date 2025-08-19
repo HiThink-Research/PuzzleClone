@@ -1,0 +1,69 @@
+variables:
+  p_num:
+    type: int
+    domain: "[6, 17]"
+    diff_factor: 1
+  products:
+    formula: get_faker(p_num, 'product_cn')
+  names:
+    formula: get_faker(1, 'name')
+symbols:
+  pos:
+    source:
+    - products
+    type: int
+conditions:
+  pos_domain:
+    formula: And([And(pos[x] >= 1, pos[x] <= p_num) for x in products])
+  pos_distinct:
+    formula: gen_event_count_condition(pos, 'distinct')
+  extra1:
+    source:
+    - products
+    - range(1, p_num - 2)
+    amount:
+    - '2'
+    - '1'
+    domain: "[p_num // 2, p_num]"
+    formula: Or(pos[_sym[0][0]] - pos[_sym[0][1]] == _sym[1][0], pos[_sym[0][1]] -
+      pos[_sym[0][0]] == _sym[1][0])
+    desc: "{_sym[0][0]}和{_sym[0][1]}之间{'没有' if _sym[1][0] == 1 else ('有' + str(_sym[1][0]\
+      \ - 1) + '件')}商品。"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      constraint: 'lambda l: len({str(sorted(i[0][0])) for i in l}) == len(l)'
+  extra2:
+    source:
+    - products
+    amount:
+    - '2'
+    domain: "[1, p_num // 2]"
+    formula: pos[_sym[0][1]] - pos[_sym[0][0]] == 1
+    desc: "{_sym[0][0]}后面紧跟着{_sym[0][1]}。"
+  extra3:
+    source:
+    - products
+    - range(1, p_num+1)
+    amount:
+    - '1'
+    - '1'
+    domain: "[0, p_num//3]"
+    formula: pos[_sym[0][0]] != _sym[1][0]
+    desc: "{_sym[0][0]}不在第{_sym[1][0]}号位置上。"
+max_solution: 600
+queries:
+  q1:
+    source:
+    - products
+    - range(1, p_num+1)
+    desc: 如果上述陈述为真，那么，以下哪项为真？
+    opt_num: 6
+    amount:
+    - '1'
+    - '1'
+    cond: all
+    opt_formula: get_value(_model, pos[_opt[0][0]]) == _opt[1][0]
+    opt_text: "{_opt[0][0]}在第{_opt[1][0]}位置上。"
+desc: 在超市购物后，{names[0]}把{p_num}件商品从前向后排序（1号位置在前，{p_num}号位置在后）放在超市的传送带上，{conditions}{q1}

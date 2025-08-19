@@ -1,0 +1,51 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 7]"
+    diff_factor: 1
+  names:
+    formula: get_faker(p_num, 'name')
+symbols:
+  rank:
+    source:
+    - names
+    type: int
+conditions:
+  rank_domain:
+    formula: And([And(v >= 0, v < p_num) for v in rank])
+  rank_distinct:
+    formula: Distinct(list(rank))
+  e1:
+    source:
+    - range(p_num)
+    - range(p_num // 2 + 1)
+    - range(p_num)
+    amount:
+    - p_num
+    - '1'
+    - '1'
+    domain: "[1, p_num - 1]"
+    domain_cond: false
+    order:
+    - true
+    - false
+    - false
+    formula: Sum([If(rank[names[i]] == _sym[0][i], 1, 0) for i in range(p_num)]) ==
+      _sym[1][0] if _sym[1][0] > 0 else And(Sum([If(rank[names[i]] == _sym[0][i],
+      1, 0) for i in range(p_num)]) == 0, Sum([If(Or(rank[names[i]] - _sym[0][i] ==
+      -1, rank[names[i]] - _sym[0][i] == 1), 1, 0) for i in range(p_num)]) == _sym[2][0])
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+    desc: "{names[_index]}{'猜对了' + str(_sym[1][0]) + '个人的名次。' if _sym[1][0] else '的猜测都不对,不但一个名次没对上,而且相差一个名次的'\
+      \ + ('只有' + str(_sym[2][0]) + '个' if _sym[2][0] else '都没有') + '。'}"
+max_solution: 1
+queries:
+  q1:
+    desc: 那么{'、'.join(names)}这{p_num}个人的实际名次分别是怎样的？按顺序输出这些同学的名次，用逗号分隔。
+    ans_formula: "[get_value(_solutions[0], rank[n]) + 1 for n in names]"
+    ans_text: "','.join([str(v) for v in _ans])"
+    ans_assertion: len(_solutions) == 1
+desc: "期中考试考试结束后,部分同学对班上{p_num}名同学的名次进行了猜测。{'；'.join([names[i] + '的猜测：' + '、'.join([names[j]\
+  \ + '第' + str(e1.data[i][0][j] + 1) + '名' for j in range(p_num)]) for i in range(len(e1.data))])}。“六一”前后,考试成绩出来了。实际上，{conditions}{q1}\n"

@@ -1,0 +1,61 @@
+custom_operator: {}
+variables:
+  p_num:
+    type: int
+    domain: "[7, 13]"
+    diff_factor: 1
+  group_num:
+    type: int
+    domain: "[2, 4]"
+    diff_factor: 1
+  speech_num:
+    type: int
+    domain: "[p_num - 3, p_num - 1]"
+    diff_factor: 1
+  selected_num:
+    type: int
+    domain: "[2, 4]"
+    diff_factor: 0
+  correct_speech_num:
+    type: int
+    domain: "[1, speech_num - 2]"
+    diff_factor: 0
+  names:
+    formula: get_faker(p_num, 'name')
+  groups:
+    formula: "[chr(65 + i) for i in range(group_num)]"
+symbols:
+  belong:
+    source:
+    - names
+    type: int
+  speech_s:
+    total: speech_num
+    templates:
+    - source:
+      - names
+      - range(group_num)
+      amount:
+      - selected_num
+      - '1'
+      formula: And([belong[_sym[0][i]] == _sym[1][0] for i in range(selected_num)])
+      desc: "{names[_index]}说：\"{'、'.join(_sym[0])}属于{groups[_sym[1][0]]}组\"。"
+    - source:
+      - range(group_num)
+      - range(1, p_num)
+      formula: Sum([If(belong[p] == _sym[0], 1, 0) for p in names]) == _sym[1]
+      desc: "{names[_index]}说：\"{groups[_sym[0]]}组共有{_sym[1]}人\"。"
+conditions:
+  belong_domain:
+    formula: And([And(v >= 0, v < group_num) for v in belong])
+  speech_cond:
+    formula: Sum([If(s, 1, 0) for s in speech_s]) == correct_speech_num
+    desc: 老师说：\"你们当中有{correct_speech_num}人说对了\"。
+queries:
+  q1:
+    desc: 请问{'、'.join(groups)}组各有多少人？请按组的顺序用逗号分隔输出。
+    ans_formula: to_unique([ [sum([get_value(_model, belong[p]) == g for p in names])
+      for g in range(group_num)] for _model in _solutions])
+    ans_text: "','.join([str(v) for v in _ans[0]])"
+    ans_assertion: len(_ans) == 1
+desc: 某俱乐部有{p_num}个成员，他们的名字分别是{'、'.join(names)}。这些人被分到了{'、'.join(groups)} {group_num}个组中。某日，老师将{speech_num}个成员聚集在一起聊天。{''.join(get_desc(speech_s))}{conditions}{q1}

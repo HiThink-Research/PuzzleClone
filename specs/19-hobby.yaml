@@ -1,0 +1,116 @@
+variables:
+  p_num:
+    type: int
+    domain: "[5, 9]"
+    diff_factor: 1
+  hobbies:
+    formula: get_faker(p_num, 'hobby_cn')
+  hobbies2:
+    formula: hobbies
+  hobbies_desc:
+    formula: "'、'.join(hobbies)"
+symbols:
+  is_in:
+    source:
+    - hobbies
+    - hobbies2
+    type: Bool
+    desc: 所有的{_hobbies}爱好者都爱好{_hobbies2}。
+  is_not_in:
+    source:
+    - hobbies
+    - hobbies2
+    type: Bool
+    desc: 所有的{_hobbies}爱好者都不爱好{_hobbies2}。
+conditions:
+  is_in_default:
+    formula: "[is_in[(p, p)] == True for p in hobbies]"
+  is_not_in_default:
+    formula: "[is_not_in[(p, p)] == False for p in hobbies]"
+  set_relation:
+    formula: "[Not(And(is_in[(p1, p2)] == True, is_not_in[(p1, p2)] == True)) for\
+      \ p1 in hobbies for p2 in hobbies2 if p1 != p2]"
+  set_trans:
+    formula: "[Implies(And(is_in[(p1, p2)], is_in[(p2, p3)]), is_in[(p1, p3)]) for\
+      \ p1 in hobbies for p2 in hobbies for p3 in hobbies if p1 != p2 and p2 != p3\
+      \ and p1 != p3]"
+  set_trans_2:
+    formula: "[Implies(And(is_not_in[(p1, p3)], is_in[(p2, p3)]), is_not_in[(p1, p2)])\
+      \ for p1 in hobbies for p2 in hobbies for p3 in hobbies if p1 != p2 and p2 !=\
+      \ p3 and p1 != p3]"
+  set_switch:
+    formula: "[is_not_in[(p1, p2)] == is_not_in[(p2, p1)] for p1 in hobbies for p2\
+      \ in hobbies if p1 != p2]"
+  e1:
+    source:
+    - hobbies
+    amount:
+    - '2'
+    domain: "[1, p_num * 2]"
+    formula: is_in[(_sym[0][0], _sym[0][1])] == True
+    desc: 所有的{_sym[0][0]}爱好者都爱好{_sym[0][1]};
+  e2:
+    source:
+    - hobbies
+    amount:
+    - '2'
+    domain: "[1, p_num * 2]"
+    formula: And(is_in[(_sym[0][0], _sym[0][1])] == False, is_not_in[(_sym[0][0],
+      _sym[0][1])] == False)
+    desc: 有{_sym[0][0]}爱好者同时爱好{_sym[0][1]};
+  e3:
+    source:
+    - hobbies
+    amount:
+    - '2'
+    domain: "[1, p_num * 2]"
+    formula: is_not_in[(_sym[0][0], _sym[0][1])] == True
+    desc: 所有的{_sym[0][0]}爱好者都不爱好{_sym[0][1]};
+queries:
+  q1:
+    source:
+    - hobbies
+    - range(3)
+    desc: 如果上述结论都是真实的，则以下哪项不一定为真？
+    opt_num: 5
+    amount:
+    - '2'
+    - '1'
+    order:
+    - true
+    - true
+    cond: all
+    custom_cond:
+    - constraint: all([([_opt[0]] not in e1.data and [_opt[0]] not in e2.data and
+        [_opt[0]] not in e3.data)])
+    select_type: false
+    opt_formula: get_value(_model, is_in[(_opt[0][0], _opt[0][1])]) == True if _opt[1][0]
+      == 0 else (get_value(_model, is_in[(_opt[0][0], _opt[0][1])]) == False and get_value(_model,
+      is_not_in[(_opt[0][0], _opt[0][1])]) == False) if _opt[1][0] == 1 else get_value(_model,
+      is_not_in[(_opt[0][0], _opt[0][1])]) == True
+    opt_text: "{'所有' + _opt[0][0] + '爱好者都爱好' + _opt[0][1] if _opt[1][0] == 0 else\
+      \ '所有' + _opt[0][0] + '爱好者都不爱好' + _opt[0][1] if _opt[1][0] == 2 else '有' + _opt[0][0]\
+      \ + '爱好者同时爱好' + _opt[0][1]}"
+  q2:
+    source:
+    - hobbies
+    - "[False, True]"
+    - "[False, True]"
+    desc: 以下哪个人的文化活动爱好和题干断定的条件矛盾？
+    opt_num: 5
+    amount:
+    - '3'
+    - '1'
+    - '1'
+    order:
+    - true
+    - true
+    - true
+    cond: any
+    select_type: false
+    opt_formula: get_value(_model, is_not_in[(_opt[0][0], _opt[0][1])] if _opt[1][0]
+      else is_in[(_opt[0][0], _opt[0][1])]) == False and get_value(_model, is_not_in[(_opt[0][0],
+      _opt[0][2])] if _opt[2][0] else is_in[(_opt[0][0], _opt[0][2])]) == False
+    opt_text: 一个{_opt[0][0]}爱好者，{'既' if _opt[1][0] else '既不'}爱好{_opt[0][1]}，{'又' if
+      _opt[2][0] else '又不'}爱好{_opt[0][2]}
+desc: "某社区对居民的业余爱好进行了调查，得出了以下结论：{e1} {e2} {e3} {queries}\n"

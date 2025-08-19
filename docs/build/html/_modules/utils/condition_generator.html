@@ -1,0 +1,190 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>utils.condition_generator &mdash; PuzzleClone v0.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=2fea6348"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            PuzzleClone
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">PuzzleClone</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PuzzleClone</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">utils.condition_generator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for utils.condition_generator</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">该模块用来生成不同模板问题的约束条件</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">z3</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.auxiliary_operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">CustomSym</span>
+
+
+<div class="viewcode-block" id="gen_event_count_condition">
+<a class="viewcode-back" href="../../utils.html#utils.condition_generator.gen_event_count_condition">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">gen_event_count_condition</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">fact</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return conditions where at most, least, or exactly num events are true in the event array.</span>
+
+<span class="sd">    :param events: Array of type z3.Bool.</span>
+<span class="sd">    :param fact: Objective fact about the events: &quot;most&quot; (at most), &quot;least&quot; (least), or &quot;equal&quot; (exactly).</span>
+<span class="sd">    :param num: The quantity, which must be greater than 0 and less than or equal to the length of the event list.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">events</span><span class="p">)</span> <span class="o">==</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">CustomSym</span><span class="p">):</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+        
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+    
+    <span class="c1"># 检查 num 的范围</span>
+    <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="n">n</span>
+    
+    <span class="k">if</span> <span class="n">fact</span> <span class="o">==</span> <span class="s2">&quot;most&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Sum</span><span class="p">([</span><span class="n">If</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">events</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">num</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">fact</span> <span class="o">==</span> <span class="s2">&quot;least&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Sum</span><span class="p">([</span><span class="n">If</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">events</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="n">num</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">fact</span> <span class="o">==</span> <span class="s2">&quot;equal&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Sum</span><span class="p">([</span><span class="n">If</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">events</span><span class="p">])</span> <span class="o">==</span> <span class="n">num</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">fact</span> <span class="o">==</span> <span class="s2">&quot;distinct&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Distinct</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="gen_multi_event_count_condition">
+<a class="viewcode-back" href="../../utils.html#utils.condition_generator.gen_multi_event_count_condition">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">gen_multi_event_count_condition</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate conditions based on a multidimensional event array.</span>
+
+<span class="sd">    :param events: Array of events, where each element is a symbol.</span>
+<span class="sd">    :param op: Operator, such as wc (word count).</span>
+<span class="sd">    :param target: The target value for the condition.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># events = zip(*events)</span>
+    <span class="c1"># print(events)</span>
+    <span class="k">if</span> <span class="n">op</span> <span class="o">==</span> <span class="s2">&quot;wc&quot;</span><span class="p">:</span>
+        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">group_counts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># allowed_counts = [i for i, cnt in enumerate(target) if cnt &gt; 0]</span>
+
+        <span class="c1"># 生成每组的真事件数并添加范围约束</span>
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="n">Sum</span><span class="p">([</span><span class="n">If</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">group</span><span class="p">])</span>
+            <span class="n">group_counts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">count</span><span class="p">)</span>
+            <span class="c1"># constraints.append(Or([count == k for k in allowed_counts]))  # 每组必须符合允许的计数</span>
+
+        <span class="c1"># 添加分布约束</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">required</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">required</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid target count at index </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">required</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">required</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            
+            <span class="c1"># 统计实际满足i个真事件的组数</span>
+            <span class="n">actual</span> <span class="o">=</span> <span class="n">Sum</span><span class="p">([</span><span class="n">If</span><span class="p">(</span><span class="n">gc</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">gc</span> <span class="ow">in</span> <span class="n">group_counts</span><span class="p">])</span>
+            <span class="n">constraints</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">actual</span> <span class="o">==</span> <span class="n">required</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">constraints</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="k">pass</span>
+
+    
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Anonymous Authors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

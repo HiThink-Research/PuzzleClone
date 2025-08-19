@@ -1,0 +1,40 @@
+custom_operator:
+  generate_repairs: customs/trams.py
+  waiting_minutes: customs/trams.py
+variables:
+  num_trams:
+    type: int
+    domain: "[5, 15]"
+    diff_factor: 1
+  loss_per_min:
+    type: int
+    domain: "[8, 15]"
+    diff_factor: 0
+  num_workers:
+    type: int
+    domain: "[2, num_trams-3]"
+    diff_factor: 1
+  min_repair:
+    type: int
+    domain: "[6, 12]"
+    diff_factor: 0
+  max_repair:
+    type: int
+    domain: "[25, 40]"
+    diff_factor: 0
+  repairs:
+    formula: generate_repairs(num_trams,min_repair,max_repair)
+max_solution: 1
+queries:
+  q1:
+    desc: 最小的损失是多少元？
+    ans_formula: waiting_minutes(repairs,num_workers)
+    ans_text: str(_ans[0]*loss_per_min)
+    ans_assertion: 'True'
+  q2:
+    desc: 这{num_workers}名工人的最长工作时间与最短工作时间相差多少分钟？
+    ans_formula: waiting_minutes(repairs,num_workers)
+    ans_text: max(_ans[1])-min(_ans[1])
+    ans_assertion: 'True'
+desc: 电车公司维修站有{num_trams}辆电车需要维修，如果用一名工人维修这{num_trams}辆电车，修复时间分别为{'分钟、'.join(str(item)
+  for item in repairs[:])+'分钟'}，每个维修工人工作效率相同。每辆电车每停开1分钟的损失是{loss_per_min}元，现在由{num_workers}名维修工人各自单独工作，要使经济损失减到最小程度，那么，{queries}以上两问均以数字作答，用逗号隔开。

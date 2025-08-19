@@ -1,0 +1,45 @@
+custom_operator: {}
+variables:
+  p_num:
+    type: int
+    domain: "[5, 10]"
+    diff_factor: 1
+  money:
+    formula: generate_random_list(p_num, 'int', [10, 50])
+    diff_factor: 0
+  group_size:
+    formula: 'generate_random_list(2, ''int'', [2, p_num - 2], [f"lambda l: sum(l)
+      == p_num - 1"])'
+    diff_factor: 0
+  group_amount:
+    formula: generate_random_list(2, 'int', [1, p_num // 2])
+    diff_factor: 0
+  names:
+    formula: generate_letters(p_num)
+symbols:
+  price:
+    source:
+    - "['x']"
+    type: int
+  buy:
+    source:
+    - names
+    type: int
+conditions:
+  price_domain:
+    formula: And([price['x'] > x for x in money] + [price['x'] <= sum(money)])
+  buy_domain:
+    formula: And([And(x >= 0, x <= 2) for x in buy])
+  group_size_cond:
+    formula: And([Sum([If(x == i, 1, 0) for x in buy]) == group_size[i] for i in range(2)])
+  group_amount_cond:
+    formula: And([Sum([If(x == i, money[idx], 0) for idx, x in enumerate(buy)]) ==
+      group_amount[i] * price['x'] for i in range(2)])
+max_solution: 1
+queries:
+  q1:
+    desc: 那么，这款游戏机的价格是多少呢？
+    ans_formula: get_value(_solutions[0], price['x'])
+    ans_text: _ans
+    ans_assertion: len(_solutions) == 1
+desc: 有{p_num}个小朋友去玩具店里买玩具，他们分别带了{'、'.join([str(v) + '元' for v in money])}钱，到了玩具店里，他们都看中了一款游戏机，一看定价，这{p_num}个人都发现自己所带的钱不够，但是其中有{group_size[0]}个人的钱凑在一起正好可买{group_amount[0]}台，除去这{group_size[0]}个人，有{group_size[1]}人的钱凑在一起恰好能买{group_amount[1]}台。{q1}

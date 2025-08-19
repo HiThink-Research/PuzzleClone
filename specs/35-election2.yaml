@@ -1,0 +1,70 @@
+variables:
+  p_num:
+    type: int
+    domain: "[5, 9]"
+    diff_factor: 1
+  names:
+    formula: get_faker(p_num, 'name')
+  name_desc:
+    formula: "'、'.join(names)"
+symbols:
+  elected:
+    source:
+    - names
+    type: Bool
+conditions:
+  e1:
+    source:
+    - names
+    amount:
+    - '2'
+    domain: "[1,  p_num // 2]"
+    formula: Or(elected[_sym[0][0]], elected[_sym[0][1]])
+    desc: "{_sym[0][0]}和{_sym[0][1]}两人至少去一个人；"
+  e2:
+    source:
+    - names
+    amount:
+    - '2'
+    domain: "[1,  p_num // 2]"
+    formula: Not(And(elected[_sym[0][0]], elected[_sym[0][1]]))
+    desc: "{_sym[0][0]}和{_sym[0][1]}不能一起去；"
+  e3:
+    source:
+    - names
+    - "[1, 2]"
+    amount:
+    - '3'
+    - '1'
+    domain: "[1,  p_num // 2]"
+    formula: gen_event_count_condition([elected[_sym[0][0]], elected[_sym[0][1]],
+      elected[_sym[0][2]]], 'equal', _sym[1][0])
+    desc: "{_sym[0][0]}、{_sym[0][1]}、{_sym[0][2]}三人中要派{_sym[1][0]}人去；"
+  e4:
+    source:
+    - names
+    amount:
+    - '2'
+    domain: "[1,  p_num // 2]"
+    formula: Xor(elected[_sym[0][0]], elected[_sym[0][1]])
+    desc: "{_sym[0][0]}和{_sym[0][1]}两人中去一人；"
+  e5:
+    source:
+    - names
+    - "[False, True]"
+    - "[False, True]"
+    amount:
+    - '2'
+    - '1'
+    - '1'
+    domain: "[1,  p_num // 2]"
+    formula: Implies(elected[_sym[0][0]] == _sym[1][0], elected[_sym[0][1]] == _sym[2][0])
+    desc: 若{_sym[0][0]}{'去' if _sym[1][0] else '不去'}，则{_sym[0][1]}{'去' if _sym[2][0]
+      else '不去'}；
+queries:
+  q1:
+    desc: 那么哪些人出差了？
+    ans_formula: to_unique([[p for p in names if get_value(_model, elected[p])] for
+      _model in _solutions])
+    ans_text: "','.join(_ans[0])"
+desc: "公司要在{name_desc}中选拔人出差，人选的配备要求，必须注意下列各点：{conditions} {q1}\n"

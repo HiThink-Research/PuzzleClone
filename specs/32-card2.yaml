@@ -1,0 +1,71 @@
+variables:
+  pair_num:
+    type: int
+    domain: "[4, 8]"
+    diff_factor: 1
+  p_num:
+    formula: 2 * pair_num
+  names:
+    formula: get_faker(pair_num, 'name_male') + get_faker(pair_num, 'name_female')
+symbols:
+  p_s:
+    source:
+    - names
+    type: int
+  m_s:
+    source:
+    - names
+    type: int
+conditions:
+  pair_domain:
+    formula: And([And(p_s[x] >= 0, p_s[x] < pair_num) if idx >= pair_num else And(p_s[x]
+      >= pair_num, p_s[x] < p_num) for idx, x in enumerate(names)])
+  pair_distinct:
+    formula: gen_event_count_condition([ p_s[x] for x in names], 'distinct')
+  pair_symmetry:
+    formula: And([Implies(p_s[names[i]] == j, p_s[names[j]] == i) for i in range(p_num)
+      for j in range(p_num) if i != j ])
+  married_pair_domain:
+    formula: And([And(m_s[x] >= 0, m_s[x] < pair_num) if idx >= pair_num else And(m_s[x]
+      >= pair_num, m_s[x] < p_num) for idx, x in enumerate(names)])
+  married_pair_distinct:
+    formula: gen_event_count_condition([ m_s[x] for x in names], 'distinct')
+  married_pair_symmetry:
+    formula: And([Implies(m_s[names[i]] == j, m_s[names[j]] == i) for i in range(p_num)
+      for j in range(p_num) if i != j ])
+  pair_not_married:
+    formula: And([And(Implies(p_s[names[i]] == j, m_s[names[i]] != j), Implies(p_s[names[j]]
+      == i, m_s[names[j]] != i)) for i in range(pair_num) for j in range(pair_num,
+      p_num) ])
+  e1:
+    source:
+    - names[:pair_num]
+    - names[pair_num:]
+    domain: "[1, pair_num // 2]"
+    formula: p_s[_sym[0]] == pair_num + _ind[1]
+    desc: "{_sym[0]}和{_sym[1]}一组。"
+  e2:
+    source:
+    - names
+    amount:
+    - '2'
+    domain: "[pair_num // 2, pair_num - 1]"
+    formula: And([Implies(p_s[p] == _ind[0][0], m_s[p] == _ind[0][1]) for p in names
+      if p != _sym[0][0] and p != _sym[0][1] ])
+    desc: "{_sym[0][0]}的队友是{_sym[0][1]}的{'妻子' if _ind[0][0] < pair_num else '丈夫'}。"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      constraint: 'lambda l: all([(item[0][0][0] < pair_num and item[0][0][1] < pair_num)
+        or (item[0][0][0] >= pair_num and item[0][0][1] >= pair_num) for item in l])'
+max_solution: 1
+queries:
+  q1:
+    desc: 那么{'、'.join(names[:pair_num])}的妻子分别为：
+    ans_formula: to_unique([[names[get_value(_model, m_s[i])] for i in names[:pair_num]]
+      for _model in _solutions])
+    ans_text: "','.join(_ans[0])"
+    ans_assertion: len(_ans) == 1
+desc: "{'、'.join(names[:pair_num])}和他们的妻子玩扑克，他们的妻子是{'、'.join(names[pair_num:])}，但是不知道谁和谁为夫妇。这种扑克游戏有一种规则，夫妇两个不能一组。{conditions}\
+  \ {q1}"

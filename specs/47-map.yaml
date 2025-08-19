@@ -1,0 +1,59 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 8]"
+    diff_factor: 1
+  correct_per_person:
+    type: int
+    domain: "[1, 2]"
+    diff_factor: 0
+  correct_per_id:
+    type: int
+    domain: "[1, 2]"
+    diff_factor: 0
+  place_ids:
+    formula: "[chr(65 + i) for i in range(p_num)]"
+  names:
+    formula: get_faker(p_num, 'name')
+  places:
+    formula: get_faker(p_num, 'city')
+symbols:
+  vars:
+    source:
+    - place_ids
+    type: int
+  speech_s:
+    source:
+    - place_ids
+    - list(range(p_num))
+    domain: p_num
+    domain_cond: true
+    dim: 2
+    dim_cond:
+    - - 0
+    - - 1
+    formula: vars[_sym[0]] == _sym[1]
+    desc: "{names[_index]}说：\"{_sym[0]}是{places[_sym[1]]}\";"
+conditions:
+  domain:
+    formula: And([And(v >= 0, v < p_num) for v in vars])
+  distinct:
+    formula: Distinct(list(vars))
+  cond_per_person:
+    formula: And([Sum([If(e, 1, 0) for e in group]) == correct_per_person for group
+      in speech_s])
+    desc: 这{p_num}个人每人只答对了{correct_per_person}个市，
+  cond_per_city:
+    formula: And([Sum([If(e, 1, 0)  for group in speech_s for e in group if get_data(e)[0][0]
+      == place_ids[i]]) == correct_per_id for i in range(p_num)])
+    desc: 并且每个编号只有{correct_per_id}个人答对。
+max_solution: 1
+queries:
+  q1:
+    desc: 根据以上条件，你知道{','.join(place_ids)}分别是哪个市吗？
+    ans_formula: to_unique([[places[v] for v in get_value(_model, vars)] for _model
+      in _solutions])
+    ans_text: "','.join(_ans[0])"
+    ans_assertion: len(_ans) == 1
+desc: 对地理非常感兴趣的几个同学聚在一起研究地图。其中的一个同学在地图上标上了标号{'、'.join(place_ids)}，表示包括{'、'.join(places)}在内的{p_num}个城市，让其他的同学说出他所标的地方分别都是哪些城市。{',
+  '.join(', '.join(inner_list) for inner_list in get_desc(speech_s))}。{cond_per_person}{cond_per_city}{q1}

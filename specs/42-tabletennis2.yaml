@@ -1,0 +1,58 @@
+variables:
+  p_num_div_2:
+    type: int
+    domain: "[3, 6]"
+    diff_factor: 1
+  p_num:
+    type: int
+    domain: "[p_num_div_2 * 2, p_num_div_2 * 2]"
+    diff_factor: 1
+  d_num:
+    type: int
+    domain: "[p_num - 1, p_num - 1]"
+    diff_factor: 1
+  q1_name:
+    type: int
+    domain: "[0, p_num - 1]"
+    diff_factor: 0
+  names:
+    formula: get_faker(p_num, 'name')
+  name_desc:
+    formula: "'、'.join(names)"
+  days:
+    formula: generate_letters(d_num)
+symbols:
+  e:
+    source:
+    - names
+    - days
+    type: int
+conditions:
+  domain:
+    formula: And([And(e[(names[i], days[j])] >= 0, e[(names[i], days[j])] < p_num,
+      e[(names[i], days[j])] != i) for i in range(p_num) for j in range(d_num)])
+  row_distinct:
+    formula: And([Distinct([e[(names[i], days[j])] for j in range(d_num)]) for i in
+      range(p_num)])
+  column_distinct:
+    formula: And([Distinct([e[(names[i], days[j])] for i in range(p_num)]) for j in
+      range(d_num)])
+  symmetry:
+    formula: And([Implies(e[names[i], days[k]] == j, e[names[j], days[k]] == i) for
+      i in range(p_num) for j in range(p_num) for k in range(d_num)])
+  extra1:
+    source:
+    - range(p_num)
+    amount:
+    - '2'
+    domain: "[d_num - 1, d_num - 1]"
+    formula: e[(names[_sym[0][0]], days[_index])] == _sym[0][1]
+    desc: 第{_index + 1}天{names[_sym[0][0]]}对{names[_sym[0][1]]}；
+max_solution: 1
+queries:
+  q1:
+    desc: 问：第{d_num}天{names[q1_name]}和谁对阵？
+    ans_formula: names[get_value(_solutions[0], e[(names[q1_name], days[d_num - 1])])]
+    ans_text: _ans
+    ans_assertion: 'True'
+desc: "{name_desc}{p_num}个选手进行乒乓球单打的单循环比赛(每人都与其它选手赛一场)，每天同时在{p_num_div_2}张球台各进行一场比赛，已知{conditions}。{queries}"

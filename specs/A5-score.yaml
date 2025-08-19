@@ -1,0 +1,51 @@
+custom_operator:
+  count_possible_scores: customs/score.py
+variables:
+  total_option_questions:
+    type: int
+    domain: "[5, 12]"
+    diff_factor: 1
+  correct_score:
+    type: int
+    domain: "[2, 6]"
+    diff_factor: 0
+  noresponse_score:
+    type: int
+    domain: "[-2, 0]"
+    diff_factor: 0
+  incorrect_score:
+    type: int
+    domain: "[-5, noresponse_score - 1]"
+    diff_factor: 0
+  total_world_questions:
+    type: int
+    domain: "[0, 3]"
+    diff_factor: 1
+  per_scores_num:
+    formula: randint(2, 3) if total_world_questions else 0
+    diff_factor: 1
+  per_scores:
+    formula: generate_random_list(per_scores_num, 'int', [1, 5]) if total_world_questions
+      else [0]
+    diff_factor: 0
+  world_wrong_score:
+    formula: randint(-2, -1) if total_world_questions else 0
+    diff_factor: 0
+  score_num:
+    formula: count_possible_scores(total_option_questions, correct_score, noresponse_score,
+      incorrect_score, total_world_questions, per_scores, world_wrong_score)
+symbols: {}
+conditions: {}
+calc_solution: false
+queries:
+  q1:
+    desc: 则共有多少种不同的总分？
+    ans_formula: score_num
+    ans_text: _ans
+    ans_assertion: 'True'
+desc: 某次数学竞赛共有{total_option_questions}道选择题{'和'+str(total_world_questions)+'道应用题' if
+  total_world_questions else ''}。每道选择题答对得{correct_score}分，不答{'扣' if noresponse_score
+  else '得'}{-noresponse_score}分，答错扣{-incorrect_score}分。{'每道应用题又分为'+str(per_scores_num)+'小问，每小问的分值依次为'
+  + '、'.join(str(pi) for pi in per_scores) + '分。小问不作答不得分，做错了扣' + str(-world_wrong_score)
+  + '分，需要注意，只有之前小问做对了，当前小问做对才能得分，否则，即使当前小问做对了也不得分。' if total_world_questions else
+  ''}当总分出现负值时，阅卷系统将自动把总分归为零分，{q1}

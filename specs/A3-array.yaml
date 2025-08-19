@@ -1,0 +1,31 @@
+custom_operator:
+  calc: 'lambda x, params, max_dim: sum([params[i] * (x ** i) for i in range(max_dim)])'
+variables:
+  p_num:
+    type: int
+    domain: "[8, 10]"
+    diff_factor: -1
+  blank_pos:
+    type: int
+    domain: "[0, p_num - 1]"
+    diff_factor: 0
+  max_dim:
+    type: int
+    domain: "[5, 5]"
+    diff_factor: 0
+  params:
+    formula: generate_random_list(max_dim, 'int', [-5, 5])
+    diff_factor: 0
+  nums:
+    formula: "[str(calc(i, params, max_dim)) if i != blank_pos else '___' for i in\
+      \ range(p_num)]"
+symbols: {}
+conditions: {}
+calc_solution: false
+queries:
+  q1:
+    desc: 空格中应填的数是什么？
+    ans_formula: calc(blank_pos, params, max_dim)
+    ans_text: _ans
+    ans_assertion: 'True'
+desc: 给定数列：{', '.join(nums)}. {q1}

@@ -1,0 +1,64 @@
+variables:
+  stu_num:
+    type: int
+    domain: "[4, 10]"
+    diff_factor: 1
+  query_indices:
+    formula: generate_random_list_with_total(stu_num, [0, 1], stu_num//2)
+    diff_factor: 0
+  names:
+    formula: get_faker(stu_num, 'name')
+  names_desc:
+    formula: "'、'.join(names)"
+  places:
+    formula: get_faker(stu_num, 'city')
+  places_desc:
+    formula: "'，'.join([('一个是' + p + '人') for p in places])"
+  query_students:
+    formula: "[v for i, v in enumerate(names) if query_indices[i]]"
+symbols:
+  stu_s:
+    source:
+    - names
+    attr:
+    - home
+    - age_rank
+    type:
+    - int
+    - int
+conditions:
+  age_rank_domain:
+    formula: And([And(stu_s[p].get('age_rank') >= 0, stu_s[p].get('age_rank') < stu_num)
+      for p in names])
+  home_domain:
+    formula: And([And(stu_s[p].get('home') >= 0, stu_s[p].get('home') < stu_num) for
+      p in names])
+  age_rank_distinct:
+    formula: gen_event_count_condition(stu_s.get('age_rank'), 'distinct')
+  home_distinct:
+    formula: gen_event_count_condition(stu_s.get('home'), 'distinct')
+  e1:
+    source:
+    - names
+    - range(stu_num)
+    - "['neq', 'gt', 'lt']"
+    domain: "[stu_num * 2, int(stu_num * 3.5)]"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      - 1
+    formula: 'And(stu_s[_sym[0]].get(''home'') != _sym[1], And([Implies(stu_s[p].get(''home'')
+      == _sym[1], make_expr(_sym[2], stu_s[_sym[0]].get(''age_rank''), stu_s[p].get(''age_rank'')))
+      for p in names])) '
+    desc: "{_sym[0]}{'和' if _sym[2] == 'neq' else '比'}{places[_sym[1]]}人{'不同岁' if\
+      \ _sym[2] == 'neq' else '小' if _sym[2] == 'gt' else '大'}；"
+max_solution: 400
+queries:
+  q1:
+    desc: 根据题干所述, {'、'.join(query_students)}这{len(query_students)}人的年龄次序(由大到小)有多少种可能？
+    ans_formula: 'to_unique([[si[0] for si in sorted([(p, get_value(_model, stu_s[p].get(''age_rank'')))
+      for p in query_students], key=lambda x: x[1])] for _model in _solutions])'
+    ans_text: len(_ans)
+    ans_assertion: len(_ans) <= 10
+desc: "{names_desc}是同班同学，住在同一宿舍。其中，{places_desc}。{e1} {q1}"

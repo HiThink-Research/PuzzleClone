@@ -1,0 +1,39 @@
+variables:
+  x1:
+    type: int
+    domain: "[2, 50]"
+    diff_factor: 1
+  x2:
+    type: int
+    domain: "[x1 + 1, x1 + 50]"
+    diff_factor: 1
+  plus2:
+    formula: x2 ** 2 - x1 ** 2
+    diff_factor: 1
+  plus1:
+    type: int
+    domain: "[1, x1 ** 2 - 1]"
+    diff_factor: 1
+  original_num:
+    formula: x1 ** 2 - plus1
+    diff_factor: 0
+symbols:
+  vars:
+    source:
+    - "['m', 'x1', 'x2']"
+    type: int
+conditions:
+  non_negative_numbers:
+    formula: And([x > 0 for x in vars])
+  plus1_cond:
+    formula: vars['m'] + plus1 == vars['x1'] ** 2
+  plus2_cond:
+    formula: vars['m'] + plus1 + plus2 == vars['x2'] ** 2
+max_solution: 1
+queries:
+  q1:
+    desc: 这个数是多少？
+    ans_formula: original_num
+    ans_text: str(_ans)
+    ans_assertion: 'True'
+desc: 有一个正整数，当它加上{plus1}后，所得的数是一个正整数的平方，然后再加{plus2}，又是另一个正整数的平方。{q1}

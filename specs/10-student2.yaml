@@ -1,0 +1,86 @@
+variables:
+  student_num:
+    type: int
+    domain: "[4, 8]"
+    diff_factor: 1
+  query_student_index:
+    type: int
+    domain: "[0, student_num - 1]"
+    diff_factor: 0
+  country_num:
+    formula: student_num
+  major_num:
+    formula: student_num
+  students:
+    formula: get_faker(student_num, 'name')
+  countries:
+    formula: get_faker(country_num, 'country')
+  majors:
+    formula: get_faker(major_num, 'major')
+symbols:
+  stu_s:
+    source:
+    - students
+    attr:
+    - country
+    - major
+    type:
+    - int
+    - int
+    desc:
+    - "{_sym[0]}来自{countries[_value]}"
+    - "{_sym[0]}的专业是{majors[_value]}"
+conditions:
+  stu_coun_domain:
+    formula: And([And(x >= 0, x < country_num) for x in stu_s.get('country')])
+  stu_maj_domain:
+    formula: And([And(x >= 0, x < major_num) for x in stu_s.get('major')])
+  coun_1_stu:
+    formula: gen_event_count_condition(stu_s.get('country'), 'distinct')
+    desc: 每个国家只能有一个学生
+  maj_1_stu:
+    formula: gen_event_count_condition(stu_s.get('major'), 'distinct')
+    desc: 每个专业只能有一个学生
+  stu_maj_cond:
+    source:
+    - students
+    - majors
+    - "['eq', 'neq']"
+    domain: "[1, student_num // 2]"
+    formula: stu_s[_sym[0]].get('major') == _ind[1] if _sym[2] == 'eq' else stu_s[_sym[0]].get('major')
+      != _ind[1]
+    desc: "{students[_ind[0]]}{'是' if _sym[2] == 'eq' else '不是'}学{majors[_ind[1]]}的；"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      constraint: 'lambda l: all([item[0][0][0] != query_student_index for item in
+        l])'
+  stu_coun_cond:
+    source:
+    - students
+    - countries
+    - "['eq', 'neq']"
+    domain: "[student_num // 2, student_num * 2]"
+    formula: stu_s[_sym[0]].get('country') == _ind[1] if _sym[2] == 'eq' else stu_s[_sym[0]].get('country')
+      != _ind[1]
+    desc: "{students[_ind[0]]}{'是' if _sym[2] == 'eq' else '不是'}来自{countries[_ind[1]]}；"
+  maj_coun_cond:
+    source:
+    - majors
+    - countries
+    - "['eq', 'neq']"
+    domain: "[student_num // 2, student_num * 2]"
+    formula: "[Implies(stu_s[sname].get('major') == _ind[0], stu_s[sname].get('country')\
+      \ == _ind[1]) if _sym[2] == 'eq' else Implies(stu_s[sname].get('major') == _ind[0],\
+      \ stu_s[sname].get('country') != _ind[1]) for sname in students]"
+    desc: 学{_sym[0]}的{'是' if _sym[2] == 'eq' else '不是'}来自{_sym[1]}；
+queries:
+  q1:
+    desc: 以上条件成立, 请问{students[query_student_index]}的专业{'可能' if len(_ans) > 1 else
+      ''}是什么？{'用逗号分隔输出所有可能的专业。' if len(_ans) > 1 else ''}
+    ans_formula: to_unique([majors[get_value(_model, stu_s[students[query_student_index]].get('major'))]
+      for _model in _solutions])
+    ans_text: "','.join(_ans)"
+    ans_assertion: len(_ans) <= 10
+desc: "{','.join(students)} {student_num}个学生来自{','.join(countries)}，其中一个学{'，一个学'.join(majors)}。已知：{stu_maj_cond}{stu_coun_cond}{maj_coun_cond}。{q1}"

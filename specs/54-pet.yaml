@@ -1,0 +1,96 @@
+custom_operator: {}
+variables:
+  p_num:
+    type: int
+    domain: "[4, 10]"
+    diff_factor: 1
+  pet_num:
+    type: int
+    domain: "[3, 5]"
+    diff_factor: 1
+  max_pet:
+    type: int
+    domain: "[2, pet_num - 1]"
+    diff_factor: 1
+  names:
+    formula: get_faker(p_num, 'name_female')
+  pets:
+    formula: get_faker(pet_num, 'pet_category')
+symbols:
+  raise_s:
+    source:
+    - names
+    - pets
+    type: bool
+conditions:
+  raise_num:
+    source:
+    - range(1, max_pet + 1)
+    domain_cond: false
+    domain: "[p_num, p_num]"
+    formula: Sum([If(raise_s[(names[_index], pet)], 1, 0) for pet in pets]) == _sym[0]
+    desc: "{names[_index]}饲养了{_sym[0]}只宠物；"
+  raise_people_num:
+    source:
+    - range(1, p_num)
+    domain: "[1, pet_num - 1]"
+    formula: Or([Sum([If(raise_s[(name, pet)], 1, 0) for name in names]) == _sym[0]
+      for pet in pets])
+    desc: 有一种宠物{p_num}人中有{_sym[0]}人饲养；
+  is_raising:
+    source:
+    - names
+    - pets
+    - "[False, True]"
+    domain: "[p_num // 2, p_num]"
+    formula: raise_s[(_sym[0], _sym[1])] == _sym[2]
+    desc: "{_sym[0]}{'不' if not _sym[2] else ''}养{_sym[1]}；"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      - 1
+    - scope: domain
+      fields:
+      - 2
+      constraint: 'lambda l: sum([item[0][0][0] for item in l]) <= p_num // 2'
+  shared_pet:
+    source:
+    - names
+    - "[False, True]"
+    amount:
+    - '2'
+    - '1'
+    domain: "[1, p_num - 1]"
+    formula: make_expr('neq' if _sym[1][0] else 'eq', Sum([If(And(raise_s[(_sym[0][0],
+      pet)], raise_s[(_sym[0][1], pet)]), 1, 0) for pet in pets]), 0)
+    desc: "{_sym[0][0]}和{_sym[0][1]}{'有' if _sym[1][0] else '没有'}饲养相同的宠物；"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+  nobody_raises_both:
+    source:
+    - pets
+    - "[False, True]"
+    amount:
+    - '2'
+    - '1'
+    domain: "[1, pet_num - 1]"
+    formula: make_expr('neq' if _sym[1][0] else 'eq', Sum([If(And(raise_s[(name, _sym[0][0])],
+      raise_s[(name, _sym[0][1])]), 1, 0) for name in names]), 0)
+    desc: "{'有' if _sym[1][0] else '没有'}人同时饲养{_sym[0][0]}和{_sym[0][1]}；"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+max_solution: 1
+queries:
+  q1:
+    desc: 请问：{p_num}个女孩各饲养着什么宠物？输出一个包含{p_num}个元素的二维数组，每个元素为一数组，分别表示{'、'.join(names)}饲养的宠物，如[[\"小猫\",
+      \"小狗\"], ...]。
+    ans_formula: "[[pet for pet in pets if get_value(_solutions[0], raise_s[(name,\
+      \ pet)])] for name in names]"
+    ans_text: str(_ans)
+    ans_assertion: len(_solutions) == 1
+desc: "{'、'.join(names)}{p_num}个女孩各饲养了{'、'.join(pets)}中的1~{max_pet}种。现已知：{conditions}{q1}"

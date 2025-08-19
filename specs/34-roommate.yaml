@@ -1,0 +1,122 @@
+variables:
+  half_p_num:
+    type: int
+    domain: "[1, 4]"
+    diff_factor: 1
+  p_num:
+    formula: 2 * half_p_num + 1
+    diff_factor: 1
+  names:
+    formula: get_faker(p_num, 'name')
+  pet:
+    formula: "['兔', '猫']"
+  drink:
+    formula: "['果粒橙', '葡萄汁']"
+  beer:
+    formula: "['青岛啤酒', '哈尔滨啤酒']"
+symbols:
+  p_s:
+    source:
+    - names
+    attr:
+    - room
+    - pet
+    - drink
+    - beer
+    type:
+    - int
+    - int
+    - int
+    - int
+conditions:
+  room_domain:
+    formula: And([And(x >= 0, x < p_num) for x in p_s.get('room')])
+  room_distinct:
+    formula: gen_event_count_condition(p_s.get('room'), 'distinct')
+  pet_domain:
+    formula: And([And(x >= 0, x < 2) for x in p_s.get('pet')])
+  drink_domain:
+    formula: And([And(x >= 0, x < 2) for x in p_s.get('drink')])
+  beer_domain:
+    formula: And([And(x >= 0, x < 2) for x in p_s.get('beer')])
+  at_most_one_shared_hobby:
+    formula: And([Sum(If(p_s[p1].get('pet') == p_s[p2].get('pet'), 1, 0), If(p_s[p1].get('drink')
+      == p_s[p2].get('drink'), 1, 0), If(p_s[p1].get('beer') == p_s[p2].get('beer'),
+      1, 0)) <= 1 for p1 in names for p2 in names if p1 > p2])
+    desc: 任何两人的相同爱好不超过一种。
+  p_beer_cond:
+    source:
+    - names
+    - "[0, 1]"
+    domain: "[1, p_num - 2]"
+    formula: Or([And(p_s[p].get('beer') == _sym[1], Or(p_s[p].get('room') - p_s[_sym[0]].get('room')
+      == 1, p_s[p].get('room') - p_s[_sym[0]].get('room') == -1) ) for p in names])
+    desc: "{_sym[0]}住在喝{beer[_sym[1]]}者的隔壁；"
+  p_pet_cond:
+    source:
+    - names
+    - "[0, 1]"
+    domain: "[1, p_num - 2]"
+    formula: Or([And(p_s[p].get('pet') == _sym[1], Or(p_s[p].get('room') - p_s[_sym[0]].get('room')
+      == 1, p_s[p].get('room') - p_s[_sym[0]].get('room') == -1) ) for p in names])
+    desc: "{_sym[0]}住在爱{pet[_sym[1]]}者的隔壁；"
+  p_drink_cond:
+    source:
+    - names
+    - "[0, 1]"
+    domain: "[1, p_num - 2]"
+    formula: Or([And(p_s[p].get('drink') == _sym[1], Or(p_s[p].get('room') - p_s[_sym[0]].get('room')
+      == 1, p_s[p].get('room') - p_s[_sym[0]].get('room') == -1) ) for p in names])
+    desc: "{_sym[0]}住在喝{drink[_sym[1]]}者的隔壁；"
+  exclusion_beer_drink:
+    source:
+    - "[0, 1]"
+    - "[0, 1]"
+    - "['eq', 'gt']"
+    domain: "[1, 2]"
+    formula: 'make_expr(_sym[2], Sum([If(And(p_s[p].get(''beer'') == _sym[0], p_s[p].get(''drink'')
+      == _sym[1]), 1, 0) for p in names]), 0) '
+    desc: "{'没有' if _sym[2] == 'eq' else '至少有'}一个喝{beer[_sym[0]]}者喝{drink[_sym[1]]}；"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      - 1
+  exclusion_pet_beer:
+    source:
+    - "[0, 1]"
+    - "[0, 1]"
+    - "['eq', 'gt']"
+    domain: "[1, 2]"
+    formula: 'make_expr(_sym[2], Sum([If(And(p_s[p].get(''pet'') == _sym[0], p_s[p].get(''beer'')
+      == _sym[1]), 1, 0) for p in names]), 0) '
+    desc: "{'没有' if _sym[2] == 'eq' else '至少有'}一个爱{pet[_sym[0]]}者喝{beer[_sym[1]]}；"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      - 1
+  exclusion_drink_pet:
+    source:
+    - "[0, 1]"
+    - "[0, 1]"
+    - "['eq', 'gt']"
+    domain: "[1, 2]"
+    formula: 'make_expr(_sym[2], Sum([If(And(p_s[p1].get(''drink'') == _sym[0], p_s[p2].get(''pet'')
+      == _sym[1], Or(p_s[p1].get(''room'') - p_s[p2].get(''room'') == 1, p_s[p1].get(''room'')
+      - p_s[p2].get(''room'') == -1)), 1, 0) for p1 in names for p2 in names if p1
+      > p2]), 0) '
+    desc: "{'没有' if _sym[2] == 'eq' else '至少有'}一个喝{drink[_sym[0]]}者住在爱{pet[_sym[1]]}者的隔壁；"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      - 1
+queries:
+  q1:
+    desc: 住中间房间的人是谁？
+    ans_formula: to_unique([[p for p in names if get_value(_model, p_s[p].get('room'))
+      == half_p_num] for _model in _solutions])
+    ans_text: _ans[0][0]
+    ans_assertion: len(_ans) == 1
+desc: "{','.join(names)} {p_num}个人住在{p_num}个相邻的房间内，他们之间满足这样的条件：每个人喜欢一种宠物，一种饮料，一种啤酒，不是兔就是猫，不是果粒橙就是葡萄汁，不是青岛就是哈尔滨；{conditions}{q1}"

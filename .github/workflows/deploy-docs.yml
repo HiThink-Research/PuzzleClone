@@ -1,0 +1,80 @@
+# .github/workflows/deploy-docs.yml
+
+name: Deploy Documentation to GitHub Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"] # or "master" depending on your repo
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' # Or your project's Python version
+
+      - name: Install dependencies
+        run: |
+          pip install sphinx sphinx-autobuild sphinx-rtd-theme mkdocs mkdocs-material
+        
+      - name: Build Tutorial Docs (MkDocs)
+        run: |
+          cd tutorial_docs
+          mkdocs build
+      
+      - name: Prepare deployment artifact
+        run: |
+          # Create a directory for the combined docs
+          mkdir public
+          
+          # Move the built docs into their respective subdirectories
+          mv docs/build/html public/api
+          mv tutorial_docs/site public/tutorial
+          
+          # Create a top-level index.html to navigate to the docs
+          cat <<EOF > public/index.html
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>Project Documentation</title>
+            <meta http-equiv="refresh" content="0; url=api/index.html" />
+            <style>
+              body { font-family: sans-serif; text-align: center; padding: 4rem; }
+              a { font-size: 1.2rem; padding: 1rem; border: 1px solid #ccc; border-radius: 8px; text-decoration: none; }
+            </style>
+          </head>
+          <body>
+            <h1>Project Documentation</h1>
+            <p>You are being redirected to the API documentation. If that does not work, use the links below.</p>
+            <p>
+              <a href="./api/">API Documentation</a>
+              <a href="./tutorial/">Tutorial</a>
+            </p>
+          </body>
+          </html>
+          EOF
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

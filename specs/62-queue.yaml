@@ -1,0 +1,59 @@
+custom_operator:
+  cal_group_num: 'lambda g: (g.get(''start'') + g.get(''start'') + g.get(''len'')
+    - 1) * g.get(''len'')'
+variables:
+  total_num:
+    type: int
+    domain: "[80, 1500]"
+    diff_factor: 1
+  group_num:
+    type: int
+    domain: "[2, 4]"
+    diff_factor: 1
+  group_people_diff:
+    type: int
+    domain: "[10, 10 + int(math.log(total_num) * 4)]"
+    diff_factor: 0
+  min_line_num:
+    type: int
+    domain: "[3, 5]"
+    diff_factor: 0
+  max_min_line_num_diff:
+    type: int
+    domain: "[4, 6]"
+    diff_factor: 0
+  group_id:
+    formula: generate_letters(group_num)
+  max_line_num:
+    formula: min_line_num + max_min_line_num_diff
+symbols:
+  vars:
+    source:
+    - group_id
+    attr:
+    - start
+    - len
+    type:
+    - int
+    - int
+conditions:
+  ascending_order:
+    formula: And([And(cal_group_num(vars[group_id[i]]) < cal_group_num(vars[group_id[i+1]]),
+      cal_group_num(vars[group_id[i+1]]) - cal_group_num(vars[group_id[i]]) < group_people_diff
+      * 2) for i in range(0, group_num - 1)])
+    desc: 要求每组的人数严格递增，且前后两组人数相差需小于{group_people_diff}人；
+  domain:
+    formula: And([And(vars[gid].get('start') > 0, vars[gid].get('len') > min_line_num,
+      vars[gid].get('len') < max_line_num) for gid in group_id])
+    desc: 每组师生均需排列成前少后多的梯形队阵（排数必须大于{min_line_num}，小于{max_line_num}）；
+  final_num_cond:
+    formula: Sum([cal_group_num(vars[gid]) for gid in group_id]) == total_num * 2
+    desc: 且要求每排的人数必须是连续的自然数，这样才能使后一排的人都站在前一排两人间的空挡处
+max_solution: 10
+queries:
+  q1:
+    desc: 那么，满足上述要求的排法共有几种？
+    ans_formula: len(_solutions)
+    ans_text: str(_ans)
+    ans_assertion: len(_solutions) > 1
+desc: 某校初三毕业班的学生和教师共{total_num}人一起在台阶上拍毕业照留念，摄影师首先要将这些师生分成{group_num}组，{conditions}。{q1}

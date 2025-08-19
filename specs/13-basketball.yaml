@@ -1,0 +1,53 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 8]"
+    diff_factor: 1
+  max_height:
+    type: int
+    domain: "[p_num, p_num]"
+    diff_factor: 0
+  names:
+    formula: get_faker(p_num, 'name')
+symbols:
+  height_s:
+    source:
+    - names
+    type: int
+conditions:
+  height_domain:
+    formula: And([And(height_s[p] >= 0, height_s[p] <= max_height) for p in names])
+  height_distinct:
+    formula: gen_event_count_condition(height_s, 'distinct')
+  e1:
+    source:
+    - names
+    domain: "[p_num, p_num]"
+    amount:
+    - '2'
+    formula: "[height_s[_sym[0][0]] < height_s[_sym[0][1]]]"
+    desc: "{_sym[0][0]}的身高不如{_sym[0][1]}；"
+  e2:
+    source:
+    - names
+    domain: "[1, 1]"
+    formula: "[height_s[_sym[0]] == max_height]"
+    desc: 全队最高的是{_sym[0]}；
+queries:
+  q1:
+    source:
+    - names
+    desc: 除了以下哪项外，其余各项都能从上述信息推出？
+    opt_num: 4
+    amount:
+    - '2'
+    cond: all
+    opt_formula: get_value(_model, height_s[_opt[0][0]]) < get_value(_model, height_s[_opt[0][1]])
+    select_type: false
+    opt_text: "{_opt[0][0]}的身高不如{_opt[0][1]}。"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+      constraint: "lambda l: all([item[0][0][0] != d[0][0] or item[0][0][1] != d[0][1] for d in e1.data for item in l])"
+desc: 在校篮球队中，{e1} {e2} {q1}

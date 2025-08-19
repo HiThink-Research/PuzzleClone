@@ -1,0 +1,67 @@
+variables:
+  wine_num:
+    type: int
+    domain: "[6, 12]"
+    diff_factor: 1
+  beer_num:
+    type: int
+    domain: "[1, 2]"
+    diff_factor: 0
+  bought_wine_of_first_customer:
+    type: int
+    domain: "[1, wine_num // 2]"
+    diff_factor: 0
+  vol_times:
+    type: int
+    domain: "[2, 5]"
+    diff_factor: 0
+  wines:
+    formula: generate_letters(wine_num)
+symbols:
+  wine_s:
+    source:
+    - wines
+    attr:
+    - volume
+    - belonging
+    type:
+    - int
+    - int
+conditions:
+  wine_belonging:
+    formula: And([Or(x == 0, x == 1, x == 2) for x in wine_s.get('belonging')])
+  wine_0:
+    formula: Sum([If(x == 0, 1, 0) for x in wine_s.get('belonging')]) == beer_num
+    desc: "{beer_num}个桶里装着啤酒"
+  wine_1:
+    formula: Sum([If(x == 1, 1, 0) for x in wine_s.get('belonging')]) == bought_wine_of_first_customer
+    desc: 第一位顾客买了{bought_wine_of_first_customer}桶葡萄酒
+  wine_times:
+    formula: Sum([If(x1 == 2, x2, 0) for x1, x2 in zip(wine_s.get('belonging'), wine_s.get('volume'))])
+      == vol_times * Sum([If(x1 == 1, x2, 0) for x1, x2 in zip(wine_s.get('belonging'),
+      wine_s.get('volume'))])
+    desc: 第二位顾客购买的葡萄酒是第一位顾客的{vol_times}倍
+  wine_volume_domain:
+    formula: And([And(x > 0, x <= 50) for x in wine_s.get('volume')])
+  wine_volume_distinct:
+    formula: gen_event_count_condition(wine_s.get('volume'), 'distinct')
+post_generation:
+  post_gen_vars:
+    vol: get_value(_sol, wine_s.get('volume'))
+  post_gen_conditions:
+    vol_cond:
+      formula: And([wine_s[w].get('volume') == vol[i] for i, w in enumerate(wines)])
+queries:
+  q1:
+    source:
+    - range(0, wine_num)
+    desc: 哪{'一' if beer_num == 1 else '几'}个桶里装的是啤酒？（整桶卖）请回答正确选项对应的字母。
+    opt_num: 4
+    amount:
+    - beer_num
+    cond: all
+    opt_formula: sum([get_value(_model, wine_s[wines[_opt[0][i]]].get('belonging'))
+      == 0 for i in range(beer_num)]) == beer_num
+    opt_text: "{','.join([str(vol[_opt[0][i]]) for i in range(beer_num)])}"
+desc: "一个酒商有{wine_num}桶葡萄酒和啤酒，容量分别为：{','.join([str(v) + '加仑' for v in vol])}。有{wine_num\
+  \ - beer_num}个桶里装着葡萄酒，{wine_0}，{wine_1}，{wine_times}。没有葡萄酒剩余。\n{q1}"

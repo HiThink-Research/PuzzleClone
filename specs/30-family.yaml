@@ -1,0 +1,123 @@
+variables:
+  family_num:
+    type: int
+    domain: "[4, 9]"
+    diff_factor: 1
+  query_child:
+    type: int
+    domain: "[0, family_num - 1]"
+    diff_factor: 0
+  query_parent:
+    type: int
+    domain: "[0, 1]"
+    diff_factor: 0
+  children:
+    formula: get_faker(family_num, 'name')
+  fathers:
+    formula: get_faker(family_num, 'name_male')
+  mothers:
+    formula: get_faker(family_num, 'name_female')
+symbols:
+  p_s:
+    source:
+    - children
+    attr:
+    - father
+    - mother
+    - gender
+    type:
+    - int
+    - int
+    - bool
+conditions:
+  father_domain:
+    formula: And([And(x >= 0, x < family_num) for x in p_s.get('father')])
+  mother_domain:
+    formula: And([And(x >= 0, x < family_num) for x in p_s.get('mother')])
+  father_distinct:
+    formula: gen_event_count_condition(p_s.get('father'), 'distinct')
+  mother_distinct:
+    formula: gen_event_count_condition(p_s.get('mother'), 'distinct')
+  gender:
+    source:
+    - children
+    - "[False, True]"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+    domain: "[family_num - 1, family_num]"
+    formula: p_s[_sym[0]].get('gender') == _sym[1]
+    desc: "{_sym[0]}是{'男' if _sym[1] else '女'}孩；"
+  fm_children_gender:
+    source:
+    - "[False, True]"
+    - range(family_num)
+    - "[False, True]"
+    domain: "[1, family_num // 2]"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 1
+    formula: And([Implies(p_s[c].get('father' if _sym[2] else 'mother') == _sym[1],
+      p_s[c].get('gender') == _sym[0]) for c in children])
+    desc: "{(fathers if _sym[2] else mothers)[_sym[1]]}家的孩子是{'男' if _sym[0] else '女'}孩；"
+  fm_children:
+    source:
+    - children
+    - fathers + mothers
+    domain: "[1, family_num // 2]"
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+    - scope: domain
+      fields:
+      - 1
+    - scope: domain
+      fields:
+      - 0
+      constraint: 'lambda l: all([item[0][0][0] != query_child for item in l])'
+    formula: p_s[_sym[0]].get('father') == _ind[1] if _ind[1] < family_num else p_s[_sym[0]].get('mother')
+      == _ind[1] - family_num
+    desc: "{fathers[_ind[1]] if _ind[1] < family_num else mothers[_ind[1] - family_num]}家的孩子是{_sym[0]}；"
+  potential_fm:
+    source:
+    - fathers
+    - mothers
+    amount:
+    - 1
+    - 2
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+    domain: "[1, family_num // 2]"
+    formula: And([Implies(p_s[c].get('father') == _ind[0][0], Or(p_s[c].get('mother')
+      == _ind[1][0], p_s[c].get('mother') == _ind[1][1])) for c in children])
+    desc: "{_sym[0][0]}只可能与{_sym[1][0]}或{_sym[1][1]}是一家；"
+  potential_mf:
+    source:
+    - mothers
+    - fathers
+    amount:
+    - 1
+    - 2
+    custom_cond:
+    - scope: domain
+      fields:
+      - 0
+    domain: "[1, family_num // 2]"
+    formula: And([Implies(p_s[c].get('mother') == _ind[0][0], Or(p_s[c].get('father')
+      == _ind[1][0], p_s[c].get('father') == _ind[1][1])) for c in children])
+    desc: "{_sym[0][0]}只可能与{_sym[1][0]}或{_sym[1][1]}是一家；"
+queries:
+  q1:
+    desc: 请问，{children[query_child]}的{'爸爸' if query_parent else '妈妈'}是谁？
+    ans_formula: to_unique([(fathers if query_parent else mothers)[get_value(_model,
+      p_s[children[query_child]].get('father' if query_parent else 'mother'))] for
+      _model in _solutions])
+    ans_text: _ans[0]
+    ans_assertion: len(_ans) == 1
+desc: 有{family_num}户人家，每家有一个孩子，他们的名字是：{'、'.join(children)}。孩子的爸爸是{'、'.join(fathers)}；妈妈是{'、'.join(mothers)}。对于这{family_num}家人，已知：{conditions}
+  {queries}

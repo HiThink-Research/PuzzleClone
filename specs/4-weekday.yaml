@@ -1,0 +1,112 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 10]"
+    diff_factor: 1
+  correct_num:
+    type: int
+    domain: "[1, 2]"
+    diff_factor: 0
+  names:
+    formula: get_faker(p_num, 'name')
+  days:
+    formula: "[\"星期一\", \"星期二\", \"星期三\", \"星期四\", \"星期五\",\"星期六\", \"星期日\"]"
+  name_desc:
+    formula: "'、'.join(names)"
+symbols:
+  vars:
+    source:
+    - "['day']"
+    type: int
+  speeches_s:
+    total: p_num
+    templates:
+    - source:
+      - days
+      formula: vars['day'] == _ind[0]
+      desc: "{names[_index]}说：\"今天是{_sym[0]}。\""
+    - source:
+      - days
+      formula: vars['day'] == (_ind[0] + 1) % 7
+      desc: "{names[_index]}说：\"昨天是{_sym[0]}。\""
+    - source:
+      - days
+      formula: vars['day'] == (_ind[0] - 1) % 7
+      desc: "{names[_index]}说：\"明天是{_sym[0]}。\""
+    - source:
+      - days
+      formula: vars['day'] == (_ind[0] - 2) % 7
+      desc: "{names[_index]}说：\"后天是{_sym[0]}。\""
+    - source:
+      - days
+      formula: vars['day'] != (_ind[0] + 2) % 7
+      desc: "{names[_index]}说：\"前天不是{_sym[0]}。\""
+    - source:
+      - days
+      - range(1, 11)
+      formula: vars['day'] == (_ind[0] - _sym[1]) % 7
+      desc: "{names[_index]}说：\"{_sym[1]}天后是{_sym[0]}。\""
+    - source:
+      - days
+      - range(1, 11)
+      formula: vars['day'] == (_ind[0] + _sym[1]) % 7
+      desc: "{names[_index]}说：\"{_sym[1]}天前是{_sym[0]}。\""
+    - source:
+      - days
+      amount:
+      - '2'
+      formula: And(vars['day'] != _ind[0][0], vars['day'] != _ind[0][1])
+      desc: "{names[_index]}说：\"今天既不是{_sym[0][0]}，也不是{_sym[0][1]}。\""
+    - source:
+      - days
+      amount:
+      - '2'
+      formula: Or(vars['day'] == (_ind[0][0] + 1) % 7, vars['day'] == (_ind[0][1]
+        - 1) % 7)
+      desc: "{names[_index]}说：\"昨天是{_sym[0][0]}，或者明天是{_sym[0][1]}。\""
+    - source:
+      - days
+      amount:
+      - '2'
+      formula: And(vars['day'] != (_ind[0][0] + 1) % 7, vars['day'] != (_ind[0][1]
+        + 1) % 7)
+      desc: "{names[_index]}说：\"昨天既不是{_sym[0][0]}，也不是{_sym[0][1]}。\""
+    - source:
+      - days
+      amount:
+      - '2'
+      formula: Or(vars['day'] == (_ind[0][0] - 1) % 7, vars['day'] == (_ind[0][1]
+        - 1) % 7)
+      desc: "{names[_index]}说：\"明天要么是{_sym[0][0]}，要么是{_sym[0][1]}。\""
+    - source:
+      - days
+      amount:
+      - '2'
+      order:
+      - false
+      formula: Or(vars['day'] >= _ind[0][0], vars['day'] <= _ind[0][1])
+      desc: "{names[_index]}说：\"今天在{_sym[0][0]}和{_sym[0][1]}之间。\""
+      custom_cond:
+      - scope: domain
+        fields:
+        - 0
+        constraint: 'lambda l: all([item[0][0][0] - item[0][0][1] in range(1, 6) for
+          item in l])'
+    - source:
+      - days
+      - range(1, 11)
+      formula: vars['day'] == (_ind[0] - _sym[1]) % 7
+      desc: "{names[_index]}说：\"距{_sym[0]}还有{_sym[1]}天。\""
+conditions:
+  day_domain:
+    formula: And(vars['day'] >= 0, vars['day'] < 7)
+  correct_speech_cond:
+    formula: Sum([If(item, 1, 0) for item in speeches_s]) == correct_num
+queries:
+  q1:
+    desc: "{'请问是谁？输出这个人的名字。' if correct_num == 1 else '请问是哪些人？用逗号分隔输出这些人的名字。'}"
+    ans_formula: to_unique([[names[i] for i in range(p_num) if _model.evaluate(speeches_s[i])]
+      for _model in _solutions])
+    ans_text: "','.join(_ans[0])"
+    ans_assertion: len(_ans) == 1
+desc: "公司突然停电，同事们开始讨论日期：{''.join(get_desc(speeches_s))}已知只有{correct_num}人说对，{q1}\n"

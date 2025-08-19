@@ -1,0 +1,50 @@
+variables:
+  f_num:
+    type: int
+    domain: "[10, 50]"
+    diff_factor: 1
+  p_num:
+    type: int
+    domain: "[10, 40]"
+    diff_factor: -1
+  down_penalty:
+    type: int
+    domain: "[1, 3]"
+    diff_factor: 0
+  up_penalty:
+    type: int
+    domain: "[down_penalty + 1, 5]"
+    diff_factor: 0
+  fi:
+    formula: generate_random_list(p_num, 'int', [2, f_num])
+  counts:
+    formula: "{x: fi.count(x) for x in set(fi) if fi.count(x) > 0}"
+  count_desc:
+    formula: "','.join(['第' + str(v) + '层住了' + str(counts[v]) + '人' for v in counts])"
+symbols:
+  v:
+    source:
+    - "['pos']"
+    type: int
+conditions:
+  domain:
+    formula: And(v['pos'] >= 1, v['pos'] <= f_num)
+optimize:
+  type: minimize
+  formula: Sum([count * If((floor - 1) * up_penalty < If(floor <= v['pos'], down_penalty
+    * (v['pos'] - floor), up_penalty * (floor - v['pos'])), (floor - 1) * up_penalty,
+    If(floor <= v['pos'], down_penalty * (v['pos'] - floor), up_penalty * (floor -
+    v['pos'])))  for floor, count in counts.items()])
+queries:
+  q1:
+    desc: 电梯停在哪一层（有些人可以不乘电梯而直接走楼梯）可以使{p_num}个人的不满意总分最小？
+    ans_formula: get_value(_solutions, v['pos'])
+    ans_text: _ans
+    ans_assertion: 'True'
+  q2:
+    desc: 最小值是多少？
+    ans_formula: _value
+    ans_text: _ans
+    ans_assertion: 'True'
+desc: 一幢{f_num}层的大楼有一部电梯停在第一层，它一次最多能容纳{p_num}人，且只能在第二层至第{f_num}层中的某一层停一次。对于每个人来说：往下走一层楼梯感到{down_penalty}分​​
+  不满意，往上走一层感到{up_penalty}分​​不满意。现在有{p_num}人在第一层，已知{count_desc}。问：{queries}

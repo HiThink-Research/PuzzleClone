@@ -1,0 +1,53 @@
+custom_operator:
+  count_substitute_days: customs/nurse.py
+  calculate_target_date: 'lambda y, m, d, days: (__import__(''datetime'').datetime(y,
+    m, d) + __import__(''datetime'').timedelta(days=days)).strftime(''%Y-%m-%d'')'
+variables:
+  p_num:
+    type: int
+    domain: "[2, 5]"
+    diff_factor: 1
+  start_year:
+    type: int
+    domain: "[2019, 2022]"
+    diff_factor: 0
+  start_month:
+    type: int
+    domain: "[1, 12]"
+    diff_factor: 0
+  start_day:
+    type: int
+    domain: "[1, 28]"
+    diff_factor: 0
+  days_diff:
+    type: int
+    domain: "[100, 1000]"
+    diff_factor: 1
+  min_nurse_num:
+    type: int
+    domain: "[1, p_num - 1]"
+    diff_factor: 0
+  nurses:
+    formula: "[chr(65 + i) for i in range(p_num + 1)]"
+  end_date:
+    formula: "[int(v) for v in calculate_target_date(start_year, start_month, start_day,\
+      \ days_diff).split('-')]"
+  workdays:
+    formula: 'generate_random_list(p_num, ''int'', [2, 8], [f"lambda l: len(l) ==
+      len(to_unique(l))"])'
+  holidays:
+    formula: 'generate_random_list(p_num, ''int'', [1, 7], [f"lambda l: len(l) ==
+      len(to_unique(l))"], [[1, v] for v in workdays])'
+symbols: {}
+conditions: {}
+calc_solution: false
+queries:
+  q1:
+    desc: 则在这段时间内，替补护士{nurses[-1]}需要代班几天？
+    ans_formula: count_substitute_days([start_year, start_month, start_day], end_date,
+      list(zip(workdays, holidays)), min_nurse_num)
+    ans_text: str(_ans)
+    ans_assertion: 'True'
+desc: 某医院有{p_num}名正式护士{'、'.join(nurses[:-1])}和1名替补护士{nurses[-1]}，从{start_year}年{start_month}月{start_day}日开始到{end_date[0]}年{end_date[1]}月{end_date[2]}日为止，{'，'.join([n
+  + '每工作' + str(workday) + '天休息' + str(holiday) + '天' for n, workday, holiday in zip(nurses,
+  workdays, holidays)])}。如果某天正式护士上班的人数少于{min_nurse_num}人，那么需要替补护士{nurses[-1]}代班。{q1}

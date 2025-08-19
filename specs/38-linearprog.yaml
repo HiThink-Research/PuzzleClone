@@ -1,0 +1,45 @@
+variables:
+  vars_num:
+    type: int
+    domain: "[2, 6]"
+    diff_factor: 1
+  formula_num:
+    type: int
+    domain: "[vars_num // 2, 6]"
+    diff_factor: 1
+  target_optimize_type:
+    type: int
+    domain: "[0, 1]"
+    diff_factor: 0
+  var_names:
+    formula: generate_var_names(vars_num)
+  cond_formulae:
+    formula: generate_formulas(formula_num, vars_num, is_cond=True, allow_power=False)
+  target_formula:
+    formula: generate_formulas(1, vars_num, is_cond=False, allow_power=False)
+  max_domain:
+    formula: generate_random_list(vars_num, 'int', [30, 1000])
+symbols:
+  vars:
+    source:
+    - var_names
+    type: float
+conditions:
+  domains:
+    formula: And([And(x >= -max_domain[i], x <= max_domain[i]) for i,x in enumerate(list(vars))])
+  cond:
+    formula: And(*(build_system(cond_formulae, vars)['z3_expr'] + build_system(cond_formulae,
+      vars)['z3_constraint'] + build_system(target_formula, vars)['z3_constraint']))
+optimize:
+  type: "{'minimize' if target_optimize_type else 'maximize'}"
+  formula: build_system(target_formula, vars)['z3_expr'][0]
+queries:
+  q1:
+    desc: 已知：{', '.join(['|' + x + '| <= ' + str(max_domain[i]) for i, x in enumerate(var_names)])},
+      {build_system(cond_formulae, vars, var_names)['latex_str']}, 求{build_system(target_formula,
+      vars, var_names)['latex_str']}的{'最小值' if target_optimize_type else '最大值'}，结果保留两位小数。
+    ans_formula: get_formula_value(target_formula[0], [get_value(_solutions, v) for
+      v in vars])
+    ans_text: "'{:.2f}'.format(_ans)"
+    ans_assertion: 'True'
+desc: "{q1}"

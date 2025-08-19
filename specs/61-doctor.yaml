@@ -1,0 +1,81 @@
+variables:
+  p_num:
+    type: int
+    domain: "[4, 6]"
+    diff_factor: 1
+  speech_num:
+    type: int
+    domain: "[p_num, 9]"
+    diff_factor: 1
+  correct_num:
+    type: int
+    domain: "[1, speech_num - 1]"
+    diff_factor: 0
+  names:
+    formula: get_faker(p_num + speech_num, 'name')
+  dnames:
+    formula: names[:p_num]
+  dnames2:
+    formula: dnames
+  snames:
+    formula: names[p_num:]
+symbols:
+  is_better:
+    source:
+    - dnames
+    - dnames2
+    type: Bool
+  speeches_s:
+    total: speech_num
+    templates:
+    - source:
+      - dnames
+      formula: And([is_better[(p, _sym[0])] for p in dnames if p != _sym[0]])
+      desc: "{snames[_index]}说：\"{_sym[0]}的手术成功率比其他{p_num - 1}位都低\"。"
+    - source:
+      - dnames
+      amount:
+      - '4'
+      order:
+      - true
+      init_cond:
+      - false
+      formula: And(is_better[(_sym[0][0], _sym[0][2])], is_better[(_sym[0][1], _sym[0][2])],
+        is_better[(_sym[0][0], _sym[0][3])], is_better[(_sym[0][1], _sym[0][3])])
+      desc: "{snames[_index]}说：\"{_sym[0][0]}、{_sym[0][1]}比{_sym[0][2]}、{_sym[0][3]}的手术高明\"\
+        。"
+    - source:
+      - dnames
+      formula: And([is_better[(p, _sym[0])] for p in dnames if p != _sym[0]])
+      desc: "{snames[_index]}说：\"{_sym[0]}的手术不是最好的\"。"
+    - source:
+      - dnames
+      amount:
+      - '3'
+      order:
+      - true
+      init_cond:
+      - false
+      formula: And(is_better[(_sym[0][2], _sym[0][0])], is_better[(_sym[0][2], _sym[0][1])])
+      desc: "{snames[_index]}说：\"{_sym[0][0]}、{_sym[0][1]}的手术比{_sym[0][2]}差\"。"
+conditions:
+  is_better_domain:
+    formula: And([Xor(is_better[(x, y)], is_better[(y, x)]) for x in dnames for y
+      in dnames if x != y])
+  is_better_domain_2:
+    formula: And([is_better[(x, x)] == False for x in dnames])
+  is_better_transmissibility:
+    formula: And([Implies(And(is_better[(x,y)], is_better[(y,z)]), is_better[(x,z)])
+      for x in dnames for y in dnames for z in dnames if x != y and y != z and x !=
+      z])
+  speech_cond:
+    formula: Sum(If(s, 1, 0) for s in speeches_s) == correct_num
+queries:
+  q1:
+    desc: 请你帮助病人分析一下：哪位医生是最好的？
+    ans_formula: to_unique([[p for p in dnames if all([get_value(_model, is_better[(p,
+      p2)]) for p2 in dnames if p2 != p])] for _model in _solutions])
+    ans_text: _ans[0][0]
+    ans_assertion: len(_ans) == 1 and len(_ans[0]) == 1
+desc: "一位病人要做手术，外科有{'、'.join(dnames)}{p_num}位医生，请谁做好呢？他问了几位知情人。{'，'.join(get_desc(speeches_s))}一位老医生听了这些后，悄悄对他说：“这{speech_num}句话中共有{speech_num\
+  \ - correct_num}句是错误的。”{q1}\n"

@@ -1,0 +1,25 @@
+custom_operator:
+  calculate_min_pass_rate: customs/passrate.py
+  generate_correct_rates: customs/passrate.py
+variables:
+  num:
+    type: int
+    domain: "[4, 10]"
+    diff_factor: 1
+  cor_num:
+    formula: randint(math.ceil(num/2),num-1)
+  cor_rates:
+    formula: generate_correct_rates(num)
+  list_num:
+    formula: list(range(1,num+1))
+symbols: {}
+conditions: {}
+calc_solution: false
+queries:
+  q1:
+    desc: 那么这次考试的及格率至少是多少？请以数值形式输出，并保留两个小数，如0.40。
+    ans_formula: calculate_min_pass_rate(cor_rates,cor_num)
+    ans_text: str(_ans)
+    ans_assertion: _ans > 0
+desc: 一次考试共有{num}道试题，做对第{'、'.join(str(l_num) for l_num in list_num)}题的分别占参加考试人数的{'、'.join(str(x)
+  for x in cor_rates)}。如果做对{cor_num}道及以上为及格，{q1}

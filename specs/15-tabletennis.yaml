@@ -1,0 +1,45 @@
+variables:
+  pair_num:
+    type: int
+    domain: "[4, 10]"
+    diff_factor: 1
+  query_num:
+    type: int
+    domain: "[2, pair_num//2+1]"
+    diff_factor: 1
+  boys:
+    formula: get_faker(pair_num, 'name_male')
+  girls:
+    formula: get_faker(pair_num, 'name_female')
+  select_girls:
+    formula: random.sample(girls, query_num)
+symbols:
+  pair_s:
+    source:
+    - girls
+    type: int
+conditions:
+  pair_domain:
+    formula: And([And(x >= 0, x < pair_num) for x in pair_s])
+  pair_distinct:
+    formula: gen_event_count_condition(pair_s, 'distinct')
+  e1:
+    source:
+    - range(pair_num)
+    - range(pair_num)
+    amount:
+    - '2'
+    - '2'
+    domain: "[math.ceil(pair_num/3), int(pair_num*math.sqrt(pair_num))]"
+    formula: And(pair_s[girls[_sym[1][0]]] != _sym[0][0], pair_s[girls[_sym[1][1]]]
+      != _sym[0][1])
+    desc: 第{_index + 1}盘对局情况是：{boys[_sym[0][0]]}和{girls[_sym[1][0]]}对{boys[_sym[0][1]]}和{girls[_sym[1][1]]}。
+queries:
+  q1:
+    desc: 请根据题干的条件，确定{'、'.join(select_girls)}的哥哥分别有多少种可能。请按顺序用逗号分隔输出这{query_num}个女孩的哥哥的所有可能数。
+    ans_formula: "[len(to_unique([get_value(_model, pair_s[g]) for _model in _solutions]))\
+      \ for g in select_girls]"
+    ans_text: "','.join([str(v) for v in _ans])"
+    ans_assertion: 2 <= sum(_ans)/query_num < pair_num-pair_num//5
+desc: "{'、'.join(boys)} {pair_num}个男同学各有一个妹妹，这些妹妹的名字叫做{'、'.join(girls)}（以上名字顺序为随机排列）。这天，{pair_num\
+  \ * 2}个人一起打乒乓球，举行的是男女混合双打，并且规定，兄妹两人不搭伴。{e1}{q1}"

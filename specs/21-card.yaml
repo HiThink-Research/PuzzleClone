@@ -1,0 +1,52 @@
+variables:
+  p_num:
+    type: int
+    domain: "[5, 10]"
+    diff_factor: 1
+  card_num:
+    formula: 2 * p_num + 1
+    diff_factor: 1
+  operators:
+    formula: generate_random_list(p_num, 'enum', ['add', 'sub', 'mul', 'div'])
+    diff_factor: 0
+  students:
+    formula: get_faker(p_num, 'name')
+  cards:
+    formula: generate_letters(card_num)
+symbols:
+  card_s:
+    source:
+    - cards
+    type: int
+conditions:
+  picked_by_domain:
+    formula: And([And(x >= -1, x < p_num) for x in card_s])
+  picked_by_distribution:
+    formula: And([Sum([If(card_s[j] == i, 1, 0) for j in cards]) == 2 for i in range(p_num)])
+  div_int:
+    formula: And([Implies(And(card_s[c1] == i, card_s[c2] == i), (idx1 + 1) % (idx2
+      + 1) == 0) for idx1, c1 in enumerate(cards) for idx2, c2 in enumerate(cards)  for
+      i in range(p_num) if operators[i] == 'div' and idx1 > idx2])
+post_generation:
+  post_gen_vars:
+    picked_by: "[get_value(_sol, card_s[c]) for c in cards]"
+    values: "[make_expr(operators[i], c1 + 1, c2 + 1) for c1 in range(card_num) for\
+      \ c2 in range(card_num) for i in range(p_num) if picked_by[c1] == i and picked_by[c2]\
+      \ == i and c1 > c2]"
+  post_gen_conditions:
+    e1:
+      formula: And([Or([And(card_s[c1] == i, card_s[c2] == i, make_expr(operators[i],
+        idx1 + 1, idx2 + 1) == values[i]) for idx1, c1 in enumerate(cards) for idx2,
+        c2 in enumerate(cards) if idx1 > idx2]) for i in range(p_num)])
+      desc: "{','.join([students[i] + '取的两张牌之' + ('和' if operators[i] == 'add' else\
+        \ '差' if operators[i] == 'sub' else '积' if operators[i] == 'mul' else '商')\
+        \ + '是' + str(values[i]) for i in range(p_num)])}"
+queries:
+  q1:
+    desc: 请说出剩下的一张是什么牌？
+    ans_formula: to_unique([[i + 1 for i in range(card_num) if get_value(_model, card_s[cards[i]])
+      == -1][0] for _model in _solutions])
+    ans_text: _ans[0]
+    ans_assertion: len(_ans) == 1
+desc: 有{card_num}张纸牌，分别为1至{card_num}，{'、'.join(students)}共{p_num}人取牌，每人取2张。现已知{e1}。
+  {queries}

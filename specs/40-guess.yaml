@@ -1,0 +1,49 @@
+custom_operator:
+  cmp: 'lambda a, b: (len(set(a) & set(b)), sum(_a == _b for _a, _b in zip(a, b)))'
+  cmp_z3: 'lambda a, b, c, d: And(Sum([If(Sum([If(e == num, 1, 0) for e in a]) <=
+    cnt, Sum([If(e == num, 1, 0) for e in a]), cnt) for num, cnt in {n: b.count(n)
+    for n in b}.items()]) == c, Sum([If(a[i] == b[i], 1, 0) for i in range(len(a))])
+    == d)'
+  gen_str: 'lambda a: ''''.join([str(a[-(i+1)]) for i in range(len(a))])'
+  gen_desc: 'lambda ans_num, gres: f"小亚问：''是{gen_str(gres)}吗？''小巧说：''猜对{cmp(ans_num,
+    gres)[0]}个数字，而且位置{''都正确'' if cmp(ans_num, gres)[1] == cmp(ans_num, gres)[0] else
+    ''都不正确'' if cmp(ans_num, gres)[1] == 0 else ''有'' + str(cmp(ans_num, gres)[1])
+    + ''个正确''}''。" '
+variables:
+  digit_num:
+    type: int
+    domain: "[4, 7]"
+    diff_factor: 1
+  speech_num:
+    type: int
+    domain: "[3, digit_num]"
+    diff_factor: 1
+  var_names:
+    formula: generate_letters(digit_num)
+  ans_num:
+    formula: 'generate_random_list(digit_num, ''int'', [0, 9], [''lambda l: l[-1]
+      != 0''])'
+  guessed_num:
+    formula: "[generate_random_list(digit_num, 'int', [0, 9], ['lambda l: l[-1] !=\
+      \ 0 and cmp(ans_num, l)[0] > 0']) for i in range(speech_num)]"
+symbols:
+  vars:
+    source:
+    - var_names
+    type: int
+conditions:
+  domain:
+    formula: And([And((0 if i != digit_num - 1 else 1) <= vars[var_names[i]], vars[var_names[i]]
+      <= 9) for i in range(digit_num)])
+  cond:
+    formula: And([cmp_z3(list(vars), gres, cmp(ans_num, gres)[0], cmp(ans_num, gres)[1])
+      for gres in guessed_num])
+    desc: "{';'.join([gen_desc(ans_num, gres) for gres in guessed_num])}"
+max_solution: 1
+queries:
+  q1:
+    desc: 你能根据以上信息，猜出小巧写的{digit_num}位数是多少吗？
+    ans_formula: to_unique([get_value(_model, list(vars)) for _model in _solutions])
+    ans_text: gen_str(_ans[0])
+    ans_assertion: len(_ans) == 1 and all([isinstance(v, int) for v in _ans[0]])
+desc: 小巧和小亚玩猜数游戏，小巧写了一个数让小亚猜。{conditions}{q1}
