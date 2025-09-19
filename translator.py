@@ -1065,31 +1065,27 @@ def parse_config_file(config_file):
     
     try:
         with open(config_file, "r", encoding="utf-8") as file:
-            # First try to parse as JSON (single object)
-            try:
+            # Parse based on file extension
+            if config_file.endswith('.json'):
+                # Parse as JSON (single object)
                 data = json.load(file)
                 config_list.append(data)
-                return config_list
-            except json.JSONDecodeError:
-                # If not JSON, try as JSONL (each line is a JSON object)
-                pass
-            
-            # Reset file pointer to beginning for JSONL processing
-            file.seek(0)
-            
-            # Process as JSONL
-            for line_number, line in enumerate(file, 1):
-                line = line.strip()
-                if not line:
-                    continue
-                
-                try:
-                    data = json.loads(line)
-                    if "config" not in data:
-                        raise ValueError(f"Line {line_number} does not contain 'config' field")
-                    config_list.append(data["config"])
-                except json.JSONDecodeError as e:
-                    raise ValueError(f"Invalid JSON at line {line_number}: {str(e)}")
+            elif config_file.endswith('.jsonl'):
+                # Process as JSONL (each line is a JSON object)
+                for line_number, line in enumerate(file, 1):
+                    line = line.strip()
+                    if not line:
+                        continue
+                    
+                    try:
+                        data = json.loads(line)
+                        if "config" not in data:
+                            raise ValueError(f"Line {line_number} does not contain 'config' field")
+                        config_list.append(data["config"])
+                    except json.JSONDecodeError as e:
+                        raise ValueError(f"Invalid JSON at line {line_number}: {str(e)}")
+            else:
+                raise ValueError(f"Unsupported file extension. Expected .json or .jsonl, got: {config_file}")
                 
         return config_list
         
@@ -1102,8 +1098,12 @@ def process_with_config(puzzle_spec_path, output_path, config_file):
     try:
         with open(puzzle_spec_path, "r", encoding="utf-8") as file:
             content = file.read()
-            puzzle_template = PuzzleTemplate.model_validate_json(content)
-            # puzzle_template_json = puzzle_template.model_dump_json(indent=2)  # 转换为 JSON str
+            # for yaml files
+            if puzzle_spec_path.endswith(".yaml"):
+                content = yaml.load(content, Loader=yaml.FullLoader)
+                puzzle_template = PuzzleTemplate.model_validate(content)
+            else: 
+                puzzle_template = PuzzleTemplate.model_validate_json(content)
             puzzle_template = puzzle_template.model_dump()  # 转换为 JSON Data
     except Exception as e:
         print(e)
