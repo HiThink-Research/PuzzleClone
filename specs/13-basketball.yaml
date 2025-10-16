@@ -49,5 +49,5 @@ queries:
     - scope: domain
       fields:
       - 0
-      constraint: "lambda l: all([item[0][0][0] != d[0][0] or item[0][0][1] != d[0][1] for d in e1.data for item in l])"
+      constraint: "lambda l: all([names[item[0][0][0]] != d[0][0] or names[item[0][0][1]] != d[0][1] for d in e1.data for item in l])"
 desc: 在校篮球队中，{e1} {e2} {q1}

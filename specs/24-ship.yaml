@@ -78,15 +78,15 @@ queries:
     - scope: domain
       fields:
       - 0
-      constraint: "lambda l: all([extra3.data[0][0][0] not in item[0][0] for item in l])"
+      constraint: "lambda l: all([extra3.data[0][0][0] not in [names[p] for p in item[0][0]] for item in l])"
     - scope: domain
       fields:
       - 0
-      constraint: "lambda l: all([d[0] != item[0][0] for d in extra1.data for item in l])"
+      constraint: "lambda l: all([(d[0][0], d[0][1]) not in [(names[item[0][0][0]], names[item[0][0][1]]), (names[item[0][0][1]], names[item[0][0][0]])] for d in extra1.data for item in l])"
     - scope: domain
       fields:
       - 0
       - 1
-      constraint: "lambda l: all([(d[0][0], d[1][0]) not in [(item[0][0][0], item[0][1][0]), (item[0][0][1], item[0][1][0])] for d in extra2.data for item in l])"
+      constraint: "lambda l: all([(d[0][0], d[1][0]) not in [(names[item[0][0][0]], names[item[0][1][0]]), (names[item[0][0][1]], names[item[0][1][0]])] for d in extra2.data for item in l])"
 desc: "{child_num}个儿童{'、'.join(names[:child_num])}和{p_num - child_num}个成年人{'、'.join(names[child_num:p_num])}分别乘坐{'、'.join([str(i\
   \ + 1) + '号' for i in range(ship_num)])}{ship_num}个游艇，每个游艇乘坐{num_per_ship}人。以下条件必须满足：{at_least_one_adult_per_ship}{conditions}{q1}"

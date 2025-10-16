@@ -581,7 +581,7 @@ def generate_random_indices(choose, amount, domain, domain_cond=True, dim=1, dim
     # 第二步处理custom conditions
     custom_dim_cond = list(filter(lambda item: item['scope'] == 'dim', custom_cond))
     custom_domain_cond = list(filter(lambda item: item['scope'] == 'domain', custom_cond))
-    custom_option_cond = list(filter(lambda item: item['scope'] == 'option', custom_cond))
+    custom_option_cond = list(filter(lambda item: item['scope'] == 'option', custom_cond)) # [This is not used in this version, i.e., should always be empty list]
     def source_filter(candidate_comb): # 先对已经能判断的dim类custom condition进行一遍预过滤
         ok = True
         # print(candidate_comb)

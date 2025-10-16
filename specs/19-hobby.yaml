@@ -66,6 +66,7 @@ conditions:
     domain: "[1, p_num * 2]"
     formula: is_not_in[(_sym[0][0], _sym[0][1])] == True
     desc: 所有的{_sym[0][0]}爱好者都不爱好{_sym[0][1]};
+max_solution: 200
 queries:
   q1:
     source:
@@ -81,8 +82,11 @@ queries:
     - true
     cond: all
     custom_cond:
-    - constraint: all([([_opt[0]] not in e1.data and [_opt[0]] not in e2.data and
-        [_opt[0]] not in e3.data)])
+    - scope: domain
+      fields:
+      - 0
+      constraint: "lambda l: all([( [[ hobbies[item[0][0][0]], hobbies[item[0][0][1]] ]] not in e1.data and [[ hobbies[item[0][0][0]], hobbies[item[0][0][1]] ]] not in e2.data and
+        [[ hobbies[item[0][0][0]], hobbies[item[0][0][1]] ]] not in e3.data) for item in l])"
     select_type: false
     opt_formula: get_value(_model, is_in[(_opt[0][0], _opt[0][1])]) == True if _opt[1][0]
       == 0 else (get_value(_model, is_in[(_opt[0][0], _opt[0][1])]) == False and get_value(_model,
