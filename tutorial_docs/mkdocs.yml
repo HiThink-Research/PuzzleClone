@@ -8,6 +8,7 @@ nav:
   - Symbols/Conditions/Queries: symbols.md
   - Randomization: randomization.md
   - Configurations: configurations.md
+  - Specification: spec.md
   - Operators: operators.md
 
 theme:
