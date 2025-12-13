@@ -2,6 +2,7 @@ from itertools import product
 from random import randint, uniform
 from model.template import PuzzleTemplate
 import json, os
+import jsonpickle
 import argparse
 import yaml
 
@@ -69,7 +70,7 @@ class AnswerAssertionError(PuzzleGenerationError):
 class RandomGenerationError(PuzzleGenerationError):
     pass
 """
-    return p + "config = {}\n", p + "config = __config__\n"
+    return p + "config = {}\n", p + "import jsonpickle\nconfig = jsonpickle.decode(r\'\'\'__config__\'\'\')\n"
 
 def resolve_rand(domain_str: str, isint: bool):
     domain_data = domain_str[1:-1].split(',')
@@ -962,26 +963,27 @@ print('answer: ', ans)
     return codegen, codeval
 
 
-def process(puzzle_template, mode):
+def process(puzzle_template, mode, input_filename_base='example'):
     try:
         codegen, codeval = translator(puzzle_template)
         #   print(code)
 
         # for debug
         if '-t' in mode:
-            with open("output.py", "w", encoding="utf-8") as output_file:
+            with open(f"{input_filename_base}_synthesizer.py", "w", encoding="utf-8") as output_file:
                 output_file.write(codegen)
 
         symlist_code = {}
         #   print(config)
         exec(codegen, symlist_code)
         config = symlist_code['config']
-        codeval = codeval.replace("__config__", str(config))
+        encoded_config = json.dumps(json.loads(jsonpickle.encode(config)), ensure_ascii=False)
+        codeval = codeval.replace("__config__", encoded_config)
         if '-t' in mode:
-            with open("output_val.py", "w", encoding="utf-8") as output_file:
+            with open(f"{input_filename_base}_validator.py", "w", encoding="utf-8") as output_file:
                 output_file.write(codeval)
-            with open("config.json", "w", encoding="utf-8") as output_file:
-                output_file.write(json.dumps(config, ensure_ascii=False))
+            with open(f"{input_filename_base}_config.json", "w", encoding="utf-8") as output_file:
+                output_file.write(encoded_config)
         problem = symlist_code["problem"]
         answer = symlist_code["ans"]
         sym_num = 0
@@ -1009,7 +1011,7 @@ def process(puzzle_template, mode):
                 "sym_type":  sym_type,
                 **({"opt_solution": str(symlist_code['_solutions'])} if puzzle_template["optimize"] is not None else {})
             },
-            "config": config
+            "config": encoded_config
         }
     except (NoSolutionError, TooManySolutionsError, AnswerAssertionError, RandomGenerationError) as e:
         # Re-raise our custom exceptions with their detailed messages
@@ -1039,11 +1041,14 @@ def repeat_process(puzzle_spec_path, output_path, new_puzzles_num=100, mode = "-
     if not puzzle_template:
         return False
 
+    # Extract filename without extension for debug output files
+    input_filename_base = os.path.splitext(os.path.basename(puzzle_spec_path))[0]
+
     with open(output_path, "w", encoding="utf-8", buffering=1) as output_file:
         for i in range(new_puzzles_num):
             while True:  # Keep retrying until successful
                 try:
-                    sample = process(puzzle_template, mode)
+                    sample = process(puzzle_template, mode, input_filename_base)
                     output_file.write(json.dumps(sample, ensure_ascii=False) + '\n')
                     break  # Exit the while loop and move to next puzzle
                 except (NoSolutionError, TooManySolutionsError, AnswerAssertionError, RandomGenerationError) as e:
@@ -1068,7 +1073,7 @@ def parse_config_file(config_file):
             # Parse based on file extension
             if config_file.endswith('.json'):
                 # Parse as JSON (single object)
-                data = json.load(file)
+                data = jsonpickle.decode(file.read())
                 config_list.append(data)
             elif config_file.endswith('.jsonl'):
                 # Process as JSONL (each line is a JSON object)
@@ -1111,6 +1116,9 @@ def process_with_config(puzzle_spec_path, output_path, config_file):
     if not puzzle_template:
         return False
     
+    # Extract filename without extension for debug output files
+    input_filename_base = os.path.splitext(os.path.basename(puzzle_spec_path))[0]
+    
     configs = parse_config_file(config_file)
 
     codegen, codeval = translator(puzzle_template)
@@ -1125,7 +1133,7 @@ def process_with_config(puzzle_spec_path, output_path, config_file):
 
                 # for debug
                 if '-t' in mode:
-                    with open("output.py", "w", encoding="utf-8") as debug_file:
+                    with open(f"{input_filename_base}_synthesizer.py", "w", encoding="utf-8") as debug_file:
                         debug_file.write(codeval_new)
 
                 symlist_code = {}
@@ -1205,14 +1213,16 @@ if __name__ == "__main__":
         # Mode 2
         puzzle_spec_path = args.deploy
         new_puzzles_num = int(args.num) if args.num else 1000
-        output_path = args.output if args.output else os.path.join(os.path.dirname(puzzle_spec_path), "output_1k.jsonl")
+        input_filename_base = os.path.splitext(os.path.basename(puzzle_spec_path))[0]
+        output_path = args.output if args.output else os.path.join(os.path.dirname(puzzle_spec_path), f"{input_filename_base}_output_1k.jsonl")
         mode.append("-d")
         mode.append("-c")
     else:
         # Mode 1
         puzzle_spec_path = args.test
         new_puzzles_num = int(args.num) if args.num else 1
-        output_path = args.output if args.output else os.path.join(os.path.dirname(puzzle_spec_path), "output.jsonl")
+        input_filename_base = os.path.splitext(os.path.basename(puzzle_spec_path))[0]
+        output_path = args.output if args.output else os.path.join(os.path.dirname(puzzle_spec_path), f"{input_filename_base}_output.jsonl")
         mode.append("-t")
     
     if args.config:
