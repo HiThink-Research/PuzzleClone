@@ -79,6 +79,11 @@ variables:
         formula: "randint(1,6) + randint(1,6)"
 ```
 
+#### diff_factor
+**Type:** `int`
+
+An optional heuristic factor indicating the contribution of the variable's value to the puzzle difficulty. For instance, when the value of `diff_factor` is a positive number, the variable's value makes a positive contribution to the puzzle difficulty. The final heuristic puzzle difficulty will be calculated using the diff_factor of all variables. If this attribute is omitted or set to `0`, the variable will make NO contribution to the puzzle difficulty.
+
 ## symbols
 
 **Type:** `Optional[Dict[str, Union[DefinedSymbol, DerivedSymbols, DerivedSymbol]]]`
