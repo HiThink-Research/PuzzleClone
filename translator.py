@@ -1074,7 +1074,8 @@ def parse_config_file(config_file):
             # Parse based on file extension
             if config_file.endswith('.json'):
                 # Parse as JSON (single object)
-                data = jsonpickle.decode(file.read())
+                # data = jsonpickle.decode(file.read())
+                data = file.read()
                 config_list.append(data)
             elif config_file.endswith('.jsonl'):
                 # Process as JSONL (each line is a JSON object)
@@ -1138,11 +1139,12 @@ def process_with_config(puzzle_spec_path, output_path, config_file):
                         debug_file.write(codeval_new)
 
                 symlist_code = {}
-                #   print(config)
                 exec(codeval_new, symlist_code)
                 problem = symlist_code["problem"]
                 answer = symlist_code["ans"]
-                config_modified = symlist_code['config']
+                config_modified = symlist_code['config'] # the config after generating the new puzzle
+                encoded_config = json.loads(jsonpickle.encode(config_modified))
+                # encoded_config_str = json.dumps(encoded_config, ensure_ascii=False)
                 sym_num = 0
                 symbols = puzzle_template.get("symbols", {})
                 if symbols:
@@ -1168,7 +1170,7 @@ def process_with_config(puzzle_spec_path, output_path, config_file):
                         "sym_type":  sym_type,
                         **({"opt_solution": str(symlist_code['_solutions'])} if puzzle_template["optimize"] is not None else {})
                     },
-                    "config": config_modified
+                    "config": encoded_config
                 }
                 output_file.write(json.dumps(res, ensure_ascii=False) + '\n')
             except (NoSolutionError, TooManySolutionsError, AnswerAssertionError, RandomGenerationError) as e:
