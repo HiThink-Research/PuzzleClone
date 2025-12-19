@@ -977,13 +977,14 @@ def process(puzzle_template, mode, input_filename_base='example'):
         #   print(config)
         exec(codegen, symlist_code)
         config = symlist_code['config']
-        encoded_config = json.dumps(json.loads(jsonpickle.encode(config)), ensure_ascii=False)
-        codeval = codeval.replace("__config__", encoded_config)
+        encoded_config = json.loads(jsonpickle.encode(config))
+        encoded_config_str = json.dumps(encoded_config, ensure_ascii=False)
+        codeval = codeval.replace("__config__", encoded_config_str)
         if '-t' in mode:
             with open(f"{input_filename_base}_validator.py", "w", encoding="utf-8") as output_file:
                 output_file.write(codeval)
             with open(f"{input_filename_base}_config.json", "w", encoding="utf-8") as output_file:
-                output_file.write(encoded_config)
+                output_file.write(encoded_config_str)
         problem = symlist_code["problem"]
         answer = symlist_code["ans"]
         sym_num = 0
