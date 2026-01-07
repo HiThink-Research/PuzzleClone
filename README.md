@@ -21,7 +21,7 @@
 ## 📋 Overview
 
 **PuzzleClone** is a data synthesis framework and comprehensive dataset for logical reasoning problems. It features:
-- ✅ **Guaranteed Verifiability:** Every problem is generated with a ground-truth solution and is verifiable by symbolic  solvers, ensuring correctness.
+- ✅ **Guaranteed Verifiability:** Every problem is generated with a ground-truth solution and is formally verifiable via a symbolic solver or deterministic program execution, ensuring correctness.
 - 🎯 **Granular Control:** Offers fine-grained control over problem attributes like scale, structure, and difficulty through a set of adjustable parameters, enabling large-scale batch generation.
 - ✨ **Flexible Adaptation:** Facilitates the easy customization of problem scenarios and translation into different languages or domains.
 - 📊 **Expansive and Diverse Coverage:** Based on PuzzleClone, we have curated a [benchmark](https://github.com/puzzleClone/PuzzleCloneData/) including 83,657 unique logical reasoning puzzles procedurally generated from 86 seed questions. The dataset spans:

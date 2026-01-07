@@ -224,4 +224,4 @@ This command will generate **1000 unique puzzles** based on your `spec.yaml` blu
 
 You've successfully learned the basic workflow of PuzzleClone! You took a seed idea, defined its logic in a specification file, and used it to generate both single samples and a large batch of new puzzles.
 
-Now that you've mastered the fundamentals, you're ready to explore the more advanced features of PuzzleClone in the upcoming sections. Happy puzzle-making!
+Now that you've mastered the fundamentals, you're ready to explore the more advanced features of PuzzleClone in the upcoming sections. For detailed explanations of all attributes in the DSL, please refer to the [DSL specification](spec.md) section. Happy puzzle-making!

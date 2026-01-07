@@ -679,4 +679,11 @@ queries:
 
 **Type:** `str`
 
-Overall template description for puzzle description. Should be a regular Python string or a Python f-string without the prefix "f". E.g., `There are three boys: {', '.join(names)}. ...` where `names` is a list of names defined in the variables of the puzzle specification.
+Overall template description for puzzle description. Should be a regular Python string or a Python f-string without the prefix "f". E.g., `There are three boys: {', '.join(names)}. ...` where `names` is a list of names defined in the variables of the puzzle specification. 
+
+In addition to referencing regular variables, you can also reference the `desc` field from `conditions` and `queries` by using their declared names (keys), or simply use `conditions` and `queries` themselves to refer to all items. **Important Note:** When referencing queries, each sub-question will automatically be prefixed with sequential numbering (e.g., 1., 2., 3., ...).
+
+**Example:**
+```yaml
+desc: "{p_num} candidates {'、'.join(names)} are running for factory director. The election process satisfies the following conditions: {conditions}{queries}" # Each sub-question automatically numbered. Using {q1} to refer to the first sub-question without prefix.
+```

@@ -1187,11 +1187,11 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--deploy', 
-                        help="Enable deploy mode")
+                        help="Enable deploy/production mode")
     parser.add_argument('-t', '--test', 
                         help="Enable test mode")
     parser.add_argument('-n', '--num', 
-                        help="Enable test mode")
+                        help="Number of puzzles to generate, default is 1 for test mode and 1000 for deploy mode")
     parser.add_argument('-c','--continuous',
                         action='store_true',
                         help="Enable continuous search")
