@@ -4,3 +4,4 @@ Faker>=35.2.2
 pydantic>=2.10.3
 pydantic_core>=2.27.1
 pyyaml>=6.0.2
+jsonpickle>=4.1.1

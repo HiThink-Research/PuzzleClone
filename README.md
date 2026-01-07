@@ -44,18 +44,21 @@ This runs the translator in test mode (`-t`), generating a sample question based
 ```
 python translator.py -t path/to/spec.yaml
 ```
+The output data (`{spec_name}_data.jsonl`) and some other files used for debugging like `{spec_name}_synthesizer.py` will be generated in `temp/` directory.
 
 ### Generate a full dataset for production
-This runs the translator in production mode (`-d`) to generate a large number of problems and saves them to a specified output file (`-o`).
+This runs the translator in production/deployment mode (`-d`) to generate a large number of problems and saves them to a specified output file (`-o`).
 ```
 python translator.py -d path/to/spec.yaml -o data.jsonl
 ```
+If no output file is specified, the output data will be saved to `output/{spec_name}_data.jsonl`.
 
 ### Apply a new template to existing data
 This uses the `-g` flag to load existing problem data and applies a new problem description or template (`new_spec.yaml`) to it.
 ```
 python translator.py -d path/to/new_spec.yaml -g old_data.jsonl -o new_data.jsonl
 ```
+
 
 ### Data transformation
 A handful of [scripts](https://github.com/puzzleclone/PuzzleClone/tree/main/data_processing_scripts) are provided to transform the data generated above to the standard formats for a benchmark. Please refer to the scripts and documentation in the `data_processing_scripts/` directory.

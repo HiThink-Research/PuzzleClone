@@ -642,13 +642,13 @@ ans = []
             codegen += f"{q} = CustomCond(desc=f\"{ext(Dict[q]['desc'])}\" + '\\n')\n"
             codeval += f"{q} = CustomCond(desc=f\"{ext(Dict[q]['desc'])}\" + '\\n')\n"
             if "templates" not in Dict[q]:
-                tmpcode = process_single_query(q, Dict[q], cnt)
-                codegen += tmpcode[0]
-                codeval += tmpcode[1]
+                tempcode = process_single_query(q, Dict[q], cnt)
+                codegen += tempcode[0]
+                codeval += tempcode[1]
             else:
-                tmpcode = process_multiple_query(q, Dict[q], cnt)
-                codegen += tmpcode[0]
-                codeval += tmpcode[1]
+                tempcode = process_multiple_query(q, Dict[q], cnt)
+                codegen += tempcode[0]
+                codeval += tempcode[1]
     
         else: # 问答题
             codegen += f"""
@@ -970,7 +970,7 @@ def process(puzzle_template, mode, input_filename_base='example'):
 
         # for debug
         if '-t' in mode:
-            with open(f"{input_filename_base}_synthesizer.py", "w", encoding="utf-8") as output_file:
+            with open(f"temp/{input_filename_base}_synthesizer.py", "w", encoding="utf-8") as output_file:
                 output_file.write(codegen)
 
         symlist_code = {}
@@ -981,9 +981,9 @@ def process(puzzle_template, mode, input_filename_base='example'):
         encoded_config_str = json.dumps(encoded_config, ensure_ascii=False)
         codeval = codeval.replace("__config__", encoded_config_str)
         if '-t' in mode:
-            with open(f"{input_filename_base}_validator.py", "w", encoding="utf-8") as output_file:
+            with open(f"temp/{input_filename_base}_validator.py", "w", encoding="utf-8") as output_file:
                 output_file.write(codeval)
-            with open(f"{input_filename_base}_config.json", "w", encoding="utf-8") as output_file:
+            with open(f"temp/{input_filename_base}_config.json", "w", encoding="utf-8") as output_file:
                 output_file.write(encoded_config_str)
         problem = symlist_code["problem"]
         answer = symlist_code["ans"]
@@ -1217,7 +1217,12 @@ if __name__ == "__main__":
         puzzle_spec_path = args.deploy
         new_puzzles_num = int(args.num) if args.num else 1000
         input_filename_base = os.path.splitext(os.path.basename(puzzle_spec_path))[0]
-        output_path = args.output if args.output else os.path.join(os.path.dirname(puzzle_spec_path), f"{input_filename_base}_output_1k.jsonl")
+        if args.output:
+            output_path = args.output
+        else:
+            output_path = os.path.join("output", f"{input_filename_base}_data.jsonl")
+            if not os.path.exists('output'):
+                os.makedirs('output') 
         mode.append("-d")
         mode.append("-c")
     else:
@@ -1225,7 +1230,12 @@ if __name__ == "__main__":
         puzzle_spec_path = args.test
         new_puzzles_num = int(args.num) if args.num else 1
         input_filename_base = os.path.splitext(os.path.basename(puzzle_spec_path))[0]
-        output_path = args.output if args.output else os.path.join(os.path.dirname(puzzle_spec_path), f"{input_filename_base}_output.jsonl")
+        if args.output:
+            output_path = args.output
+        else:
+            output_path = os.path.join("temp", f"{input_filename_base}_data.jsonl")
+            if not os.path.exists('temp'):
+                os.makedirs('temp')
         mode.append("-t")
     
     if args.config:
