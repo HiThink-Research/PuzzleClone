@@ -3,3 +3,4 @@ output*
 config*.json
 .venv
 .DS_Store
+.codex
